@@ -7,8 +7,30 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
-  /** Creates a new DriveSubsystem. */
-  public DriveSubsystem() {}
+  
+  //Motor Controllers
+  private final WPI_TalonSRX m_leftLeader = new WPI_TalonSRX(Constants.DriveConstants.kLeftLeaderCAN);
+  private final WPI_VictorSPX m_leftFollower = new WPI_VictorSPX(Constants.DriveConstants.kLeftFollowerCAN);
+  private final WPI_TalonSRX m_rightLeader = new WPI_TalonSRX(Constants.DriveConstants.kRightLeaderCAN);
+  private final WPI_VictorSPX m_rightFollower = new WPI_VictorSPX(Constants.DriveConstants.kRightFollowerCAN);
+
+  public DriveSubsystem() {
+    m_rightFollower.follow(m_rightLeader);
+    m_rightFollower.setInverted(InvertType.FollowMaster);
+
+    m_leftFollower.follow(m_leftLeader);
+    m_leftFollower.setInverted(InvertType.FollowMaster);
+
+    m_leftLeader.setInverted(false);
+    m_rightLeader.setInverted(true);
+
+  }
+
+  public void driveArcade(double xForward, double zRotation) {
+
+    drive.arcadeDrive(xForward, zRotation);
+
+  }
 
   @Override
   public void periodic() {
