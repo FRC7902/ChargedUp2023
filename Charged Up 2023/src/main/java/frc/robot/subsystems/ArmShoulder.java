@@ -12,15 +12,18 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants.ArmConstants;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-public class ArmSubsystem extends TrapezoidProfileSubsystem {
+public class ArmShoulder extends TrapezoidProfileSubsystem {
   private final WPI_TalonSRX LeaderMotor = new WPI_TalonSRX(ArmConstants.ArmLeaderCAN);
-  //private final WPI_VictorSPX FollowerMotor = new WPI_VictorSPX(ArmConstants.ArmLeaderCAN);
+  private final WPI_VictorSPX FollowerMotor = new WPI_VictorSPX(ArmConstants.ArmFollowerCAN);
   private final ArmFeedforward m_feedforward = new ArmFeedforward(ArmConstants.ArmSVolts, ArmConstants.ArmGVolts, ArmConstants.ArmVVoltSecondPerRad, ArmConstants.ArmAVoltSecondSquaredPerRad);
                    
   
 
   /** Creates a new ArmSubsystem. */
-  public ArmSubsystem() { 
+  public ArmShoulder() { 
+
+    //FollowerMotor.follow(LeaderMotor);
+
 
     super(new TrapezoidProfile.Constraints(ArmConstants.MaxVelocityRadPerSecond, ArmConstants.MaxAccelerationRadPerSecSquared),ArmConstants.ArmOffsetRads);
 
