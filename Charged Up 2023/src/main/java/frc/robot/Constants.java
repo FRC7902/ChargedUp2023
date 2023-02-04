@@ -22,6 +22,24 @@ public final class Constants {
         public final static int DrivetrainLeftFollowerCAN = 12;
     }
 
+    public final static class ArmConstants{ 
+      public final static int ArmLeaderCAN = 10;
+      public final static int ArmFollowerCAN = 9;
+
+    
+      // dummy variables 
+      public final static int ArmSVolts = 0;
+      public final static int ArmGVolts = 0;
+      public final static int ArmVVoltSecondPerRad = 0;
+      public final static int ArmAVoltSecondSquaredPerRad = 0;
+
+      public final static int MaxVelocityRadPerSecond = 0;
+      public final static int MaxAccelerationRadPerSecSquared = 0;
+      public final static int ArmOffsetRads = 0;
+
+      public final static int ArmPosition = 0;
+
+    }
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
