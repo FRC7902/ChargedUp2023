@@ -5,23 +5,25 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.DriveConstants;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
 public class DriveSubsystem extends SubsystemBase {
   
   //Motor Controllers
-  private final WPI_TalonSRX m_leftLeader = new WPI_TalonSRX(Constants.DriveConstants.DrivetrainLeftLeaderCAN);
-  private final WPI_VictorSPX m_leftFollower = new WPI_VictorSPX(Constants.DriveConstants.DrivetrainLeftFollowerCAN);
-  private final WPI_TalonSRX m_rightLeader = new WPI_TalonSRX(Constants.DriveConstants.DrivetrainRightLeaderCAN);
-  private final WPI_VictorSPX m_rightFollower = new WPI_VictorSPX(Constants.DriveConstants.DrivetrainRightFollowerCAN);
+  private final CANSparkMax m_leftleader = new CANSparkMax(DriveConstants.DrivetrainLeftLeaderCAN, MotorType.kBrushless);
+  private final CANSparkMax m_leftfollower = new CANSparkMax(DriveConstants.DrivetrainLeftFollowerCAN, MotorType.kBrushless);
+  private final CANSparkMax m_rightleader = new CANSparkMax(DriveConstants.DrivetrainRightLeaderCAN, MotorType.kBrushless);
+  private final CANSparkMax m_rightfollower = new CANSparkMax(DriveConstants.DrivetrainRightFollowerCAN, MotorType.kBrushless);
 
-  private final MotorControllerGroup left = new MotorControllerGroup(m_leftLeader, m_leftFollower);
-  private final MotorControllerGroup right = new MotorControllerGroup(m_rightLeader, m_rightFollower);
+
+  private final MotorControllerGroup left = new MotorControllerGroup(m_leftleader, m_leftfollower);
+  private final MotorControllerGroup right = new MotorControllerGroup(m_rightleader, m_rightfollower);
 
   private final DifferentialDrive drive = new DifferentialDrive(left, right);
 
