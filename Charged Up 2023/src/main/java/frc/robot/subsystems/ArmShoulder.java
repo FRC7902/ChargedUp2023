@@ -13,31 +13,44 @@ import frc.robot.Constants.ArmConstants;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 public class ArmShoulder extends TrapezoidProfileSubsystem {
-  private final WPI_TalonSRX LeaderMotor = new WPI_TalonSRX(ArmConstants.ArmLeaderCAN);
-  private final WPI_VictorSPX FollowerMotor = new WPI_VictorSPX(ArmConstants.ArmFollowerCAN);
-  private final ArmFeedforward m_feedforward = new ArmFeedforward(ArmConstants.ArmSVolts, ArmConstants.ArmGVolts, ArmConstants.ArmVVoltSecondPerRad, ArmConstants.ArmAVoltSecondSquaredPerRad);
-                   
-  
+  private final WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmConstants.ArmShoulderLeaderCAN);
+  private final WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(ArmConstants.ArmShoulderFollowerCAN);
+  private final ArmFeedforward m_feedforward = new ArmFeedforward(ArmConstants.ArmSVolts, ArmConstants.ArmGVolts,
+      ArmConstants.ArmVVoltSecondPerRad, ArmConstants.ArmAVoltSecondSquaredPerRad);
+
+  // Need encoder
+  // Need limit switch
 
   /** Creates a new ArmSubsystem. */
-  public ArmShoulder() { 
+  public ArmShoulder() {
 
-    //FollowerMotor.follow(LeaderMotor);
+    super(new TrapezoidProfile.Constraints(ArmConstants.MaxVelocityRadPerSecond,
+        ArmConstants.MaxAccelerationRadPerSecSquared), ArmConstants.ArmOffsetRads);
 
+    // FollowerMotor.follow(LeaderMotor);
+    // LeaderMotor.setInverted(false);
+    // FollowerMotor.setInverted(InvertType.FollowMaster);
+    armShoulderLeader.setPID(ArmConstants.ArmPosition, 0, 0);
 
-    super(new TrapezoidProfile.Constraints(ArmConstants.MaxVelocityRadPerSecond, ArmConstants.MaxAccelerationRadPerSecSquared),ArmConstants.ArmOffsetRads);
+    armShoulderFollower.follow(armShoulderLeader);
+    armShoulderLeader.setInverted(false);
 
-        //FollowerMotor.follow(LeaderMotor);
-        //LeaderMotor.setInverted(false);
-        //FollowerMotor.setInverted(InvertType.FollowMaster); 
-        LeaderMotor.setPID(ArmConstants.ArmPosition, 0, 0);
+  }
 
+  public void setPower(double power) {
+    armShoulderLeader.set(power);
+
+    // if statements needed for testing
+  }
+
+  public void stopMotor() {
+    armShoulderLeader.stopMotor();
   }
 
   @Override
   protected void useState(TrapezoidProfile.State state) {
     double feedforward = m_feedforward.calculate(setpoint.position, setpoint.velocity);
     // Add the feedforward to the PID output to get the motor output
-    LeaderMotor.setSetpoint(WPI_TalonSRX.PIDMode.ArmPosition, setpoint.position, feedforward / x);
+    armShoulderLeader.setSetpoint(WPI_TalonSRX.PIDMode.ArmPosition, setpoint.position, feedforward / x);
   }
 }
