@@ -55,7 +55,7 @@ public final class Constants {
 
   public static final class IOConstants {
     public static final int kDriverStick = 0;
-    public static final int kClimbStick = 1;
+    public static final int kOperatorStick = 1;
 
     // Joystick Buttons
     public static final int kA = 1,

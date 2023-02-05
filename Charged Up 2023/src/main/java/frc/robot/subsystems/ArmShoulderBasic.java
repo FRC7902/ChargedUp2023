@@ -13,7 +13,8 @@ import frc.robot.Constants.ArmConstants;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 
-public class ArmShoulder extends TrapezoidProfileSubsystem{
+public class ArmShoulderBasic{
+  //extends TrapezoidProfileSubsystem
   private final WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmConstants.ArmShoulderLeaderCAN);
   private final WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(ArmConstants.ArmShoulderFollowerCAN);
   private final ArmFeedforward m_feedforward = new ArmFeedforward(ArmConstants.ArmSVolts, ArmConstants.ArmGVolts,
@@ -23,12 +24,11 @@ public class ArmShoulder extends TrapezoidProfileSubsystem{
   // Need limit switch
 
   /** Creates a new ArmSubsystem. */
-  public ArmShoulder() {
-
-    super(new TrapezoidProfile.Constraints(ArmConstants.MaxVelocityRadPerSecond,
-        ArmConstants.MaxAccelerationRadPerSecSquared), ArmConstants.ArmOffsetRads);
-        
+  public ArmShoulderBasic() {
     //TRAPEZOID
+
+    // super(new TrapezoidProfile.Constraints(ArmConstants.MaxVelocityRadPerSecond,
+    //     ArmConstants.MaxAccelerationRadPerSecSquared), ArmConstants.ArmOffsetRads);
     // armShoulderFollower.follow(armShoulderLeader);
     // armShoulderLeader.setInverted(false);
     // armShoulderFollower.setInverted(InvertType.FollowMaster);

@@ -41,7 +41,7 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   private final Joystick m_driverStick = new Joystick(Constants.IOConstants.kDriverStick);
-  private final XboxController m_driverController = new XboxController(Constants.IOConstants.kClimbStick);
+  private final XboxController m_driverController = new XboxController(Constants.IOConstants.kOperatorStick);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
