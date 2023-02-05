@@ -14,7 +14,7 @@ public class RotateOut extends CommandBase {
   /** Creates a new RotateOut. */
   public RotateOut(ArmShoulder armShoulder) {
     m_armShoulder = armShoulder;
-    addRequirements(armShoulder);
+    //addRequirements(armShoulder);
   }
 
   // Called when the command is initially scheduled.
@@ -27,6 +27,7 @@ public class RotateOut extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("Arm rotating out..");
     m_armShoulder.setPower(ArmConstants.ArmShoulderRotateOut);
   }
 

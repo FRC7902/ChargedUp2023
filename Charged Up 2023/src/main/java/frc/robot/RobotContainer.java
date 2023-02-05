@@ -73,7 +73,11 @@ public class RobotContainer {
    */
   private void configureBindings() {
 
-    new JoystickButton(m_driverController, Constants.IOConstants.kA).whenHeld(new RotateOut(m_ArmShoulder));
+    new JoystickButton(m_driverController, Constants.IOConstants.kA).whileTrue(new RotateOut(m_ArmShoulder));//kA
+    new JoystickButton(m_driverController, Constants.IOConstants.kB).whileTrue(new RotateIn(m_ArmShoulder));//kB
+    new JoystickButton(m_driverController, Constants.IOConstants.kX).whileTrue(new Stop(m_ArmShoulder));//kA
+    new JoystickButton(m_driverController, Constants.IOConstants.kY).whileTrue(new Stop(m_ArmShoulder));//kA
+
   }
 
   /**

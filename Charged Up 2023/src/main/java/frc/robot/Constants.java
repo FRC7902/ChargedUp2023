@@ -32,9 +32,10 @@ public final class Constants {
 
     // dummies
     public final static int ArmShoulderLeaderCAN = 4;
-    public final static int ArmShoulderFollowerCAN = 0;
-    public final static double ArmShoulderRotateIn = 0.0; // dummy
-    public final static double ArmShoulderRotateOut = 0.0; // dummy
+    public final static int ArmShoulderFollowerCAN = 3;//0
+    public final static double ArmShoulderRotateIn = 0.25; // testing, not final
+    public final static double ArmShoulderRotateOut = -0.25; // testing, not final
+    public final static double ArmShoulderStop = 0.0; // testing, not final
 
     public final static int IntakeCAN = 0;
 
