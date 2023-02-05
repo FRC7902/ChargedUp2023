@@ -23,6 +23,7 @@ import frc.robot.commands.armshoulder.*;
 //subsystem imports
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ArmShoulder;
+import frc.robot.subsystems.ArmShoulderBasic;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -36,7 +37,9 @@ import frc.robot.subsystems.ArmShoulder;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  private final ArmShoulder m_ArmShoulder = new ArmShoulder();
+  //private final ArmShoulder m_ArmShoulder = new ArmShoulder();
+  private final ArmShoulderBasic m_ArmShoulder = new ArmShoulderBasic();
+
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -55,6 +58,8 @@ public class RobotContainer {
             () -> m_driveSubsystem.driveArcade(m_driverStick.getRawAxis(Constants.IOConstants.kLY),
                 m_driverStick.getRawAxis(Constants.IOConstants.kRX)),
             m_driveSubsystem));
+
+    m_ArmShoulder.teleopPeriodic();
   }
 
   /**
@@ -73,10 +78,17 @@ public class RobotContainer {
    */
   private void configureBindings() {
 
+    // new JoystickButton(m_driverController, Constants.IOConstants.kA).whileTrue(new RotateOut(m_ArmShoulder));//kA
+    // new JoystickButton(m_driverController, Constants.IOConstants.kB).whileTrue(new RotateIn(m_ArmShoulder));//kB
+    // new JoystickButton(m_driverController, Constants.IOConstants.kX).whileTrue(new Stop(m_ArmShoulder));//kA
+    // new JoystickButton(m_driverController, Constants.IOConstants.kY).whileTrue(new Stop(m_ArmShoulder));//kA
+
     new JoystickButton(m_driverController, Constants.IOConstants.kA).whileTrue(new RotateOut(m_ArmShoulder));//kA
     new JoystickButton(m_driverController, Constants.IOConstants.kB).whileTrue(new RotateIn(m_ArmShoulder));//kB
-    new JoystickButton(m_driverController, Constants.IOConstants.kX).whileTrue(new Stop(m_ArmShoulder));//kA
-    new JoystickButton(m_driverController, Constants.IOConstants.kY).whileTrue(new Stop(m_ArmShoulder));//kA
+    new JoystickButton(m_driverController, Constants.IOConstants.kA).onFalse(new Stop(m_ArmShoulder));//kA
+    new JoystickButton(m_driverController, Constants.IOConstants.kB).onFalse(new Stop(m_ArmShoulder));//kB
+    new JoystickButton(m_driverController, Constants.IOConstants.kX).whileTrue(new Stop(m_ArmShoulder));//kX
+
 
   }
 

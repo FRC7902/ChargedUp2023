@@ -7,12 +7,15 @@ package frc.robot.commands.armshoulder;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.ArmShoulder;
+import frc.robot.subsystems.ArmShoulderBasic;
 
 public class Stop extends CommandBase {
-  private ArmShoulder m_armShoulder;
+  // private ArmShoulder m_armShoulder;
+  private ArmShoulderBasic m_armShoulder;
+
 
   /** Creates a new RotateOut. */
-  public Stop(ArmShoulder armShoulder) {
+  public Stop(ArmShoulderBasic armShoulder) {
     m_armShoulder = armShoulder;
     //addRequirements(armShoulder);
   }
@@ -27,7 +30,7 @@ public class Stop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("Arm rotating out..");
+    System.out.println("Stopping arm...");
     m_armShoulder.setPower(ArmConstants.ArmShoulderStop);
   }
 

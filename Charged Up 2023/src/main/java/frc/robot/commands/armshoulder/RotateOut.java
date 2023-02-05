@@ -4,15 +4,20 @@
 
 package frc.robot.commands.armshoulder;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.ArmShoulder;
+import frc.robot.subsystems.ArmShoulderBasic;
 
 public class RotateOut extends CommandBase {
-  private ArmShoulder m_armShoulder;
+
+  //private ArmShoulder m_armShoulder;
+  private ArmShoulderBasic m_armShoulder;
 
   /** Creates a new RotateOut. */
-  public RotateOut(ArmShoulder armShoulder) {
+  public RotateOut(ArmShoulderBasic armShoulder) {
     m_armShoulder = armShoulder;
     //addRequirements(armShoulder);
   }
@@ -29,6 +34,10 @@ public class RotateOut extends CommandBase {
   public void execute() {
     System.out.println("Arm rotating out..");
     m_armShoulder.setPower(ArmConstants.ArmShoulderRotateOut);
+
+    //targetPositionRotations = (leftYstick + 0.1) * 10.0 * 4096;
+    //m_armShoulder.setLocation(ControlMode.Position, 10.0*4096);
+
   }
 
   // Called once the command ends or is interrupted.
