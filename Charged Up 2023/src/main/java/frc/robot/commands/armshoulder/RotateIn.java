@@ -4,9 +4,12 @@
 
 package frc.robot.commands.armshoulder;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.ArmShoulder;
 
@@ -43,10 +46,13 @@ public class RotateIn extends CommandBase {
     double deg = (double)absolutePosition/4096 * 360;
 
     System.out.println("POS: " + deg + " " + absolutePosition);
+    double target_sensorUnits = 1 * Constants.ArmConstants.kSensorUnitsPerRotation * Constants.ArmConstants.kRotationsToTravel;
+    m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, 0.1);
 
-    if(deg < 140 || (deg > 350 && deg < 360)){//deg < 180
-      m_armShoulder.setPower(ArmConstants.ArmShoulderRotateIn);
-    }
+
+    // if(deg < 90 || (deg > 350 && deg < 360)){//deg < 180
+    //   m_armShoulder.setPower(ArmConstants.ArmShoulderRotateIn);
+    // }
 
   }
 

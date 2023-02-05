@@ -74,6 +74,9 @@ public final class Constants {
     /* Choose so that Talon does not report sensor out of phase */
     public static boolean kSensorPhase = true;
 
+    public final static int kSensorUnitsPerRotation = 4096;
+    public final static double kRotationsToTravel = 0.25;
+
     /**
      * Choose based on what direction you want to be positive,
      * this does not affect motor invert. 

@@ -36,6 +36,7 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
+  //THE FIRST CONTOLLER PLUGGED IN CONTROLS THE DRIVING, THE SECOND CONTROLLER PLUGGED IN CONTROLS THE ARM/INTAKE
   private final Joystick m_driverStick = new Joystick(Constants.IOConstants.kDriverStick);
   private final XboxController m_driverController = new XboxController(Constants.IOConstants.kOperatorStick);
 
