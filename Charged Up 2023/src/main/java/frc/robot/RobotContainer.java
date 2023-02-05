@@ -83,11 +83,10 @@ public class RobotContainer {
     // new JoystickButton(m_driverController, Constants.IOConstants.kX).whileTrue(new Stop(m_ArmShoulder));//kA
     // new JoystickButton(m_driverController, Constants.IOConstants.kY).whileTrue(new Stop(m_ArmShoulder));//kA
 
-    new JoystickButton(m_driverController, Constants.IOConstants.kA).whileTrue(new RotateOut(m_ArmShoulder));//kA
-    new JoystickButton(m_driverController, Constants.IOConstants.kB).whileTrue(new RotateIn(m_ArmShoulder));//kB
-    new JoystickButton(m_driverController, Constants.IOConstants.kA).onFalse(new Stop(m_ArmShoulder));//kA
-    new JoystickButton(m_driverController, Constants.IOConstants.kB).onFalse(new Stop(m_ArmShoulder));//kB
-    new JoystickButton(m_driverController, Constants.IOConstants.kX).whileTrue(new Stop(m_ArmShoulder));//kX
+    new JoystickButton(m_driverController, Constants.IOConstants.kA).whileTrue(new RotateOut(m_ArmShoulder, ArmShoulderBasic.armShoulderLeader));//kA
+    new JoystickButton(m_driverController, Constants.IOConstants.kB).whileTrue(new RotateIn(m_ArmShoulder, ArmShoulderBasic.armShoulderLeader));//kB
+    new JoystickButton(m_driverController, Constants.IOConstants.kA).onFalse(new Stop(m_ArmShoulder, ArmShoulderBasic.armShoulderLeader));//kA
+    new JoystickButton(m_driverController, Constants.IOConstants.kB).onFalse(new Stop(m_ArmShoulder, ArmShoulderBasic.armShoulderLeader));//kB
 
 
   }

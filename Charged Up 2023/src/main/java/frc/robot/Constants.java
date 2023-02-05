@@ -51,6 +51,50 @@ public final class Constants {
 
     public final static int ArmPosition = 0;
 
+
+          /**
+     * Which PID slot to pull gains from. Starting 2018, you can choose from
+     * 0,1,2 or 3. Only the first two (0,1) are visible in web-based
+     * configuration.
+     */
+    public static final int kSlotIdx = 0;
+
+    /**
+     * Talon SRX/ Victor SPX will supported multiple (cascaded) PID loops. For
+     * now we just want the primary one.
+     */
+    public static final int kPIDLoopIdx = 0;
+
+    /**
+     * Set to zero to skip waiting for confirmation, set to nonzero to wait and
+     * report to DS if action fails.
+     */
+    public static final int kTimeoutMs = 30;
+    
+    /* Choose so that Talon does not report sensor out of phase */
+    public static boolean kSensorPhase = true;
+
+    /**
+     * Choose based on what direction you want to be positive,
+     * this does not affect motor invert. 
+     */
+    public static boolean kMotorInvert = false;
+
+    public final static Gains kGains_Distanc = new Gains( 0.1, 0.0,  0.0, 0.0,            100,  0.50 );
+    public final static Gains kGains_Turning = new Gains( 2.0, 0.0,  4.0, 0.0,            200,  1.00 );
+    public final static Gains kGains_Velocit = new Gains( 0.1, 0.0, 20.0, 1023.0/6800.0,  300,  0.50 );
+    public final static Gains kGains_MotProf = new Gains( 1.0, 0.0,  0.0, 1023.0/6800.0,  400,  1.00 );
+  	/* Firmware currently supports slots [0, 3] and can be used for either PID Set */
+    public final static int SLOT_0 = 0;
+    public final static int SLOT_1 = 1;
+    public final static int SLOT_2 = 2;
+    public final static int SLOT_3 = 3;
+    /* ---- Named slots, used to clarify code ---- */
+    public final static int kSlot_Distanc = SLOT_0;
+    public final static int kSlot_Turning = SLOT_1;
+    public final static int kSlot_Velocit = SLOT_2;
+    public final static int kSlot_MotProf = SLOT_3;
+    
   }
 
   public static final class IOConstants {
@@ -84,4 +128,6 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+  
 }

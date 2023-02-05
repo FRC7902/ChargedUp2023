@@ -23,8 +23,8 @@ import frc.robot.sim.PhysicsSim;
 
 public class ArmShoulderBasic{
     //extends TrapezoidProfileSubsystem
-    private final WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmConstants.ArmShoulderLeaderCAN);
-    private final WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(ArmConstants.ArmShoulderFollowerCAN);
+    public final static WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmConstants.ArmShoulderLeaderCAN);
+    public final WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(ArmConstants.ArmShoulderFollowerCAN);
     private final ArmFeedforward m_feedforward = new ArmFeedforward(ArmConstants.ArmSVolts, ArmConstants.ArmGVolts,
     ArmConstants.ArmVVoltSecondPerRad, ArmConstants.ArmAVoltSecondSquaredPerRad);
     private final Joystick m_joystick = new Joystick(Constants.IOConstants.kOperatorStick);
@@ -33,12 +33,12 @@ public class ArmShoulderBasic{
     private double targetPositionRotations;
     private final XboxController m_driverController = new XboxController(Constants.IOConstants.kOperatorStick);
 
+
   // Need encoder
   // Need limit switch
 
   /** Creates a new ArmSubsystem. */
   public ArmShoulderBasic() {
-
 
     //TRAPEZOID
 
@@ -51,6 +51,7 @@ public class ArmShoulderBasic{
 
     armShoulderFollower.follow(armShoulderLeader);
     armShoulderLeader.setInverted(false);
+    armShoulderLeader.config_kP(Constants.ArmConstants.kSlot_Distanc, Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kTimeoutMs);
 
   }
 
@@ -63,7 +64,6 @@ public class ArmShoulderBasic{
   public void stopMotor() {
     armShoulderLeader.stopMotor();
   }
-
   //TRAPEZIOD
   // @Override
   // protected void useState(TrapezoidProfile.State state) {
@@ -151,7 +151,4 @@ public void teleopPeriodic() {
     commonLoop();
 }
 
-public void setLocation(ControlMode mode, double location){
-    armShoulderLeader.set(mode, location);
-}
 }
