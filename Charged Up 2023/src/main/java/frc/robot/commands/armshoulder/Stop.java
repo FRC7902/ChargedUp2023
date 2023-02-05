@@ -4,22 +4,19 @@
 
 package frc.robot.commands.armshoulder;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.ArmShoulder;
-import frc.robot.subsystems.ArmShoulderBasic;
 
 public class Stop extends CommandBase {
 
   //private ArmShoulder m_armShoulder;
-  private ArmShoulderBasic m_armShoulder;
+  private ArmShoulder m_armShoulder;
   private WPI_TalonSRX m_armMotor;
 
   /** Creates a new RotateOut. */
-  public Stop(ArmShoulderBasic armShoulder, WPI_TalonSRX armShoulderLeader) { 
+  public Stop(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader) { 
     m_armShoulder = armShoulder;
     m_armMotor = armShoulderLeader;
 
@@ -38,18 +35,15 @@ public class Stop extends CommandBase {
   public void execute() {
     //System.out.println("Arm rotating out..");
 
-    //int absolutePosition = m_armShoulder.getSensorCollection().getPulseWidthPosition();
-
     m_armShoulder.setPower(ArmConstants.ArmShoulderStop);
 
+    //absolute position gets the location of the arm in ticks (4096 per revolution)
     int absolutePosition = m_armMotor.getSensorCollection().getQuadraturePosition();
-    absolutePosition &= 0xFFF;
 
+    //convert from ticks to degrees
     double deg = (double)absolutePosition/4096 * 360;
 
     System.out.println("POS: " + deg + " " + absolutePosition);
-    //targetPositionRotations = (leftYstick + 0.1) * 10.0 * 4096;
-    //m_armShoulder.setLocation(ControlMode.Position, 10.0*4096);
 
   }
 

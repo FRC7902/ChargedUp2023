@@ -4,27 +4,24 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.controller.ArmFeedforward;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem;
-import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import frc.robot.Constants;
 import frc.robot.Constants.ArmConstants;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-
 public class ArmShoulder{
-  //extends TrapezoidProfileSubsystem
-  private final WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmConstants.ArmShoulderLeaderCAN);
-  private final WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(ArmConstants.ArmShoulderFollowerCAN);
-  private final ArmFeedforward m_feedforward = new ArmFeedforward(ArmConstants.ArmSVolts, ArmConstants.ArmGVolts,
-      ArmConstants.ArmVVoltSecondPerRad, ArmConstants.ArmAVoltSecondSquaredPerRad);
+    //extends TrapezoidProfileSubsystem
+    public final static WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmConstants.ArmShoulderLeaderCAN);
+    public final WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(ArmConstants.ArmShoulderFollowerCAN);
+    //private final ArmFeedforward m_feedforward = new ArmFeedforward(ArmConstants.ArmSVolts, ArmConstants.ArmGVolts,
+    //ArmConstants.ArmVVoltSecondPerRad, ArmConstants.ArmAVoltSecondSquaredPerRad);
 
   // Need encoder
   // Need limit switch
 
   /** Creates a new ArmSubsystem. */
   public ArmShoulder() {
+
     //TRAPEZOID
 
     // super(new TrapezoidProfile.Constraints(ArmConstants.MaxVelocityRadPerSecond,
@@ -36,6 +33,7 @@ public class ArmShoulder{
 
     armShoulderFollower.follow(armShoulderLeader);
     armShoulderLeader.setInverted(false);
+    armShoulderLeader.config_kP(Constants.ArmConstants.kSlot_Distanc, Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kTimeoutMs);
 
   }
 
@@ -48,7 +46,7 @@ public class ArmShoulder{
   public void stopMotor() {
     armShoulderLeader.stopMotor();
   }
-
+  
   //TRAPEZIOD
   // @Override
   // protected void useState(TrapezoidProfile.State state) {
@@ -56,4 +54,23 @@ public class ArmShoulder{
   //   // Add the feedforward to the PID output to get the motor output
   //   armShoulderLeader.setSetpoint(WPI_TalonSRX.PIDMode.ArmPosition, setpoint.position, feedforward / x);
   // }
+
+//   void commonLoop() {
+//     /* Gamepad processing */
+//     double leftYstick = m_driverController.getRawAxis(Constants.IOConstants.kOperatorStick); //Left stick
+//     boolean button1 = m_driverController.getRawButton(Constants.IOConstants.kA);	// A-Button
+//     boolean button2 = m_driverController.getRawButton(Constants.IOConstants.kB);	// B-Button
+
+//     /* Get Talon/Victor's current output percentage */
+//     //double motorOutput = armShoulderLeader.getMotorOutputPercent();
+
+// }
+
+/**
+ * This function is called periodically during operator control
+ */
+// public void teleopPeriodic() {
+//     commonLoop();
+// }
+
 }
