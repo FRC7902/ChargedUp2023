@@ -4,12 +4,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 //command imports
 import frc.robot.commands.armshoulder.*;
@@ -33,6 +35,7 @@ public class RobotContainer {
   //private final ArmShoulder m_ArmShoulder = new ArmShoulder();
   private final ArmShoulder m_ArmShoulder = new ArmShoulder();
 
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -83,8 +86,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  // public Command getAutonomousCommand() {
-  //   // An example command will be run in autonomous
-  //   return Autos.exampleAuto(m_exampleSubsystem);
-  // }
+  public Command getAutonomousCommand() {
+  //   An example command will be run in autonomous
+  return m_chooser.getSelected();
+  }
 }
