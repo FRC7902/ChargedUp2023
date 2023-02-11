@@ -46,8 +46,8 @@ public class RotateIn extends CommandBase {
     double deg = (double)absolutePosition/4096 * 360;
 
     System.out.println("POS: " + deg + " " + absolutePosition);
-    double target_sensorUnits = Constants.ArmConstants.kSensorUnitsPerRotation - (Constants.ArmConstants.kSensorUnitsPerRotation * Constants.ArmConstants.kRotationsToTravel);
-    m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, 0.25);
+    double target_sensorUnits = Constants.ArmConstants.kSensorUnitsPerRotation * Constants.ArmConstants.kRotationsToTravel;
+    m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, -0.25);
 
 
     // if(deg < 90 || (deg > 350 && deg < 360)){//deg < 180

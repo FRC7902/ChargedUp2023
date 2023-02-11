@@ -48,7 +48,7 @@ public class RotateOut extends CommandBase {
     System.out.println("POS: " + deg + " " + absolutePosition);
 
       double target_sensorUnits = Constants.ArmConstants.kSensorUnitsPerRotation * Constants.ArmConstants.kRotationsToTravel;
-      m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, 0.25);    
+      m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, +0.25);    
 
   }
 
