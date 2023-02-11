@@ -6,7 +6,6 @@ package frc.robot.commands.armshoulder;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.ArmShoulder;
 
 public class Hold extends CommandBase {

@@ -32,7 +32,6 @@ import frc.robot.subsystems.ArmShoulder;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  //private final ArmShoulder m_ArmShoulder = new ArmShoulder();
   private final ArmShoulder m_ArmShoulder = new ArmShoulder();
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -78,7 +77,7 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Constants.IOConstants.kB).whileTrue(new RotateIn(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kB
     new JoystickButton(m_driverController, Constants.IOConstants.kA).onFalse(new Hold(m_ArmShoulder, ArmShoulder.armShoulderLeader, Constants.ArmConstants.ArmShoulderHold));//kA
     //new JoystickButton(m_driverController, Constants.IOConstants.kB).onFalse(new Hold(m_ArmShoulder, ArmShoulder.armShoulderLeader, -1 * Constants.ArmConstants.ArmShoulderHold));//kB
-    new JoystickButton(m_driverController, Constants.IOConstants.kX).whileTrue(new Stop(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kB
+    //new JoystickButton(m_driverController, Constants.IOConstants.kX).whileTrue(new Stop(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kB
 
   }
 
