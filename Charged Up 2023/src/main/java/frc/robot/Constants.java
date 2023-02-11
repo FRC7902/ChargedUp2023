@@ -36,6 +36,7 @@ public final class Constants {
     public final static double ArmShoulderRotateIn = 0.25; // testing, not final
     public final static double ArmShoulderRotateOut = -0.25; // testing, not final
     public final static double ArmShoulderStop = 0.0; // testing, not final
+    public final static double ArmShoulderHold = 0.1; // testing, not final
 
     public final static int IntakeCAN = 0;
 
@@ -75,7 +76,7 @@ public final class Constants {
     public static boolean kSensorPhase = true;
 
     public final static int kSensorUnitsPerRotation = 4096;
-    public final static double kRotationsToTravel = 0.25;
+    public final static double kRotationsToTravel = 0.20;
 
     /**
      * Choose based on what direction you want to be positive,

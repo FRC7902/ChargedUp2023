@@ -4,23 +4,19 @@
 
 package frc.robot.commands.armshoulder;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.ArmShoulder;
 
-public class RotateOut extends CommandBase {
+public class Hold extends CommandBase {
 
   //private ArmShoulder m_armShoulder;
   private ArmShoulder m_armShoulder;
   private WPI_TalonSRX m_armMotor;
 
   /** Creates a new RotateOut. */
-  public RotateOut(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader) { 
+  public Hold(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader) { 
     m_armShoulder = armShoulder;
     m_armMotor = armShoulderLeader;
 
@@ -39,6 +35,8 @@ public class RotateOut extends CommandBase {
   public void execute() {
     //System.out.println("Arm rotating out..");
 
+    m_armShoulder.setPower(ArmConstants.ArmShoulderHold);
+
     //absolute position gets the location of the arm in ticks (4096 per revolution)
     int absolutePosition = m_armMotor.getSensorCollection().getQuadraturePosition();
 
@@ -46,9 +44,6 @@ public class RotateOut extends CommandBase {
     double deg = (double)absolutePosition/4096 * 360;
 
     System.out.println("POS: " + deg + " " + absolutePosition);
-
-      double target_sensorUnits = Constants.ArmConstants.kSensorUnitsPerRotation * Constants.ArmConstants.kRotationsToTravel;
-      m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, 0.25);    
 
   }
 

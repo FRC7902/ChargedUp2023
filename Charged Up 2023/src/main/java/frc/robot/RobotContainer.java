@@ -41,7 +41,7 @@ public class RobotContainer {
 
   //THE FIRST CONTOLLER PLUGGED IN CONTROLS THE DRIVING, THE SECOND CONTROLLER PLUGGED IN CONTROLS THE ARM/INTAKE
   private final Joystick m_driverStick = new Joystick(Constants.IOConstants.kDriverStick);
-  private final XboxController m_driverController = new XboxController(Constants.IOConstants.kOperatorStick);
+  private final XboxController m_driverController = new XboxController(Constants.IOConstants.kDriverStick);//SHOULD BE kOperatorStick
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -76,8 +76,9 @@ public class RobotContainer {
 
     new JoystickButton(m_driverController, Constants.IOConstants.kA).whileTrue(new RotateOut(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kA
     new JoystickButton(m_driverController, Constants.IOConstants.kB).whileTrue(new RotateIn(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kB
-    new JoystickButton(m_driverController, Constants.IOConstants.kA).onFalse(new Stop(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kA
-    new JoystickButton(m_driverController, Constants.IOConstants.kB).onFalse(new Stop(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kB
+    new JoystickButton(m_driverController, Constants.IOConstants.kA).onFalse(new Hold(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kA
+    new JoystickButton(m_driverController, Constants.IOConstants.kB).onFalse(new Hold(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kB
+    new JoystickButton(m_driverController, Constants.IOConstants.kX).whileTrue(new Stop(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kB
 
   }
 
