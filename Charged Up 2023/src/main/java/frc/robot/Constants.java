@@ -19,11 +19,15 @@ package frc.robot;
 public final class Constants {
   public final static class DriveConstants {
 
-    public final static int DrivetrainRightLeaderCAN = 4;
+    public final static int DrivetrainRightLeaderCAN = 4; //flash burned for now
     public final static int DrivetrainRightFollowerCAN = 3;
 
-    public final static int DrivetrainLeftLeaderCAN = 11;
-    public final static int DrivetrainLeftFollowerCAN = 12;
+    public final static int DrivetrainLeftLeaderCAN = 15;
+    public final static int DrivetrainLeftFollowerCAN = 16;
+
+    public final static int SoftwareCurrentLimit = 50;
+    public final static double OutputGearRatio = 1.0/10.71;
+    public final static double WheelCircumferenceInInches = 6*Math.PI;
   }
 
   public final static class ArmConstants {
@@ -31,8 +35,8 @@ public final class Constants {
     public final static int ArmExtensionFollowerCAN = 9;
 
     // dummies
-    public final static int ArmShoulderLeaderCAN = 4;
-    public final static int ArmShoulderFollowerCAN = 3;//0
+    public final static int ArmShoulderLeaderCAN = 26; //all dummies
+    public final static int ArmShoulderFollowerCAN = 27;//0
     public final static double ArmShoulderRotateIn = 0.25; // testing, not final
     public final static double ArmShoulderRotateOut = -0.25; // testing, not final
     public final static double ArmShoulderStop = 0.0; // testing, not final

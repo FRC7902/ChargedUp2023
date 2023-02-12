@@ -9,7 +9,7 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.subsystems.ArmShoulder;
 
 public class RotateOut extends CommandBase {
@@ -46,7 +46,7 @@ public class RotateOut extends CommandBase {
 
     System.out.println("POS: " + deg + " " + absolutePosition);
 
-      double target_sensorUnits = Constants.ArmConstants.kSensorUnitsPerRotation * Constants.ArmConstants.kRotationsToTravel;
+      double target_sensorUnits = ArmConstants.kSensorUnitsPerRotation * ArmConstants.kRotationsToTravel;
       double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
       
       m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, adjusted_power);    
