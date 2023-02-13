@@ -19,9 +19,9 @@ package frc.robot;
 public final class Constants {
   public final static class DriveConstants {
 
-    public final static int DrivetrainRightLeaderCAN = 4; //flash burned for now
+    //jane flashed these values into the hardware for now
+    public final static int DrivetrainRightLeaderCAN = 4; 
     public final static int DrivetrainRightFollowerCAN = 3;
-
     public final static int DrivetrainLeftLeaderCAN = 15;
     public final static int DrivetrainLeftFollowerCAN = 16;
 

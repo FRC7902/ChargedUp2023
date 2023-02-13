@@ -9,7 +9,6 @@ import frc.robot.Constants.DriveConstants;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxRelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -32,23 +31,18 @@ public class DriveSubsystem extends SubsystemBase {
   private final DifferentialDrive drive = new DifferentialDrive(left, right);
 
   // Encoders
-
   private final RelativeEncoder m_leftEncoder = m_leftleader.getEncoder();
   private final RelativeEncoder m_rightEncoder = m_rightleader.getEncoder();
-  // private final RelativeEncoder m_leftEncoder =
-  // m_leftleader.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 4096);
-  // private final RelativeEncoder m_rightEncoder =
-  // m_rightleader.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 4096);
 
   public DriveSubsystem() {
     left.setInverted(true);
 
   }
 
-  double tester = 0;
+  double tester = 0; //this is used to prevent the values from flashing too quickly across the screeen
 
   public void driveArcade(double xForward, double zRotation) {
-    if (tester < 50) {
+    if (tester < 50) { //to slow the output for testing purposes
       tester++;
     } else {
       System.out.println("Position left: " + m_leftEncoder.getPosition() * DriveConstants.OutputGearRatio);
