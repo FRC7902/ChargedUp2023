@@ -15,6 +15,7 @@ public class Intake extends SubsystemBase {
   private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(ArmConstants.IntakeCAN);
 
   public Intake() {
+    
   }
 
   @Override
