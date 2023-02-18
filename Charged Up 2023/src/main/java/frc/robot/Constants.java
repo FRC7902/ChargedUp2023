@@ -31,8 +31,8 @@ public final class Constants {
   }
 
   public final static class ArmConstants {
-    public final static int ArmExtensionLeaderCAN = 10;
-    public final static int ArmExtensionFollowerCAN = 9;
+    public final static int ArmExtensionLeaderCAN = 11;
+    public final static int ArmExtensionFollowerCAN = 12;
 
     // dummies
     public final static int ArmShoulderLeaderCAN = 26; //all dummies

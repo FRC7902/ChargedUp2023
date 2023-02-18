@@ -19,7 +19,9 @@ public class ArmExtension extends SubsystemBase {
 
   public static final WPI_TalonSRX armExtensionLeader = new WPI_TalonSRX(ArmConstants.ArmExtensionLeaderCAN);
   public static final WPI_VictorSPX armExtensionFollower = new WPI_VictorSPX(ArmConstants.ArmExtensionFollowerCAN);
-
+  
+  //position test;
+  public int position = 0;
   public String status = "Off";
 
   /** Creates a new ArmExtension. */
@@ -30,19 +32,22 @@ public class ArmExtension extends SubsystemBase {
     armExtensionLeader.setInverted(false);
     armExtensionFollower.setInverted(InvertType.FollowMaster);
     
-    armExtensionLeader.config_kP(Constants.ArmConstants.kSlot_Distanc, Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kTimeoutMs);
-    // armShoulderLeader.setPID(Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kGains_Distanc.kI, Constants.ArmConstants.kGains_Distanc.kD);
-  		/* Motion Magic Configurations */
-      armExtensionLeader.configMotionAcceleration(2000, Constants.ArmConstants.kTimeoutMs);
-      armExtensionLeader.configMotionCruiseVelocity(2000, Constants.ArmConstants.kTimeoutMs);
+  //   armExtensionLeader.config_kP(Constants.ArmConstants.kSlot_Distanc, Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kTimeoutMs);
+  //   // armShoulderLeader.setPID(Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kGains_Distanc.kI, Constants.ArmConstants.kGains_Distanc.kD);
+  // 		/* Motion Magic Configurations */
+  //     armExtensionLeader.configMotionAcceleration(2000, Constants.ArmConstants.kTimeoutMs);
+  //     armExtensionLeader.configMotionCruiseVelocity(2000, Constants.ArmConstants.kTimeoutMs);
   }
 
   public void setPower(double power) {
     armExtensionLeader.set(power);
     if(power > 0){
       status = "Extending...";
+
     }else if(power < 0){
       status = "Retracting...";
+      position--;
+      System.out.println(position);
     }
   }
 
@@ -51,13 +56,12 @@ public class ArmExtension extends SubsystemBase {
     status = "Off";
   }
 
-  public void set(ControlMode mode, double demand0, DemandType demand1Type, double demand1) {
-    armExtensionLeader.set(mode, demand0, demand1Type, demand1);
-  }
+  // public void set(ControlMode mode, double demand0, DemandType demand1Type, double demand1) {
+  //   armExtensionLeader.set(mode, demand0, demand1Type, demand1);
+  // }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putString("Extension Status: ", status);
   }
 }
