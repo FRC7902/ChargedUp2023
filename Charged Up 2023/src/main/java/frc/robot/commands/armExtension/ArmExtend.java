@@ -15,6 +15,7 @@ import frc.robot.subsystems.ArmExtension;
 public class ArmExtend extends CommandBase {
   private ArmExtension m_armExtension;
   private WPI_TalonSRX m_armExtensionMotor;
+
   /** Creates a new ArmExtend. */
   public ArmExtend(ArmExtension armExtension, WPI_TalonSRX armShoulderLeader) {
     m_armExtension = armExtension;
@@ -32,14 +33,19 @@ public class ArmExtend extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    int absolutePosition = m_armExtensionMotor.getSensorCollection().getQuadraturePosition();
-    //convert from ticks to degrees
-    double deg = (double)absolutePosition/4096 * 360;
-    System.out.println("POS: " + deg + " " + absolutePosition);
-    double target_sensorUnits = Constants.ArmExtensionConstants.kSensorUnitsPerRotation * Constants.ArmExtensionConstants.kRotationsToTravel;
-    double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
+    m_armExtension.setPower(.35);
+    m_armExtension.position++;
+    System.out.println(m_armExtension.position);
+    System.out.println(m_armExtension.status);
+
+    // int absolutePosition = m_armExtensionMotor.getSensorCollection().getQuadraturePosition();
+    // //convert from ticks to degrees
+    // double deg = (double)absolutePosition/4096 * 360;
+    // System.out.println("POS: " + deg + " " + absolutePosition);
+    // double target_sensorUnits = Constants.ArmConstants.kSensorUnitsPerRotation * Constants.ArmConstants.kRotationsToTravel;
+    // double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
     
-    m_armExtension.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, adjusted_power);
+    // m_armExtension.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, adjusted_power);
   }
 
   // Called once the command ends or is interrupted.
