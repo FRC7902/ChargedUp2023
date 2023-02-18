@@ -87,6 +87,7 @@ public final class Constants {
      * this does not affect motor invert. 
      */
     public static boolean kMotorInvert = false;
+    public static Object IntakeConstants;
 
     public final static Gains kGains_Distanc = new Gains( 0.1, 0.0,  0.0, 0.0,            100,  0.50 );
     public final static Gains kGains_Turning = new Gains( 2.0, 0.0,  4.0, 0.0,            200,  1.00 );
@@ -103,6 +104,13 @@ public final class Constants {
     public final static int kSlot_Velocit = SLOT_2;
     public final static int kSlot_MotProf = SLOT_3;
     
+  }
+  
+  public static final class IntakeConstants{
+    public final static int IntakeCAN = 4; 
+    public final static double DirectionASpeed = 0.5;
+    public final static double DirectionBSpeed = -0.5;
+
   }
 
   public static final class IOConstants {

@@ -43,7 +43,6 @@ public class ArmShoulder{
   public void setPower(double power) {
     armShoulderLeader.set(power);
 
-    // if statements needed for testing
   }
 
   public void set(ControlMode mode, double demand0, DemandType demand1Type, double demand1) {

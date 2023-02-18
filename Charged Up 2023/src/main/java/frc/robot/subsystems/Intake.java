@@ -18,6 +18,14 @@ public class Intake extends SubsystemBase {
     
   }
 
+  public void setPower(double power) {
+    intakeMotor.set(power);
+  }
+
+  public void stopMotor() {
+    intakeMotor.stopMotor();
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
