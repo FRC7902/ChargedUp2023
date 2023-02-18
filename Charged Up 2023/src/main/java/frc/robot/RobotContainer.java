@@ -90,8 +90,7 @@ public class RobotContainer {
     //INTAKE BINDINGS
     new JoystickButton(m_driverController, Constants.IOConstants.kLB).whileTrue(new directionA(m_intake));//kLB
     new JoystickButton(m_driverController, Constants.IOConstants.kRB).whileTrue(new directionB(m_intake));//kRB
-
-    //TESTERS
+    new JoystickButton(m_driverController, Constants.IOConstants.kRB).onFalse(new stop(m_intake));//kA
 
   }
 
