@@ -13,13 +13,13 @@ public class Hold extends CommandBase {
   //private ArmShoulder m_armShoulder;
   private ArmShoulder m_armShoulder;
   private WPI_TalonSRX m_armMotor;
-  private double power;
+  private double m_feedForward;
 
   /** Creates a new RotateOut. */
-  public Hold(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader, double pow) { 
+  public Hold(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader, double feedForward) { 
     m_armShoulder = armShoulder;
     m_armMotor = armShoulderLeader;
-    power = pow;
+    m_feedForward = feedForward;
 
     //addRequirements(armShoulder);
   }
@@ -36,13 +36,14 @@ public class Hold extends CommandBase {
   public void execute() {
     //System.out.println("Arm holding..");
 
-    m_armShoulder.setPower(power);
-
     //absolute position gets the location of the arm in ticks (4096 per revolution)
     int absolutePosition = m_armMotor.getSensorCollection().getQuadraturePosition();
 
     //convert from ticks to degrees
     double deg = (double)absolutePosition/4096 * 360;
+
+    double power = m_feedForward * Math.cos(deg);
+    m_armShoulder.setPower(power);
 
     System.out.println("POS: " + deg + " " + absolutePosition);
 

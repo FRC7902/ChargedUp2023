@@ -27,7 +27,6 @@ public class directionA extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //System.out.println("Arm rotating out..");
     m_intake.setPower(IntakeConstants.DirectionASpeed);
   }
 

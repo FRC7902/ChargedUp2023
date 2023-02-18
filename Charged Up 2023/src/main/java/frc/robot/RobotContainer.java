@@ -80,12 +80,12 @@ public class RobotContainer {
     //SHOULDER BINDINGS
     new JoystickButton(m_driverController, Constants.IOConstants.kA).whileTrue(new RotateOut(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kA
     new JoystickButton(m_driverController, Constants.IOConstants.kB).whileTrue(new RotateIn(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kB
-    new JoystickButton(m_driverController, Constants.IOConstants.kA).onFalse(new Hold(m_ArmShoulder, ArmShoulder.armShoulderLeader, Constants.ArmShoulderConstants.ArmShoulderHold));//kA
+    new JoystickButton(m_driverController, Constants.IOConstants.kA).onFalse(new Hold(m_ArmShoulder, ArmShoulder.armShoulderLeader, Constants.ArmShoulderConstants.ArmShoulderFeedForward));//kA
     
     //EXTENSION BINDINGS
     new JoystickButton(m_driverController, Constants.IOConstants.kY).whileTrue(new ArmExtend(m_ArmExtension, ArmExtension.armExtensionLeader)); //kY
     new JoystickButton(m_driverController, Constants.IOConstants.kX).whileTrue(new ArmRetract(m_ArmExtension, ArmExtension.armExtensionLeader)); //kX
-    new JoystickButton(m_driverController, Constants.IOConstants.kY).onFalse(new ArmHold(m_ArmExtension, ArmExtension.armExtensionLeader, Constants.ArmShoulderConstants.ArmShoulderHold));//kY
+    new JoystickButton(m_driverController, Constants.IOConstants.kY).onFalse(new ArmHold(m_ArmExtension, ArmExtension.armExtensionLeader, Constants.ArmExtensionConstants.ArmExtensionFeedForward));//kY
     
     //INTAKE BINDINGS
     new JoystickButton(m_driverController, Constants.IOConstants.kLB).whileTrue(new directionA(m_intake));//kLB

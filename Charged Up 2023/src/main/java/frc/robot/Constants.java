@@ -42,6 +42,8 @@ public final class Constants {
 
     public final static int kSensorUnitsPerRotation = 4096;
     public final static double kRotationsToTravel = 6.666;
+
+    public final static double ArmExtensionFeedForward = 0.1;
   }
 
   public final static class ArmShoulderConstants {
@@ -53,7 +55,7 @@ public final class Constants {
     public final static double ArmShoulderRotateIn = 0.25; // testing, not final
     public final static double ArmShoulderRotateOut = -0.25; // testing, not final
     public final static double ArmShoulderStop = 0.0; // testing, not final
-    public final static double ArmShoulderHold = 0.1; // testing, not final
+    public final static double ArmShoulderFeedForward = 0.1; // testing, not final
 
 
           /**
@@ -88,10 +90,10 @@ public final class Constants {
     public static boolean kMotorInvert = false;
     public static Object IntakeConstants;
 
-    public final static Gains kGains_Distanc = new Gains( 0.1, 0.0,  0.0, 0.0,100,0.50 );
-    public final static Gains kGains_Turning = new Gains( 2.0, 0.0,  4.0, 0.0,            200,  1.00 );
-    public final static Gains kGains_Velocit = new Gains( 0.1, 0.0, 20.0, 1023.0/6800.0,  300,  0.50 );
-    public final static Gains kGains_MotProf = new Gains( 1.0, 0.0,  0.0, 1023.0/6800.0,  400,  1.00 );
+    public final static Gains kGains_Distanc = new Gains( 0.1, 0.0,  0.0, 0.0,100,0.50);
+    public final static Gains kGains_Turning = new Gains( 2.0, 0.0,  4.0, 0.0, 200, 1.00 );
+    public final static Gains kGains_Velocit = new Gains( 0.1, 0.0, 20.0, 1023.0/6800.0, 300, 0.50 );
+    public final static Gains kGains_MotProf = new Gains( 1.0, 0.0,  0.0, 1023.0/6800.0, 400, 1.00 );
   	/* Firmware currently supports slots [0, 3] and can be used for either PID Set */
     public final static int SLOT_0 = 0;
     public final static int SLOT_1 = 1;
