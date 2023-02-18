@@ -15,13 +15,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 //command imports
 import frc.robot.commands.armshoulder.*;
+import frc.robot.commands.intake.*;
 import frc.robot.commands.armExtension.*;
 
 
 //subsystem imports
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ArmExtension;
-import frc.robot.subsystems.ArmShoulder;
+import frc.robot.subsystems.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -37,6 +36,7 @@ public class RobotContainer {
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   private final ArmShoulder m_ArmShoulder = new ArmShoulder();
   private final ArmExtension m_ArmExtension = new ArmExtension();
+  private final Intake m_intake = new Intake();
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -77,16 +77,19 @@ public class RobotContainer {
    */
   private void configureBindings() {
 
+    //SHOULDER BINDINGS
     new JoystickButton(m_driverController, Constants.IOConstants.kA).whileTrue(new RotateOut(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kA
     new JoystickButton(m_driverController, Constants.IOConstants.kB).whileTrue(new RotateIn(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kB
     new JoystickButton(m_driverController, Constants.IOConstants.kA).onFalse(new Hold(m_ArmShoulder, ArmShoulder.armShoulderLeader, Constants.ArmConstants.ArmShoulderHold));//kA
     
-    new JoystickButton(m_driverController, Constants.IOConstants.kY).whileTrue(new ArmExtend(m_ArmExtension, ArmExtension.armExtensionLeader)); //kX
-    new JoystickButton(m_driverController, Constants.IOConstants.kX).whileTrue(new ArmRetract(m_ArmExtension, ArmExtension.armExtensionLeader)); //kY
-    new JoystickButton(m_driverController, Constants.IOConstants.kY).onFalse(new ArmHold(m_ArmExtension, ArmExtension.armExtensionLeader, Constants.ArmConstants.ArmShoulderHold));//kA
+    //EXTENSION BINDINGS
+    new JoystickButton(m_driverController, Constants.IOConstants.kY).whileTrue(new ArmExtend(m_ArmExtension, ArmExtension.armExtensionLeader)); //kY
+    new JoystickButton(m_driverController, Constants.IOConstants.kX).whileTrue(new ArmRetract(m_ArmExtension, ArmExtension.armExtensionLeader)); //kX
+    new JoystickButton(m_driverController, Constants.IOConstants.kY).onFalse(new ArmHold(m_ArmExtension, ArmExtension.armExtensionLeader, Constants.ArmConstants.ArmShoulderHold));//kY
     
-    //new JoystickButton(m_driverController, Constants.IOConstants.kB).onFalse(new Hold(m_ArmShoulder, ArmShoulder.armShoulderLeader, -1 * Constants.ArmConstants.ArmShoulderHold));//kB
-    //new JoystickButton(m_driverController, Constants.IOConstants.kX).whileTrue(new Stop(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kB
+    //INTAKE BINDINGS
+    new JoystickButton(m_driverController, Constants.IOConstants.kLB).whileTrue(new directionA(m_intake));//kLB
+    new JoystickButton(m_driverController, Constants.IOConstants.kRB).whileTrue(new directionB(m_intake));//kRB
 
   }
 
