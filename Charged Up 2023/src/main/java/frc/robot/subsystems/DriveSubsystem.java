@@ -58,9 +58,9 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
-  public void driveToDistance(double left, double right){
-    m_leftleader.set(DriveConstants.driveRawSpeed*left);
-    m_rightleader.set(DriveConstants.driveRawSpeed*right);
+  public void driveRaw(double left, double right){
+    m_leftleader.set(left);
+    m_rightleader.set(right);
   }
 
   @Override
@@ -79,6 +79,5 @@ public class DriveSubsystem extends SubsystemBase {
     m_leftEncoder.setPosition(0);
     m_rightEncoder.setPosition(0);
   }
-
 
 }
