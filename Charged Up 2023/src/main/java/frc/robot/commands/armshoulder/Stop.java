@@ -6,12 +6,11 @@ package frc.robot.commands.armshoulder;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.ArmShoulderConstants;
 import frc.robot.subsystems.ArmShoulder;
 
 public class Stop extends CommandBase {
 
-  //private ArmShoulder m_armShoulder;
   private ArmShoulder m_armShoulder;
   private WPI_TalonSRX m_armMotor;
 
@@ -35,7 +34,7 @@ public class Stop extends CommandBase {
   public void execute() {
     //System.out.println("Arm rotating out..");
 
-    m_armShoulder.setPower(ArmConstants.ArmShoulderStop);
+    m_armShoulder.setPower(ArmShoulderConstants.ArmShoulderStop);
 
     //absolute position gets the location of the arm in ticks (4096 per revolution)
     int absolutePosition = m_armMotor.getSensorCollection().getQuadraturePosition();

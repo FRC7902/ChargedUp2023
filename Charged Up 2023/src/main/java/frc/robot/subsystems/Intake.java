@@ -6,15 +6,14 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import frc.robot.Constants.ArmConstants;
-
+import frc.robot.Constants.IntakeConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
-  private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(ArmConstants.IntakeCAN);
+  private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(IntakeConstants.IntakeCAN);
 
   public Intake() {
-    
+    intakeMotor.setInverted(false);
   }
 
   public void setPower(double power) {

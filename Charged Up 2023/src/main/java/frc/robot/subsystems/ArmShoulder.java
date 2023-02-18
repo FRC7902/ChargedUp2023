@@ -9,34 +9,29 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants;
-import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.ArmShoulderConstants;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 
 public class ArmShoulder{
     //extends TrapezoidProfileSubsystem
-    public final static WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmConstants.ArmShoulderLeaderCAN);
-    public final WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(ArmConstants.ArmShoulderFollowerCAN);
+    public final static WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmShoulderConstants.ArmShoulderLeaderCAN);
+    public final WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(ArmShoulderConstants.ArmShoulderFollowerCAN);
 
   // Need encoder
   // Need limit switch
 
   /** Creates a new ArmSubsystem. */
   public ArmShoulder() {
-
-    //TRAPEZOID
-    // super(new TrapezoidProfile.Constraints(ArmConstants.MaxVelocityRadPerSecond,
-    //     ArmConstants.MaxAccelerationRadPerSecSquared);
-
     armShoulderFollower.follow(armShoulderLeader);
     armShoulderLeader.setInverted(false);
     armShoulderFollower.setInverted(InvertType.FollowMaster);
     
-    armShoulderLeader.config_kP(Constants.ArmConstants.kSlot_Distanc, Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kTimeoutMs);
+    armShoulderLeader.config_kP(Constants.ArmShoulderConstants.kSlot_Distanc, Constants.ArmShoulderConstants.kGains_Distanc.kP, Constants.ArmShoulderConstants.kTimeoutMs);
     // armShoulderLeader.setPID(Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kGains_Distanc.kI, Constants.ArmConstants.kGains_Distanc.kD);
   		/* Motion Magic Configurations */
-      armShoulderLeader.configMotionAcceleration(2000, Constants.ArmConstants.kTimeoutMs);
-      armShoulderLeader.configMotionCruiseVelocity(2000, Constants.ArmConstants.kTimeoutMs);
+      armShoulderLeader.configMotionAcceleration(2000, Constants.ArmShoulderConstants.kTimeoutMs);
+      armShoulderLeader.configMotionCruiseVelocity(2000, Constants.ArmShoulderConstants.kTimeoutMs);
   
   }
 
@@ -54,14 +49,6 @@ public class ArmShoulder{
   public void stopMotor() {
     armShoulderLeader.stopMotor();
   }
-  
-  //TRAPEZIOD
-  // @Override
-  // protected void useState(TrapezoidProfile.State state) {
-  //   double feedforward = m_feedforward.calculate(setpoint.position, setpoint.velocity);
-  //   // Add the feedforward to the PID output to get the motor output
-  //   armShoulderLeader.setSetpoint(WPI_TalonSRX.PIDMode.ArmPosition, setpoint.position, feedforward / x);
-  // }
 
 /**
  * This function is called periodically during operator control

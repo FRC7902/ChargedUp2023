@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants;
-import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.ArmExtensionConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -17,8 +17,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 public class ArmExtension extends SubsystemBase {
 
-  public static final WPI_TalonSRX armExtensionLeader = new WPI_TalonSRX(15);//ArmConstants.ArmExtensionLeaderCAN
-  public static final WPI_VictorSPX armExtensionFollower = new WPI_VictorSPX(ArmConstants.ArmExtensionFollowerCAN);
+  public static final WPI_TalonSRX armExtensionLeader = new WPI_TalonSRX(15);//should be: ArmConstants.ArmExtensionLeaderCAN
+  public static final WPI_VictorSPX armExtensionFollower = new WPI_VictorSPX(ArmExtensionConstants.ArmExtensionFollowerCAN);
 
   public String status = "Off";
 
@@ -30,11 +30,11 @@ public class ArmExtension extends SubsystemBase {
     armExtensionLeader.setInverted(false);
     armExtensionFollower.setInverted(InvertType.FollowMaster);
     
-    armExtensionLeader.config_kP(Constants.ArmConstants.kSlot_Distanc, Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kTimeoutMs);
+    armExtensionLeader.config_kP(Constants.ArmShoulderConstants.kSlot_Distanc, Constants.ArmShoulderConstants.kGains_Distanc.kP, Constants.ArmShoulderConstants.kTimeoutMs);
     // armShoulderLeader.setPID(Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kGains_Distanc.kI, Constants.ArmConstants.kGains_Distanc.kD);
   		/* Motion Magic Configurations */
-      armExtensionLeader.configMotionAcceleration(2000, Constants.ArmConstants.kTimeoutMs);
-      armExtensionLeader.configMotionCruiseVelocity(2000, Constants.ArmConstants.kTimeoutMs);
+      armExtensionLeader.configMotionAcceleration(2000, Constants.ArmShoulderConstants.kTimeoutMs);
+      armExtensionLeader.configMotionCruiseVelocity(2000, Constants.ArmShoulderConstants.kTimeoutMs);
   }
 
   public void setPower(double power) {

@@ -27,7 +27,7 @@ public class ArmRetract extends CommandBase {
   @Override
   public void initialize() {
     m_armExtension.stopMotor();
-    System.out.println("Starting Extension...");
+    System.out.println("Starting Retraction...");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,7 +37,7 @@ public class ArmRetract extends CommandBase {
     //convert from ticks to degrees
     double deg = (double)absolutePosition/4096 * 360;
     System.out.println("POS: " + deg + " " + absolutePosition);
-    double target_sensorUnits = Constants.ArmConstants.kSensorUnitsPerRotation * Constants.ArmConstants.kRotationsToTravel;
+    double target_sensorUnits = Constants.ArmShoulderConstants.kSensorUnitsPerRotation * Constants.ArmShoulderConstants.kRotationsToTravel;
     double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
     
     m_armExtension.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, -1*adjusted_power);

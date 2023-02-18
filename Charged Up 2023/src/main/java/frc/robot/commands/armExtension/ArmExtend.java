@@ -20,7 +20,6 @@ public class ArmExtend extends CommandBase {
     m_armExtension = armExtension;
     m_armExtensionMotor = armShoulderLeader;
     // Use addRequirements() here to declare subsystem dependencies.
-    
   }
 
   // Called when the command is initially scheduled.
@@ -37,7 +36,7 @@ public class ArmExtend extends CommandBase {
     //convert from ticks to degrees
     double deg = (double)absolutePosition/4096 * 360;
     System.out.println("POS: " + deg + " " + absolutePosition);
-    double target_sensorUnits = Constants.ArmConstants.kSensorUnitsPerRotation * Constants.ArmConstants.kRotationsToTravel;
+    double target_sensorUnits = Constants.ArmExtensionConstants.kSensorUnitsPerRotation * Constants.ArmExtensionConstants.kRotationsToTravel;
     double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
     
     m_armExtension.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, adjusted_power);
