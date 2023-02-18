@@ -6,10 +6,7 @@ package frc.robot.commands.armExtension;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import frc.robot.Constants;
 import frc.robot.subsystems.ArmExtension;
 
 public class ArmExtend extends CommandBase {
