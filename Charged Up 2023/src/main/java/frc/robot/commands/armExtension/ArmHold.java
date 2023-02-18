@@ -12,15 +12,15 @@ public class ArmHold extends CommandBase {
 
   private ArmExtension m_armExtension;
   private WPI_TalonSRX m_armExtensionMotor;
-  private double power;
+  private double m_power;
 
 
   /** Creates a new ArmHold. */
-  public ArmHold(ArmExtension armExtension, WPI_TalonSRX armExtensionLeader, double pow) {
+  public ArmHold(ArmExtension armExtension, WPI_TalonSRX armExtensionLeader, double feedForward) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_armExtension = armExtension;
     m_armExtensionMotor = armExtensionLeader;
-    power = pow;
+    m_power = feedForward;
   }
 
   // Called when the command is initially scheduled.
@@ -33,7 +33,7 @@ public class ArmHold extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armExtension.setPower(power);
+    m_armExtension.setPower(m_power);
     m_armExtension.status = "Off";
     
     // //absolute position gets the location of the arm in ticks (4096 per revolution)

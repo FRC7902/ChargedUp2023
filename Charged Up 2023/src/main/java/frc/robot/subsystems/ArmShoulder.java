@@ -27,7 +27,7 @@ public class ArmShoulder{
     armShoulderLeader.setInverted(false);
     armShoulderFollower.setInverted(InvertType.FollowMaster);
     
-    armShoulderLeader.config_kP(Constants.ArmShoulderConstants.kSlot_Distanc, Constants.ArmShoulderConstants.kGains_Distanc.kP, Constants.ArmShoulderConstants.kTimeoutMs);
+    armShoulderLeader.config_kP(Constants.GainConstants.kSlot_Distanc, Constants.GainConstants.kGains_Distanc.kP, Constants.ArmShoulderConstants.kTimeoutMs);
     // armShoulderLeader.setPID(Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kGains_Distanc.kI, Constants.ArmConstants.kGains_Distanc.kD);
   		/* Motion Magic Configurations */
       armShoulderLeader.configMotionAcceleration(2000, Constants.ArmShoulderConstants.kTimeoutMs);
