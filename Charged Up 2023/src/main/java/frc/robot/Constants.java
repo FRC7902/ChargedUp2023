@@ -28,6 +28,7 @@ public final class Constants {
     public final static int SoftwareCurrentLimit = 50;
     public final static double OutputGearRatio = 1.0/10.71;
     public final static double WheelCircumferenceInInches = 6*Math.PI;
+    public final static double DistancePerWheelRotationFeet = WheelCircumferenceInInches*12;
   }
 
   public final static class ArmExtensionConstants{

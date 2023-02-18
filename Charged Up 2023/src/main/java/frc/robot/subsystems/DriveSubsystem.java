@@ -36,6 +36,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   public DriveSubsystem() {
     left.setInverted(true);
+    m_leftEncoder.setPositionConversionFactor(DriveConstants.OutputGearRatio);
+    m_rightEncoder.setPositionConversionFactor(-1*DriveConstants.OutputGearRatio);
 
   }
 
@@ -45,8 +47,8 @@ public class DriveSubsystem extends SubsystemBase {
     if (tester < 50) { //to slow the output for testing purposes
       tester++;
     } else {
-      System.out.println("Position left: " + m_leftEncoder.getPosition() * DriveConstants.OutputGearRatio);
-      System.out.println("Position right: " + m_rightEncoder.getPosition() * DriveConstants.OutputGearRatio);
+      System.out.println("Position left: " + m_leftEncoder.getPosition());
+      System.out.println("Position right: " + m_rightEncoder.getPosition());
       tester = 0;
     }
 
@@ -57,5 +59,12 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+  public RelativeEncoder getLeftEncoder(){
+    return m_leftEncoder;
+  }
+
+  public RelativeEncoder getRightEncoder(){
+    return m_rightEncoder;
   }
 }
