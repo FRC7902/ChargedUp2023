@@ -30,31 +30,25 @@ public final class Constants {
     public final static double WheelCircumferenceInInches = 6*Math.PI;
   }
 
-  public final static class ArmConstants {
-    public final static int ArmExtensionLeaderCAN = 11;
-    public final static int ArmExtensionFollowerCAN = 12;
+  public final static class ArmExtensionConstants{
+    //CAN ID's
+    public final static int ArmExtensionLeaderCAN = 10;
+    public final static int ArmExtensionFollowerCAN = 9;
 
-    // dummies
+    public final static int kSensorUnitsPerRotation = 4096;
+    public final static double kRotationsToTravel = 1;
+  }
+
+  public final static class ArmShoulderConstants {
+
+    //CAN ID's
     public final static int ArmShoulderLeaderCAN = 26; //all dummies
     public final static int ArmShoulderFollowerCAN = 27;//0
+
     public final static double ArmShoulderRotateIn = 0.25; // testing, not final
     public final static double ArmShoulderRotateOut = -0.25; // testing, not final
     public final static double ArmShoulderStop = 0.0; // testing, not final
     public final static double ArmShoulderHold = 0.1; // testing, not final
-
-    public final static int IntakeCAN = 0;
-
-    // dummy variables
-    public final static int ArmSVolts = 0;
-    public final static int ArmGVolts = 0;
-    public final static int ArmVVoltSecondPerRad = 0;
-    public final static int ArmAVoltSecondSquaredPerRad = 0;
-
-    public final static int MaxVelocityRadPerSecond = 0;
-    public final static int MaxAccelerationRadPerSecSquared = 0;
-    public final static int ArmOffsetRads = 0;
-
-    public final static int ArmPosition = 0;
 
 
           /**
@@ -87,6 +81,7 @@ public final class Constants {
      * this does not affect motor invert. 
      */
     public static boolean kMotorInvert = false;
+    public static Object IntakeConstants;
 
     public final static Gains kGains_Distanc = new Gains( 0.1, 0.0,  0.0, 0.0,            100,  0.50 );
     public final static Gains kGains_Turning = new Gains( 2.0, 0.0,  4.0, 0.0,            200,  1.00 );
@@ -103,6 +98,13 @@ public final class Constants {
     public final static int kSlot_Velocit = SLOT_2;
     public final static int kSlot_MotProf = SLOT_3;
     
+  }
+  
+  public static final class IntakeConstants{
+    public final static int IntakeCAN = 4; 
+    public final static double DirectionASpeed = 0.5;
+    public final static double DirectionBSpeed = -0.5;
+
   }
 
   public static final class IOConstants {
@@ -132,10 +134,5 @@ public final class Constants {
         kDY = 7;
 
   }
-
-  public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
-  }
-
   
 }

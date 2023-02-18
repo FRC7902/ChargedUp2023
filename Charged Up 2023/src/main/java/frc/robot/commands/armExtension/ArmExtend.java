@@ -21,7 +21,6 @@ public class ArmExtend extends CommandBase {
     m_armExtension = armExtension;
     m_armExtensionMotor = armShoulderLeader;
     // Use addRequirements() here to declare subsystem dependencies.
-    
   }
 
   // Called when the command is initially scheduled.

@@ -14,7 +14,6 @@ import frc.robot.subsystems.ArmShoulder;
 
 public class RotateIn extends CommandBase {
 
-  //private ArmShoulder m_armShoulder;
   private ArmShoulder m_armShoulder;
   private WPI_TalonSRX m_armMotor;
 
@@ -36,7 +35,7 @@ public class RotateIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //System.out.println("Arm rotating out..");
+    //System.out.println("Arm rotating in..");
 
     //absolute position gets the location of the arm in ticks (4096 per revolution)
     int absolutePosition = m_armMotor.getSensorCollection().getQuadraturePosition();
@@ -45,7 +44,7 @@ public class RotateIn extends CommandBase {
     double deg = (double)absolutePosition/4096 * 360;
 
     System.out.println("POS: " + deg + " " + absolutePosition);
-    double target_sensorUnits = Constants.ArmConstants.kSensorUnitsPerRotation * Constants.ArmConstants.kRotationsToTravel;
+    double target_sensorUnits = Constants.ArmShoulderConstants.kSensorUnitsPerRotation * Constants.ArmShoulderConstants.kRotationsToTravel;
     double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
     
     m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, -1 * adjusted_power);
