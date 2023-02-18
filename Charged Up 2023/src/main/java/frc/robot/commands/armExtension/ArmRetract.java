@@ -33,7 +33,7 @@ public class ArmRetract extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armExtension.setPower(-.35);
+    m_armExtension.setPower(-0.35);
     m_armExtension.position--;
     System.out.println(m_armExtension.position);
     System.out.println(m_armExtension.status);

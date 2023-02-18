@@ -7,6 +7,8 @@ package frc.robot.commands.armExtension;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import frc.robot.Constants;
 import frc.robot.subsystems.ArmExtension;
 
 public class ArmExtend extends CommandBase {
@@ -30,7 +32,7 @@ public class ArmExtend extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armExtension.setPower(.35);
+    m_armExtension.setPower(Constants.ArmExtensionConstants.ArmExtensionRotateOut);
     m_armExtension.position++;
     System.out.println(m_armExtension.position);
     System.out.println(m_armExtension.status);

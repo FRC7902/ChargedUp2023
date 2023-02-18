@@ -44,6 +44,11 @@ public final class Constants {
     public final static double kRotationsToTravel = 6.666;
 
     public final static double ArmExtensionFeedForward = 0.1;
+
+    public final static double ArmExtensionRotateIn = -0.35; // testing, not final
+    public final static double ArmExtensionRotateOut = 0.35; // testing, not final
+
+    
   }
 
   public final static class ArmShoulderConstants {
