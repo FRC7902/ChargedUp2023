@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -36,9 +37,10 @@ public class DriveSubsystem extends SubsystemBase {
 
   public DriveSubsystem() {
     left.setInverted(true);
-    m_leftEncoder.setPositionConversionFactor(DriveConstants.OutputGearRatio);
-    m_rightEncoder.setPositionConversionFactor(-1*DriveConstants.OutputGearRatio);
-
+    m_leftEncoder.setPositionConversionFactor(DriveConstants.OutputGearRatio*DriveConstants.WheelCircumferenceInInches);
+    m_rightEncoder.setPositionConversionFactor(-1*DriveConstants.OutputGearRatio*DriveConstants.WheelCircumferenceInInches);
+    //tells how far you travelled in inches
+    resetEncoders();
   }
 
   double tester = 0; //this is used to prevent the values from flashing too quickly across the screeen
@@ -56,6 +58,11 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
+  public void driveToDistance(double left, double right){
+    m_leftleader.set(DriveConstants.driveRawSpeed*left);
+    m_rightleader.set(DriveConstants.driveRawSpeed*right);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -67,4 +74,11 @@ public class DriveSubsystem extends SubsystemBase {
   public RelativeEncoder getRightEncoder(){
     return m_rightEncoder;
   }
+
+  public void resetEncoders(){
+    m_leftEncoder.setPosition(0);
+    m_rightEncoder.setPosition(0);
+  }
+
+
 }

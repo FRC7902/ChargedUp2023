@@ -29,6 +29,10 @@ public final class Constants {
     public final static double OutputGearRatio = 1.0/10.71;
     public final static double WheelCircumferenceInInches = 6*Math.PI;
     public final static double DistancePerWheelRotationFeet = WheelCircumferenceInInches*12;
+
+    public final static double driveRawSpeed = 0.5; //dummy, this wasn't tested
+
+    //need deadband
   }
 
   public final static class ArmExtensionConstants{
