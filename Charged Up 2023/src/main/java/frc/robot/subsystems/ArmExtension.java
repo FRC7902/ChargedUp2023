@@ -17,8 +17,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 public class ArmExtension extends SubsystemBase {
 
-  public static final WPI_TalonSRX armExtensionLeader = new WPI_TalonSRX(ArmConstants.ArmExtensionLeaderCAN);
-  public static final WPI_VictorSPX armExtensionFollower = new WPI_VictorSPX(ArmConstants.ArmExtensionFollowerCAN);
+  public static final WPI_TalonSRX armExtensionLeader = new WPI_TalonSRX(ArmExtensionConstants.ArmExtensionLeaderCAN);
+  public static final WPI_VictorSPX armExtensionFollower = new WPI_VictorSPX(ArmExtensionConstants.ArmExtensionFollowerCAN);
   
   //position test;
   public int position = 0;

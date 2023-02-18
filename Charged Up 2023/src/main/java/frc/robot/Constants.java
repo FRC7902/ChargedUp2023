@@ -37,7 +37,7 @@ public final class Constants {
     public final static int ArmExtensionFollowerCAN = 9;
 
     public final static int kSensorUnitsPerRotation = 4096;
-    public final static double kRotationsToTravel = 1;
+    public final static double kRotationsToTravel = 6.666;
   }
 
   public final static class ArmShoulderConstants {
