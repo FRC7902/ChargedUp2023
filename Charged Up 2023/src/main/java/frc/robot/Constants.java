@@ -87,6 +87,9 @@ public final class Constants {
 
     public final static int kSensorUnitsPerRotation = 4096;
     public final static double kRotationsToTravel = 0.45;
+  }
+
+  public static class GainConstants{
 
     /**
      * Choose based on what direction you want to be positive,
