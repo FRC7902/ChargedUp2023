@@ -30,7 +30,7 @@ public final class Constants {
     public final static double WheelCircumferenceInInches = 6*Math.PI;
     public final static double DistancePerWheelRotationFeet = WheelCircumferenceInInches*12;
 
-    public final static double driveRawSpeed = 0.5; //dummy, this wasn't tested
+    public final static double DistanceBetweenWheels = 20; //inches
 
     //need deadband
   }

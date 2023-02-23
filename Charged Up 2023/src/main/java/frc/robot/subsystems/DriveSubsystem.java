@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -37,18 +36,25 @@ public class DriveSubsystem extends SubsystemBase {
 
   public DriveSubsystem() {
     left.setInverted(true);
-    m_leftEncoder.setPositionConversionFactor(DriveConstants.OutputGearRatio*DriveConstants.WheelCircumferenceInInches);
-    m_rightEncoder.setPositionConversionFactor(-1*DriveConstants.OutputGearRatio*DriveConstants.WheelCircumferenceInInches);
-    //tells how far you travelled in inches
     resetEncoders();
+    // tells how far you travelled in inches
+    m_leftEncoder
+        .setPositionConversionFactor(DriveConstants.OutputGearRatio * DriveConstants.WheelCircumferenceInInches);
+    m_rightEncoder
+        .setPositionConversionFactor(-1 * DriveConstants.OutputGearRatio * DriveConstants.WheelCircumferenceInInches);
+
   }
 
-  double tester = 0; //this is used to prevent the values from flashing too quickly across the screeen
+  double tester = 0; // this is used to prevent the values from flashing too quickly across the
+                     // screeen
 
   public void driveArcade(double xForward, double zRotation) {
-    if (tester < 50) { //to slow the output for testing purposes
+    if (tester < 50) { // to slow the output for testing purposes
       tester++;
     } else {
+      // Note from Jane: I fear that there may be a bug here. Regardless of whether I
+      // put -1 as the right position conversion factor, it's always negative when
+      // moving forward. Just be aware of this if it can't be fixed.
       System.out.println("Position left: " + m_leftEncoder.getPosition());
       System.out.println("Position right: " + m_rightEncoder.getPosition());
       tester = 0;
@@ -58,24 +64,35 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
-  public void driveRaw(double left, double right){
+  public void driveRaw(double left, double right) {
     m_leftleader.set(left);
     m_rightleader.set(right);
+  }
+
+  public void turnLeft(double amount){ 
+    m_rightleader.set(amount);
+    m_leftleader.set(-amount);
+  }
+
+  public void turnRight(double amount){ 
+    m_rightleader.set(amount);
+    m_rightleader.set(-amount);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public RelativeEncoder getLeftEncoder(){
+
+  public RelativeEncoder getLeftEncoder() {
     return m_leftEncoder;
   }
 
-  public RelativeEncoder getRightEncoder(){
+  public RelativeEncoder getRightEncoder() {
     return m_rightEncoder;
   }
 
-  public void resetEncoders(){
+  public void resetEncoders() {
     m_leftEncoder.setPosition(0);
     m_rightEncoder.setPosition(0);
   }

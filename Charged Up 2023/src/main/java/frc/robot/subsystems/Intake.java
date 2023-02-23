@@ -14,6 +14,7 @@ public class Intake extends SubsystemBase {
 
   public Intake() {
     intakeMotor.setInverted(false);
+    stopMotor();
   }
 
   public void setPower(double power) {
