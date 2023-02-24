@@ -7,24 +7,23 @@ package frc.robot.commands.drive;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants.GainConstants;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class TurnToAngle extends PIDCommand {
+public class TurnToAngleLeft extends PIDCommand {
   /** Creates a new TurnToAngle. */
-  public TurnToAngle(double targetDegrees, DriveSubsystem m_DriveSubsystem) {
+  public TurnToAngleLeft(double targetDegrees, DriveSubsystem m_DriveSubsystem) { 
     super(
-        // The controller that the command will use
         new PIDController(GainConstants.kGains_Turning.kP, GainConstants.kGains_Turning.kI, GainConstants.kGains_Distanc.kD),
-        // This should return the measurement
-        () -> 0,
-        // This should return the setpoint (can also be a constant)
-        () -> 0,
-        // This uses the output
+        //in inches
+        () -> m_DriveSubsystem.getLeftEncoder().getPosition(),
+        // in inches
+        () -> (targetDegrees/360)*(DriveConstants.DistanceBetweenWheels*Math.PI),
         output -> {
-          // Use the output here
-        });
-    // Use addRequirements() here to declare subsystem dependencies.
-    // Configure additional PID options by calling `getController` here.
+          double targetDistanceInInches = DriveConstants.DistanceBetweenWheels*Math.PI;
+          double adjustment = output/(targetDistanceInInches);
+          m_DriveSubsystem.turnLeft(adjustment);
+        }, m_DriveSubsystem);
   }
 
   // Returns true when the command should end.
