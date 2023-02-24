@@ -9,10 +9,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import frc.robot.Constants.IntakeConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Intake extends SubsystemBase {
+public class IntakeSubsystem extends SubsystemBase {
   private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(IntakeConstants.IntakeCAN);
 
-  public Intake() {
+  public IntakeSubsystem() {
     intakeMotor.setInverted(false);
     stopMotor();
   }
