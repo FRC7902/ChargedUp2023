@@ -5,14 +5,16 @@
 package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class directionAOuttake extends CommandBase {
-    private Intake m_intake;
+public class ShootCube extends CommandBase {
+    private IntakeSubsystem m_intake;
 
      /** Creates a new RotateOut. */
-    public directionAOuttake(Intake intake) { 
+    public ShootCube(IntakeSubsystem intake) { 
     m_intake = intake;
   }
 
@@ -26,8 +28,9 @@ public class directionAOuttake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    /* set constant after test 
-    m_intake.setPower(IntakeConstants.DirectionASpeedOut); */
+
+    /* set constant after test */
+    m_intake.setPower(IntakeConstants.DirectionASpeed);
   }
 
   // Called once the command ends or is interrupted.
