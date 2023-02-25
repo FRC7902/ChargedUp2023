@@ -72,8 +72,8 @@ public final class Constants {
   public final static class ArmShoulderConstants {
 
     // CAN ID's
-    public final static int ArmShoulderLeaderCAN = 26; // all dummies
-    public final static int ArmShoulderFollowerCAN = 27;// 0
+    public final static int ArmShoulderLeaderCAN = 4; // all dummies
+    public final static int ArmShoulderFollowerCAN = 12;// 0
 
     public final static double ArmShoulderRotateIn = 0.25; // testing, not final
     public final static double ArmShoulderRotateOut = -0.25; // testing, not final
