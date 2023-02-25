@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import frc.robot.Constants;
 import frc.robot.Constants.ArmExtensionConstants;
 import frc.robot.subsystems.ArmExtension;
 
@@ -35,7 +36,7 @@ public class armExtendToDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armExtension.setPower(ArmExtensionConstants.ArmExtensionExtend);
+    m_armExtension.setPower(ArmExtensionConstants.ArmExtensionExtend, Constants.ArmExtensionConstants.extendedMaxInInches);
     m_armExtension.position++;
     System.out.println(m_armExtension.position);
     System.out.println(m_armExtension.status);

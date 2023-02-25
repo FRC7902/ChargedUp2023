@@ -6,6 +6,8 @@ package frc.robot.commands.teleopCommands.armExtension;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import frc.robot.Constants;
 import frc.robot.subsystems.ArmExtension;
 
 public class ArmHold extends CommandBase {
@@ -31,7 +33,7 @@ public class ArmHold extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armExtension.setPower(m_power);
+    m_armExtension.setPower(m_power, Constants.ArmExtensionConstants.extendedMaxInInches);
     m_armExtension.status = "Off";
     
     // //absolute position gets the location of the arm in ticks (4096 per revolution)
