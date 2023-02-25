@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.autonomousCommands.drive.*;
+import frc.robot.commands.routineCommands.armExtendShoulderToHigh;
 import frc.robot.commands.teleopCommands.armExtension.*;
 import frc.robot.commands.teleopCommands.armshoulder.*;
 import frc.robot.commands.teleopCommands.intake.*;
@@ -97,6 +98,9 @@ public class RobotContainer {
     new JoystickButton(m_operatorStick, Constants.IOConstants.kLB).whileTrue(new directionA(m_intake));//kLB
     new JoystickButton(m_operatorStick, Constants.IOConstants.kRB).whileTrue(new directionB(m_intake));//kRB
     new JoystickButton(m_operatorStick, Constants.IOConstants.kRB).onFalse(new stop(m_intake));//kA
+
+    //ROUTINE BINDINGS
+    //new JoystickButton(m_operatorStick, Constants.IOConstants.kMENU).onTrue(new armExtendShoulderToHigh(m_ArmShoulder, null, m_ArmExtension))
 
   }
 

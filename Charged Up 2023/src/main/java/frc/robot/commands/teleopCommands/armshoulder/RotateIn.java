@@ -47,7 +47,8 @@ public class RotateIn extends CommandBase {
     System.out.println("POS: " + deg + " " + absolutePosition);
     double target_sensorUnits = Constants.ArmShoulderConstants.kSensorUnitsPerRotation * Constants.ArmShoulderConstants.kRotationsToTravel;
     double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
-    
+    adjusted_power *= Constants.ArmShoulderConstants.ArmShoulderRotatePower;
+
     if(m_armShoulder.atZeroPos()){
       m_armShoulder.set(ControlMode.Position, 0);
     } else {

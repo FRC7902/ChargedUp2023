@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ArmShoulderConstants;
 import frc.robot.subsystems.ArmShoulder;
 
@@ -47,6 +48,7 @@ public class armShoulderRotateToAngle extends CommandBase {
 
       double target_sensorUnits = ArmShoulderConstants.kSensorUnitsPerRotation * maxAnglePercentage;
       double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
+      adjusted_power *= Constants.ArmShoulderConstants.ArmShoulderRotatePower;
       adjusted_power *= m_direction;
       m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, adjusted_power);    
 
