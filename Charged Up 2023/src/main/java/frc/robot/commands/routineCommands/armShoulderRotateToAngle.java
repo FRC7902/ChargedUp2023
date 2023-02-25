@@ -17,12 +17,14 @@ public class armShoulderRotateToAngle extends CommandBase {
   private ArmShoulder m_armShoulder;
   private WPI_TalonSRX m_armMotor;
   private double m_maxAngle;
+  private int m_direction;
 
   /** Creates a new RotateOut. */
-  public armShoulderRotateToAngle(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader, double maxAngle) { 
+  public armShoulderRotateToAngle(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader, double maxAngle, int direction) { 
     m_armShoulder = armShoulder;
     m_armMotor = armShoulderLeader;
     m_maxAngle = maxAngle;
+    m_direction = direction;
 
     //addRequirements(armShoulder);
   }
@@ -45,7 +47,7 @@ public class armShoulderRotateToAngle extends CommandBase {
 
       double target_sensorUnits = ArmShoulderConstants.kSensorUnitsPerRotation * maxAnglePercentage;
       double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
-      
+      adjusted_power *= m_direction;
       m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, adjusted_power);    
 
   }
