@@ -68,9 +68,10 @@ public final class Constants {
     public final static double ArmShoulderRotateIn = 0.25; // testing, not final
     public final static double ArmShoulderRotateOut = -0.25; // testing, not final
     public final static double ArmShoulderStop = 0.0; // testing, not final
-    public final static double ArmShoulderFeedForwardMin = 0.75; // testing, not final
+    public final static double ArmShoulderFeedForwardMin = 0.075; // testing, not final
     public final static double ArmShoulderFeedForwardMax = 0.12; // testing, not final
     public final static double EncoderToOutputRatio = 0.5;
+    public final static double restDegreesFromHorizontal = 75;
 
     /**
      * Which PID slot to pull gains from. Starting 2018, you can choose from

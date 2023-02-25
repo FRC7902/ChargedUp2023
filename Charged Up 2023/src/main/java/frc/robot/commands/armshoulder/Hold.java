@@ -42,6 +42,8 @@ public class Hold extends CommandBase {
     //convert from ticks to degrees
     double deg = (double)absolutePosition/4096 * 360;
 
+    deg -= Constants.ArmShoulderConstants.restDegreesFromHorizontal;
+
     double power = m_minFeedForward + ((m_maxFeedForward - m_minFeedForward) * Math.cos(deg));
     m_armShoulder.setPower(power);
 
