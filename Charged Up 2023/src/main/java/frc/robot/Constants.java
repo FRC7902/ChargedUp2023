@@ -68,7 +68,8 @@ public final class Constants {
     public final static double ArmShoulderRotateIn = 0.25; // testing, not final
     public final static double ArmShoulderRotateOut = -0.25; // testing, not final
     public final static double ArmShoulderStop = 0.0; // testing, not final
-    public final static double ArmShoulderFeedForward = 0.1; // testing, not final
+    public final static double ArmShoulderFeedForwardMin = 0.75; // testing, not final
+    public final static double ArmShoulderFeedForwardMax = 0.12; // testing, not final
     public final static double EncoderToOutputRatio = 0.5;
 
     /**
