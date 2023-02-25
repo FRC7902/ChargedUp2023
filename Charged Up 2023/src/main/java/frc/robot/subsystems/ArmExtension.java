@@ -23,6 +23,7 @@ public class ArmExtension extends SubsystemBase {
   private final WPI_VictorSPX armExtensionFollower = new WPI_VictorSPX(ArmExtensionConstants.ArmExtensionFollowerCAN);
   private final Encoder extensionEncoder = new Encoder(ArmExtensionConstants.kEncoderA,ArmExtensionConstants.kEncoderB);
   //This encoder connects directly back to 0 and 1 on the roboRIO
+  public double percentExtension;
 
   //Limit Switch
   DigitalInput retractionLimitSwitch = new DigitalInput(ArmExtensionConstants.ZeroPosLimitSwitchDIO);
@@ -48,8 +49,15 @@ public class ArmExtension extends SubsystemBase {
   }
 
   public void setPower(double power) {
+    percentExtension = extensionEncoder.getDistance()/ArmExtensionConstants.extendedMaxInInches;
+
+
     armExtensionLeader.set(power);
     if(power > 0){
+      if(percentExtension >= 1){
+        armExtensionLeader.set(0);
+        System.out.println("Fully extended.");
+      }
       status = "Extending...";
 
     }else if(power < 0){

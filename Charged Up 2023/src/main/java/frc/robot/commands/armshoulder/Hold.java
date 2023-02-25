@@ -7,20 +7,23 @@ package frc.robot.commands.armshoulder;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.ArmExtension;
 import frc.robot.subsystems.ArmShoulder;
 
 public class Hold extends CommandBase {
 
   //private ArmShoulder m_armShoulder;
   private ArmShoulder m_armShoulder;
+  private ArmExtension m_ArmExtension;
   private WPI_TalonSRX m_armMotor;
   private double m_minFeedForward = Constants.ArmShoulderConstants.ArmShoulderFeedForwardMin;
   private double m_maxFeedForward = Constants.ArmShoulderConstants.ArmShoulderFeedForwardMax;
 
   /** Creates a new RotateOut. */
-  public Hold(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader) { 
+  public Hold(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader, ArmExtension armExtension) { 
     m_armShoulder = armShoulder;
     m_armMotor = armShoulderLeader;
+    m_ArmExtension = armExtension;
     //addRequirements(armShoulder);
   }
 
@@ -44,7 +47,7 @@ public class Hold extends CommandBase {
 
     deg -= Constants.ArmShoulderConstants.restDegreesFromHorizontal;
 
-    double power = m_minFeedForward + ((m_maxFeedForward - m_minFeedForward) * Math.cos(deg));
+    double power = (m_minFeedForward + ((m_maxFeedForward - m_minFeedForward) * m_ArmExtension.percentExtension) * Math.cos(deg));
     m_armShoulder.setPower(power);
 
     System.out.println("POS: " + deg + " " + absolutePosition);

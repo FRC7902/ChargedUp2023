@@ -48,6 +48,8 @@ public final class Constants {
     public final static double ArmExtensionExtend = 0.35; // testing, not final
     public final static double ArmExtensionRetract = -0.35; // testing, not final
 
+    public final static double extendedMaxInInches = 30; //dummy variable
+
     public final static int EncoderCPR = 8192; 
     public static final int kEncoderA = 0;
     public static final int kEncoderB = 1;
