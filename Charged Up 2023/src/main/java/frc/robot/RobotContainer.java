@@ -12,13 +12,10 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-
-//command imports
-import frc.robot.commands.armshoulder.*;
-import frc.robot.commands.intake.*;
-import frc.robot.commands.armExtension.*;
-import frc.robot.commands.drive.*;
-
+import frc.robot.commands.autonomousCommands.drive.*;
+import frc.robot.commands.teleopCommands.armExtension.*;
+import frc.robot.commands.teleopCommands.armshoulder.*;
+import frc.robot.commands.teleopCommands.intake.*;
 //subsystem imports
 import frc.robot.subsystems.*;
 
