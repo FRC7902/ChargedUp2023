@@ -19,7 +19,7 @@ public class TurnToAngleRight extends PIDCommand {
     super(
       new PIDController(GainConstants.kGains_Turning.kP, GainConstants.kGains_Turning.kI, GainConstants.kGains_Distanc.kD),
       //in inches
-      () -> m_DriveSubsystem.getRightEncoder().getPosition(),
+      () -> (-1)*m_DriveSubsystem.getRightEncoder().getPosition(),
       // in inches
       () -> (targetDegrees/360)*(DriveConstants.DistanceBetweenWheels*Math.PI),
       output -> {
