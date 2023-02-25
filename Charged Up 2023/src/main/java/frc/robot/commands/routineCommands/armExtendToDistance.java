@@ -15,11 +15,13 @@ import frc.robot.subsystems.ArmExtension;
 
 public class armExtendToDistance extends CommandBase {
   private ArmExtension m_armExtension;
+  private double m_distance;
   
   // private WPI_TalonSRX m_armExtensionMotor;
 
   /** Creates a new ArmExtend. */
-  public armExtendToDistance(ArmExtension armExtension) {
+  public armExtendToDistance(ArmExtension armExtension, double distance) {
+    m_distance = distance;
     m_armExtension = armExtension;
     m_armExtension.stopMotor();
     addRequirements(armExtension);
@@ -36,19 +38,11 @@ public class armExtendToDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armExtension.setPower(ArmExtensionConstants.ArmExtensionExtend, Constants.ArmExtensionConstants.extendedMaxInInches);
+    m_armExtension.setPower(ArmExtensionConstants.ArmExtensionExtend, m_distance);
     m_armExtension.position++;
     System.out.println(m_armExtension.position);
     System.out.println(m_armExtension.status);
 
-    // int absolutePosition = m_armExtensionMotor.getSensorCollection().getQuadraturePosition();
-    // //convert from ticks to degrees
-    // double deg = (double)absolutePosition/4096 * 360;
-    // System.out.println("POS: " + deg + " " + absolutePosition);
-    // double target_sensorUnits = Constants.ArmConstants.kSensorUnitsPerRotation * Constants.ArmConstants.kRotationsToTravel;
-    // double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
-    
-    // m_armExtension.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, adjusted_power);
   }
 
   // Called once the command ends or is interrupted.
