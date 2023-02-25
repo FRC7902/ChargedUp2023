@@ -15,8 +15,6 @@ import frc.robot.Constants;
 import frc.robot.Constants.ArmShoulderConstants;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-
 public class ArmShoulder {
   // extends TrapezoidProfileSubsystem
   public final static WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmShoulderConstants.ArmShoulderLeaderCAN);
@@ -26,7 +24,6 @@ public class ArmShoulder {
 
   // Need limit switch
 
-
   /** Creates a new ArmSubsystem. */
   public ArmShoulder() {
     armShoulderFollower.follow(armShoulderLeader);
@@ -35,18 +32,16 @@ public class ArmShoulder {
 
     armShoulderLeader.config_kP(Constants.GainConstants.kSlot_Distanc, Constants.GainConstants.kGains_Distanc.kP,
         Constants.ArmShoulderConstants.kTimeoutMs);
-    // armShoulderLeader.setPID(Constants.ArmConstants.kGains_Distanc.kP,
-    // Constants.ArmConstants.kGains_Distanc.kI,
-    // Constants.ArmConstants.kGains_Distanc.kD);
-    /* Motion Magic Configurations */
     armShoulderLeader.configMotionAcceleration(2000, Constants.ArmShoulderConstants.kTimeoutMs);
     armShoulderLeader.configMotionCruiseVelocity(2000, Constants.ArmShoulderConstants.kTimeoutMs);
 
-    //Encoder
-    armShoulderLeader.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.ArmShoulderConstants.kTimeoutMs);
-    
-    //limit switch
-    armShoulderLeader.configReverseLimitSwitchSource(LimitSwitchSource.RemoteTalonSRX, LimitSwitchNormal.NormallyClosed);
+    // Encoder
+    armShoulderLeader.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Relative, 0,
+        Constants.ArmShoulderConstants.kTimeoutMs);
+
+    // limit switch
+    armShoulderLeader.configReverseLimitSwitchSource(LimitSwitchSource.RemoteTalonSRX,
+        LimitSwitchNormal.NormallyClosed);
   }
 
   public void setPower(double power) {
@@ -54,13 +49,21 @@ public class ArmShoulder {
 
   }
 
-  //need configure the 2:1 ratio
+  // need configure the 2:1 ratio
 
   public void set(ControlMode mode, double demand0, DemandType demand1Type, double demand1) {
-    System.out.println(armShoulderLeader.getSelectedSensorPosition()); //needs testing
+    System.out.println(armShoulderLeader.getSelectedSensorPosition()); // needs testing
     armShoulderLeader.set(mode, demand0, demand1Type, demand1);
 
     // if statements needed for testing
+  }
+
+  public void set(ControlMode mode, double value){
+    armShoulderLeader.set(mode, value);
+  }
+
+  public boolean atZeroPos(){
+    return armShoulderLeader.isRevLimitSwitchClosed() == 0; //switch is open
   }
 
   public void stopMotor() {

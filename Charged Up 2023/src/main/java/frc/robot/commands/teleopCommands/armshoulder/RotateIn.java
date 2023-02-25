@@ -43,11 +43,17 @@ public class RotateIn extends CommandBase {
     //convert from ticks to degrees
     double deg = (double)absolutePosition/4096 * 360;
 
+
     System.out.println("POS: " + deg + " " + absolutePosition);
     double target_sensorUnits = Constants.ArmShoulderConstants.kSensorUnitsPerRotation * Constants.ArmShoulderConstants.kRotationsToTravel;
     double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
     
-    m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, -1 * adjusted_power);
+    if(m_armShoulder.atZeroPos()){
+      m_armShoulder.set(ControlMode.Position, 0);
+    } else {
+      m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, -1 * adjusted_power);
+    }
+    
 
 
     // if(deg < 90 || (deg > 350 && deg < 360)){//deg < 180

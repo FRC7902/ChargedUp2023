@@ -41,7 +41,7 @@ public class RobotContainer {
 
   //THE FIRST CONTOLLER PLUGGED IN CONTROLS THE DRIVETRAIN, THE SECOND CONTROLLER PLUGGED IN CONTROLS THE ARM/INTAKE
   private final Joystick m_driverStick = new Joystick(Constants.IOConstants.kDriverStick);
-  private final XboxController m_driverController = new XboxController(Constants.IOConstants.kDriverStick);//should be kOperatorStick
+  private final XboxController m_operatorStick = new XboxController(Constants.IOConstants.kOperatorStick);//should be kOperatorStick
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -75,19 +75,19 @@ public class RobotContainer {
   private void configureBindings() {
     //need recalibration
     //SHOULDER BINDINGS
-    new JoystickButton(m_driverController, Constants.IOConstants.kA).whileTrue(new RotateOut(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kA
-    new JoystickButton(m_driverController, Constants.IOConstants.kB).whileTrue(new RotateIn(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kB
-    new JoystickButton(m_driverController, Constants.IOConstants.kA).onFalse(new Hold(m_ArmShoulder, ArmShoulder.armShoulderLeader, m_ArmExtension));//kA
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kA).whileTrue(new RotateOut(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kA
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kB).whileTrue(new RotateIn(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kB
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kA).onFalse(new Hold(m_ArmShoulder, ArmShoulder.armShoulderLeader, m_ArmExtension));//kA
     
     //EXTENSION BINDINGS
-    new JoystickButton(m_driverController, Constants.IOConstants.kY).whileTrue(new ArmExtend(m_ArmExtension)); //kY
-    new JoystickButton(m_driverController, Constants.IOConstants.kX).whileTrue(new ArmRetract(m_ArmExtension)); //kX
-    new JoystickButton(m_driverController, Constants.IOConstants.kY).onFalse(new ArmHold(m_ArmExtension, Constants.ArmExtensionConstants.ArmExtensionFeedForward));//kY
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kY).whileTrue(new ArmExtend(m_ArmExtension)); //kY
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kX).whileTrue(new ArmRetract(m_ArmExtension)); //kX
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kY).onFalse(new ArmHold(m_ArmExtension, Constants.ArmExtensionConstants.ArmExtensionFeedForward));//kY
     
     //INTAKE BINDINGS
-    new JoystickButton(m_driverController, Constants.IOConstants.kLB).whileTrue(new directionA(m_intake));//kLB
-    new JoystickButton(m_driverController, Constants.IOConstants.kRB).whileTrue(new directionB(m_intake));//kRB
-    new JoystickButton(m_driverController, Constants.IOConstants.kRB).onFalse(new stop(m_intake));//kA
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kLB).whileTrue(new directionA(m_intake));//kLB
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kRB).whileTrue(new directionB(m_intake));//kRB
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kRB).onFalse(new stop(m_intake));//kA
 
   }
 
