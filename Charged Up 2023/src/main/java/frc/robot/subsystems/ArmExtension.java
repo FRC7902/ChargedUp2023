@@ -54,6 +54,7 @@ public class ArmExtension extends SubsystemBase {
 
     }else if(power < 0){
       if(retractionLimitSwitch.get()){ //WARNING: NOT TESTED IF TRUE = OPEN AND FALSE = CLOSED, OR VICE VERSA
+        System.out.println("Hit retraction limit switch");
         armExtensionLeader.set(0); //retraction limit switch is hit so speed is 0
       }
       status = "Retracting...";
