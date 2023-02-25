@@ -48,8 +48,8 @@ public class ArmExtension extends SubsystemBase {
   //     armExtensionLeader.configMotionCruiseVelocity(2000, Constants.ArmConstants.kTimeoutMs);
   }
 
-  public void setPower(double power) {
-    percentExtension = extensionEncoder.getDistance()/ArmExtensionConstants.extendedMaxInInches;
+  public void setPower(double power, double extensionDistanceInInches) {
+    percentExtension = extensionEncoder.getDistance()/extensionDistanceInInches;
 
 
     armExtensionLeader.set(power);

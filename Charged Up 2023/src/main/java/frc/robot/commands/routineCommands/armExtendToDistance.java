@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.teleopCommands.armExtension;
+package frc.robot.commands.routineCommands;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -12,13 +12,13 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants.ArmExtensionConstants;
 import frc.robot.subsystems.ArmExtension;
 
-public class ArmExtend extends CommandBase {
+public class armExtendToDistance extends CommandBase {
   private ArmExtension m_armExtension;
   
   // private WPI_TalonSRX m_armExtensionMotor;
 
   /** Creates a new ArmExtend. */
-  public ArmExtend(ArmExtension armExtension) {
+  public armExtendToDistance(ArmExtension armExtension) {
     m_armExtension = armExtension;
     m_armExtension.stopMotor();
     addRequirements(armExtension);
@@ -35,7 +35,7 @@ public class ArmExtend extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armExtension.setPower(ArmExtensionConstants.ArmExtensionExtend, ArmExtensionConstants.extendedMaxInInches);
+    m_armExtension.setPower(ArmExtensionConstants.ArmExtensionExtend);
     m_armExtension.position++;
     System.out.println(m_armExtension.position);
     System.out.println(m_armExtension.status);

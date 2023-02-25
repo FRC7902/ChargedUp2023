@@ -35,6 +35,11 @@ public final class Constants {
     // need deadband
   }
 
+
+  public final static class armShoulderRoutineConstants{
+    public final static double shoulderExtendToHighAngle = 100;//dummy
+  }
+
   public final static class ArmExtensionConstants {
     // CAN ID's
     public final static int ArmExtensionLeaderCAN = 10;

@@ -33,7 +33,7 @@ public class ArmRetract extends CommandBase {
   @Override
   public void execute() {
 
-    m_armExtension.setPower(Constants.ArmExtensionConstants.ArmExtensionRetract);
+    m_armExtension.setPower(Constants.ArmExtensionConstants.ArmExtensionRetract, ArmExtensionConstants.extendedMaxInInches);
     m_armExtension.position--;
     System.out.println(m_armExtension.position);
     System.out.println(m_armExtension.status);
