@@ -6,14 +6,14 @@ package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.IntakeSubsystem;
 
 public class stop extends CommandBase {
 
-  private Intake m_intake;
+  private IntakeSubsystem m_intake;
 
   /** Creates a new RotateOut. */
-  public stop(Intake intake) { 
+  public stop(IntakeSubsystem intake) { 
     m_intake = intake;
   }
 

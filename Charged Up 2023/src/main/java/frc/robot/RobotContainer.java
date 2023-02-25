@@ -36,7 +36,7 @@ public class RobotContainer {
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   private final ArmShoulder m_ArmShoulder = new ArmShoulder();
   private final ArmExtension m_ArmExtension = new ArmExtension();
-  private final Intake m_intake = new Intake();
+  private final IntakeSubsystem m_intake = new IntakeSubsystem();
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 

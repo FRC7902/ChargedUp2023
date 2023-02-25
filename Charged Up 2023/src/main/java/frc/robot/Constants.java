@@ -119,7 +119,6 @@ public final class Constants {
     public final static int IntakeCAN = 4; 
     public final static double DirectionASpeed = 0.5;
     public final static double DirectionBSpeed = -0.5;
-    // public final static double Direct
 
   }
 
