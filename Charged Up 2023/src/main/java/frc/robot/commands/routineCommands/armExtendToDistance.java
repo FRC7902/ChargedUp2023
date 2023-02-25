@@ -16,12 +16,14 @@ import frc.robot.subsystems.ArmExtension;
 public class armExtendToDistance extends CommandBase {
   private ArmExtension m_armExtension;
   private double m_distance;
+  private int m_direction;
   
   // private WPI_TalonSRX m_armExtensionMotor;
 
   /** Creates a new ArmExtend. */
-  public armExtendToDistance(ArmExtension armExtension, double distance) {
+  public armExtendToDistance(ArmExtension armExtension, double distance, int direction) {
     m_distance = distance;
+    m_direction = direction;
     m_armExtension = armExtension;
     m_armExtension.stopMotor();
     addRequirements(armExtension);
@@ -38,7 +40,7 @@ public class armExtendToDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armExtension.setPower(ArmExtensionConstants.ArmExtensionExtend, m_distance);
+    m_armExtension.setPower(m_direction*ArmExtensionConstants.ArmExtensionPower, m_distance);
     m_armExtension.position++;
     System.out.println(m_armExtension.position);
     System.out.println(m_armExtension.status);

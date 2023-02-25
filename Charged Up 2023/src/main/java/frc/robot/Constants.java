@@ -38,6 +38,7 @@ public final class Constants {
 
   public final static class armShoulderRoutineConstants{
     public final static double shoulderExtendToHighAngle = 100;//dummy
+    public final static double shoulderRetractToLowAngle = 0;//dummy
   }
 
   public final static class ArmExtensionConstants {
@@ -50,10 +51,12 @@ public final class Constants {
 
     public final static double ArmExtensionFeedForward = 0.1;
 
-    public final static double ArmExtensionExtend = 0.35; // testing, not final
-    public final static double ArmExtensionRetract = -0.35; // testing, not final
+    // public final static double ArmExtensionExtend = 0.35; // testing, not final
+    // public final static double ArmExtensionRetract = -0.35; // testing, not final
+    public final static double ArmExtensionPower = 0.35;
 
     public final static double extendedMaxInInches = 30; //dummy variable
+    public final static double extendedMinInInches = 0; //dummy variable
 
     public final static int EncoderCPR = 8192; 
     public static final int kEncoderA = 0;
