@@ -7,11 +7,15 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants;
 import frc.robot.Constants.ArmShoulderConstants;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class ArmShoulder {
   // extends TrapezoidProfileSubsystem
@@ -21,6 +25,7 @@ public class ArmShoulder {
   // Encoder
 
   // Need limit switch
+
 
   /** Creates a new ArmSubsystem. */
   public ArmShoulder() {
@@ -36,15 +41,20 @@ public class ArmShoulder {
     /* Motion Magic Configurations */
     armShoulderLeader.configMotionAcceleration(2000, Constants.ArmShoulderConstants.kTimeoutMs);
     armShoulderLeader.configMotionCruiseVelocity(2000, Constants.ArmShoulderConstants.kTimeoutMs);
-    //Sets the encoder, apparently. I'm not sure how to zero it though.
+
+    //Encoder
     armShoulderLeader.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Relative, 0, Constants.ArmShoulderConstants.kTimeoutMs);
-  
+    
+    //limit switch
+    armShoulderLeader.configReverseLimitSwitchSource(LimitSwitchSource.RemoteTalonSRX, LimitSwitchNormal.NormallyClosed);
   }
 
   public void setPower(double power) {
     armShoulderLeader.set(power);
 
   }
+
+  //need configure the 2:1 ratio
 
   public void set(ControlMode mode, double demand0, DemandType demand1Type, double demand1) {
     System.out.println(armShoulderLeader.getSelectedSensorPosition()); //needs testing

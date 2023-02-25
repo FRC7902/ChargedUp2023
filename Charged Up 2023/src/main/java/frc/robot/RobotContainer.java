@@ -76,7 +76,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-
+    //need recalibration
     //SHOULDER BINDINGS
     new JoystickButton(m_driverController, Constants.IOConstants.kA).whileTrue(new RotateOut(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kA
     new JoystickButton(m_driverController, Constants.IOConstants.kB).whileTrue(new RotateIn(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kB
