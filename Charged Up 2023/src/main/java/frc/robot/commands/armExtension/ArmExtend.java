@@ -4,22 +4,25 @@
 
 package frc.robot.commands.armExtension;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import frc.robot.Constants;
+import frc.robot.Constants.ArmExtensionConstants;
 import frc.robot.subsystems.ArmExtension;
 
 public class ArmExtend extends CommandBase {
   private ArmExtension m_armExtension;
-  private WPI_TalonSRX m_armExtensionMotor;
+  
+  // private WPI_TalonSRX m_armExtensionMotor;
 
   /** Creates a new ArmExtend. */
-  public ArmExtend(ArmExtension armExtension, WPI_TalonSRX armShoulderLeader) {
+  public ArmExtend(ArmExtension armExtension) {
     m_armExtension = armExtension;
-    m_armExtensionMotor = armShoulderLeader;
-    // Use addRequirements() here to declare subsystem dependencies.
+    m_armExtension.stopMotor();
+    addRequirements(armExtension);
+    // m_armExtensionMotor = armShoulderLeader;
   }
 
   // Called when the command is initially scheduled.
@@ -32,7 +35,7 @@ public class ArmExtend extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armExtension.setPower(Constants.ArmExtensionConstants.ArmExtensionRotateOut);
+    m_armExtension.setPower(ArmExtensionConstants.ArmExtensionExtend);
     m_armExtension.position++;
     System.out.println(m_armExtension.position);
     System.out.println(m_armExtension.status);

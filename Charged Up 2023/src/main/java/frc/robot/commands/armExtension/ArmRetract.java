@@ -14,13 +14,12 @@ import frc.robot.subsystems.ArmExtension;
 
 public class ArmRetract extends CommandBase {
   private ArmExtension m_armExtension;
-  private WPI_TalonSRX m_armExtensionMotor;
+
   /** Creates a new Retract. */
-  public ArmRetract(ArmExtension armExtension, WPI_TalonSRX armShoulderLeader) {
+  public ArmRetract(ArmExtension armExtension) {
     m_armExtension = armExtension;
-    m_armExtensionMotor = armShoulderLeader;
     // Use addRequirements() here to declare subsystem dependencies.
-    
+
   }
 
   // Called when the command is initially scheduled.
@@ -33,23 +32,31 @@ public class ArmRetract extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armExtension.setPower(Constants.ArmExtensionConstants.ArmExtensionRotateIn);
+
+    m_armExtension.setPower(Constants.ArmExtensionConstants.ArmExtensionRetract);
     m_armExtension.position--;
     System.out.println(m_armExtension.position);
     System.out.println(m_armExtension.status);
-    // int absolutePosition = m_armExtensionMotor.getSensorCollection().getQuadraturePosition();
-    // //convert from ticks to degrees
-    // double deg = (double)absolutePosition/4096 * 360;
-    // System.out.println("POS: " + deg + " " + absolutePosition);
-    // double target_sensorUnits = Constants.ArmConstants.kSensorUnitsPerRotation * Constants.ArmConstants.kRotationsToTravel;
-    // double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
-    
-    // m_armExtension.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, -1*adjusted_power);
   }
+
+  // int absolutePosition =
+  // m_armExtensionMotor.getSensorCollection().getQuadraturePosition();
+  // //convert from ticks to degrees
+  // double deg = (double)absolutePosition/4096 * 360;
+  // System.out.println("POS: " + deg + " " + absolutePosition);
+  // double target_sensorUnits = Constants.ArmConstants.kSensorUnitsPerRotation *
+  // Constants.ArmConstants.kRotationsToTravel;
+  // double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) *
+  // 0.0001);
+
+  // m_armExtension.set(ControlMode.Position, target_sensorUnits,
+  // DemandType.ArbitraryFeedForward, -1*adjusted_power);
+  
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
@@ -57,4 +64,3 @@ public class ArmRetract extends CommandBase {
     return false;
   }
 }
-

@@ -19,24 +19,24 @@ package frc.robot;
 public final class Constants {
   public final static class DriveConstants {
 
-    //jane flashed these values into the hardware for now
-    public final static int DrivetrainRightLeaderCAN = 4; 
+    // jane flashed these values into the hardware for now
+    public final static int DrivetrainRightLeaderCAN = 4;
     public final static int DrivetrainRightFollowerCAN = 3;
     public final static int DrivetrainLeftLeaderCAN = 15;
     public final static int DrivetrainLeftFollowerCAN = 16;
 
     public final static int SoftwareCurrentLimit = 50;
-    public final static double OutputGearRatio = 1.0/10.71;
-    public final static double WheelCircumferenceInInches = 6*Math.PI;
-    public final static double DistancePerWheelRotationFeet = WheelCircumferenceInInches*12;
+    public final static double OutputGearRatio = 1.0 / 10.71;
+    public final static double WheelCircumferenceInInches = 6 * Math.PI;
+    public final static double DistancePerWheelRotationFeet = WheelCircumferenceInInches * 12;
 
-    public final static double DistanceBetweenWheels = 20; //inches
+    public final static double DistanceBetweenWheels = 20; // inches
 
-    //need deadband
+    // need deadband
   }
 
-  public final static class ArmExtensionConstants{
-    //CAN ID's
+  public final static class ArmExtensionConstants {
+    // CAN ID's
     public final static int ArmExtensionLeaderCAN = 10;
     public final static int ArmExtensionFollowerCAN = 9;
 
@@ -45,25 +45,33 @@ public final class Constants {
 
     public final static double ArmExtensionFeedForward = 0.1;
 
-    public final static double ArmExtensionRotateIn = -0.35; // testing, not final
-    public final static double ArmExtensionRotateOut = 0.35; // testing, not final
+    public final static double ArmExtensionExtend = 0.35; // testing, not final
+    public final static double ArmExtensionRetract = -0.35; // testing, not final
 
-    
+    public final static int EncoderCPR = 8192; 
+    public static final int kEncoderA = 0;
+    public static final int kEncoderB = 1;
+
+    public static final double kPD = 1.432;
+    public static final double kPC = kPD*Math.PI;
+    public static final int ZeroPosLimitSwitchDIO = 3;
+
+
   }
 
   public final static class ArmShoulderConstants {
 
-    //CAN ID's
-    public final static int ArmShoulderLeaderCAN = 26; //all dummies
-    public final static int ArmShoulderFollowerCAN = 27;//0
+    // CAN ID's
+    public final static int ArmShoulderLeaderCAN = 26; // all dummies
+    public final static int ArmShoulderFollowerCAN = 27;// 0
 
     public final static double ArmShoulderRotateIn = 0.25; // testing, not final
     public final static double ArmShoulderRotateOut = -0.25; // testing, not final
     public final static double ArmShoulderStop = 0.0; // testing, not final
     public final static double ArmShoulderFeedForward = 0.1; // testing, not final
+    public final static double EncoderToOutputRatio = 0.5;
 
-
-          /**
+    /**
      * Which PID slot to pull gains from. Starting 2018, you can choose from
      * 0,1,2 or 3. Only the first two (0,1) are visible in web-based
      * configuration.
@@ -81,7 +89,7 @@ public final class Constants {
      * report to DS if action fails.
      */
     public static final int kTimeoutMs = 30;
-    
+
     /* Choose so that Talon does not report sensor out of phase */
     public static boolean kSensorPhase = true;
 
@@ -89,20 +97,22 @@ public final class Constants {
     public final static double kRotationsToTravel = 0.45;
   }
 
-  public static class GainConstants{
+  public static class GainConstants {
 
     /**
      * Choose based on what direction you want to be positive,
-     * this does not affect motor invert. 
+     * this does not affect motor invert.
      */
     public static boolean kMotorInvert = false;
     public static Object IntakeConstants;
 
-    public final static Gains kGains_Distanc = new Gains( 0.1, 0.0,  0.0, 0.0,100,0.50);
-    public final static Gains kGains_Turning = new Gains( 2.0, 0.0,  4.0, 0.0, 200, 1.00 );
-    public final static Gains kGains_Velocit = new Gains( 0.1, 0.0, 20.0, 1023.0/6800.0, 300, 0.50 );
-    public final static Gains kGains_MotProf = new Gains( 1.0, 0.0,  0.0, 1023.0/6800.0, 400, 1.00 );
-  	/* Firmware currently supports slots [0, 3] and can be used for either PID Set */
+    public final static Gains kGains_Distanc = new Gains(0.1, 0.0, 0.0, 0.0, 100, 0.50);
+    public final static Gains kGains_Turning = new Gains(2.0, 0.0, 4.0, 0.0, 200, 1.00);
+    public final static Gains kGains_Velocit = new Gains(0.1, 0.0, 20.0, 1023.0 / 6800.0, 300, 0.50);
+    public final static Gains kGains_MotProf = new Gains(1.0, 0.0, 0.0, 1023.0 / 6800.0, 400, 1.00);
+    /*
+     * Firmware currently supports slots [0, 3] and can be used for either PID Set
+     */
     public final static int SLOT_0 = 0;
     public final static int SLOT_1 = 1;
     public final static int SLOT_2 = 2;
@@ -112,11 +122,11 @@ public final class Constants {
     public final static int kSlot_Turning = SLOT_1;
     public final static int kSlot_Velocit = SLOT_2;
     public final static int kSlot_MotProf = SLOT_3;
-    
+
   }
-  
-  public static final class IntakeConstants{
-    public final static int IntakeCAN = 4; 
+
+  public static final class IntakeConstants {
+    public final static int IntakeCAN = 4;
     public final static double DirectionASpeed = 0.5;
     public final static double DirectionBSpeed = -0.5;
 
@@ -149,5 +159,5 @@ public final class Constants {
         kDY = 7;
 
   }
-  
+
 }

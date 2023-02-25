@@ -18,7 +18,8 @@ public class ArmShoulder{
     public final static WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmShoulderConstants.ArmShoulderLeaderCAN);
     public final WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(ArmShoulderConstants.ArmShoulderFollowerCAN);
 
-  // Need encoder
+  // Encoder
+
   // Need limit switch
 
   /** Creates a new ArmSubsystem. */

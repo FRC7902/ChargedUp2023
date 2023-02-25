@@ -83,9 +83,9 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Constants.IOConstants.kA).onFalse(new Hold(m_ArmShoulder, ArmShoulder.armShoulderLeader, Constants.ArmShoulderConstants.ArmShoulderFeedForward));//kA
     
     //EXTENSION BINDINGS
-    new JoystickButton(m_driverController, Constants.IOConstants.kY).whileTrue(new ArmExtend(m_ArmExtension, ArmExtension.armExtensionLeader)); //kY
-    new JoystickButton(m_driverController, Constants.IOConstants.kX).whileTrue(new ArmRetract(m_ArmExtension, ArmExtension.armExtensionLeader)); //kX
-    new JoystickButton(m_driverController, Constants.IOConstants.kY).onFalse(new ArmHold(m_ArmExtension, ArmExtension.armExtensionLeader, Constants.ArmExtensionConstants.ArmExtensionFeedForward));//kY
+    new JoystickButton(m_driverController, Constants.IOConstants.kY).whileTrue(new ArmExtend(m_ArmExtension)); //kY
+    new JoystickButton(m_driverController, Constants.IOConstants.kX).whileTrue(new ArmRetract(m_ArmExtension)); //kX
+    new JoystickButton(m_driverController, Constants.IOConstants.kY).onFalse(new ArmHold(m_ArmExtension, Constants.ArmExtensionConstants.ArmExtensionFeedForward));//kY
     
     //INTAKE BINDINGS
     new JoystickButton(m_driverController, Constants.IOConstants.kLB).whileTrue(new directionA(m_intake));//kLB

@@ -11,15 +11,13 @@ import frc.robot.subsystems.ArmExtension;
 public class ArmHold extends CommandBase {
 
   private ArmExtension m_armExtension;
-  private WPI_TalonSRX m_armExtensionMotor;
   private double m_power;
 
 
   /** Creates a new ArmHold. */
-  public ArmHold(ArmExtension armExtension, WPI_TalonSRX armExtensionLeader, double feedForward) {
+  public ArmHold(ArmExtension armExtension,  double feedForward) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_armExtension = armExtension;
-    m_armExtensionMotor = armExtensionLeader;
     m_power = feedForward;
   }
 
