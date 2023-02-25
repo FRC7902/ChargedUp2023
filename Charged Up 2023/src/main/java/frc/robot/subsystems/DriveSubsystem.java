@@ -37,11 +37,12 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {
     left.setInverted(true);
     resetEncoders();
+
     // tells how far you travelled in inches
     m_leftEncoder
         .setPositionConversionFactor(DriveConstants.OutputGearRatio * DriveConstants.WheelCircumferenceInInches);
     m_rightEncoder
-        .setPositionConversionFactor(-1 * DriveConstants.OutputGearRatio * DriveConstants.WheelCircumferenceInInches);
+        .setPositionConversionFactor(DriveConstants.OutputGearRatio * DriveConstants.WheelCircumferenceInInches);
 
   }
 
@@ -55,8 +56,8 @@ public class DriveSubsystem extends SubsystemBase {
       // Note from Jane: I fear that there may be a bug here. Regardless of whether I
       // put -1 as the right position conversion factor, it's always negative when
       // moving forward. Just be aware of this if it can't be fixed.
-      System.out.println("Position left: " + m_leftEncoder.getPosition());
-      System.out.println("Position right: " + m_rightEncoder.getPosition());
+      //System.out.println("Position left: " + m_leftEncoder.getPosition());
+      //System.out.println("Position right: " + (-1)*m_rightEncoder.getPosition());
       tester = 0;
     }
 
@@ -65,18 +66,18 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void driveRaw(double left, double right) {
-    m_leftleader.set(left);
-    m_rightleader.set(right);
+    this.left.set(left);
+    this.right.set(right);
   }
 
   public void turnLeft(double amount){ 
-    m_rightleader.set(amount);
-    m_leftleader.set(-amount);
+    left.set(amount);
+    right.set(-amount);
   }
 
   public void turnRight(double amount){ 
-    m_rightleader.set(amount);
-    m_rightleader.set(-amount);
+    right.set(amount);
+    left.set(-amount);
   }
 
   @Override
