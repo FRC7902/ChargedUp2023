@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.autonomousCommands.drive.*;
 import frc.robot.commands.teleopCommands.armExtension.*;
 import frc.robot.commands.teleopCommands.armshoulder.*;
@@ -35,6 +36,10 @@ public class RobotContainer {
   private final ArmExtension m_ArmExtension = new ArmExtension();
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
 
+  //Auton commands:
+  private final DriveToDistance m_DriveToDistance = new DriveToDistance(2, m_driveSubsystem);
+  private final TurnToAngleLeft m_turnToAngleLeft = new TurnToAngleLeft(30, m_driveSubsystem);
+
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -56,6 +61,10 @@ public class RobotContainer {
                 m_driverStick.getRawAxis(Constants.IOConstants.kRX)),
             m_driveSubsystem));
 
+    //AUTON TESTING
+    m_chooser.setDefaultOption("Drive to Distance", m_DriveToDistance);
+    m_chooser.addOption("Turn 30 degrees left", m_turnToAngleLeft);
+    SmartDashboard.putData(m_chooser);
   }
 
   /**
