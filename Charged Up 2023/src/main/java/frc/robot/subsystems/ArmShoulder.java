@@ -49,10 +49,9 @@ public class ArmShoulder {
 
   }
 
-  // need configure the 2:1 ratio
+  // need configure the encoder 2:1 ratio
 
   public void set(ControlMode mode, double demand0, DemandType demand1Type, double demand1) {
-    System.out.println(armShoulderLeader.getSelectedSensorPosition()); // needs testing
     armShoulderLeader.set(mode, demand0, demand1Type, demand1);
 
     // if statements needed for testing
@@ -60,6 +59,10 @@ public class ArmShoulder {
 
   public void set(ControlMode mode, double value){
     armShoulderLeader.set(mode, value);
+  }
+
+  public double getEncoderPos(){ //needs testing
+    return armShoulderLeader.getSelectedSensorPosition()*2;
   }
 
   public boolean atZeroPos(){
