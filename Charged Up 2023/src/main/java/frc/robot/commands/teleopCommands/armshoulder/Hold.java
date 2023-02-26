@@ -50,7 +50,7 @@ public class Hold extends CommandBase {
 
     double power = (m_minFeedForward + ((m_maxFeedForward - m_minFeedForward) * m_ArmExtension.percentExtension) * Math.cos(deg));
     //m_armShoulder.setPower(power);
-    m_armShoulder.setPower(0.1);
+    m_armShoulder.setPower(0);
 
     count++;
 

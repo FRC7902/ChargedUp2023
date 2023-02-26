@@ -6,6 +6,8 @@ package frc.robot.commands.teleopCommands.armshoulder;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -17,6 +19,7 @@ public class RotateIn extends CommandBase {
   private ArmShoulder m_armShoulder;
   private WPI_TalonSRX m_armMotor;
   int count = 0;
+  int absolutePosition;
 
   /** Creates a new RotateOut. */
   public RotateIn(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader) { 
@@ -38,30 +41,33 @@ public class RotateIn extends CommandBase {
   public void execute() {
     //System.out.println("Arm rotating in..");
 
+    if(m_armShoulder.getLimitSwitch() == 1){
+      System.out.println("LIMIT SWITCH TRIGGERED");
+      m_armMotor.getSensorCollection().setQuadraturePosition(0, 0);
+
+    }
+
     //absolute position gets the location of the arm in ticks (4096 per revolution)
-    int absolutePosition = m_armMotor.getSensorCollection().getQuadraturePosition();
+    double absolutePosition = m_armMotor.getSelectedSensorPosition();
 
     //convert from ticks to degrees
     double deg = (double)absolutePosition/4096 * 360;
 
-    double target_sensorUnits = 0;
-    double adjusted_power = Math.abs(absolutePosition * 0.001);
-    //double target_sensorUnits = Constants.ArmShoulderConstants.kSensorUnitsPerRotation * Constants.ArmShoulderConstants.kRotationsToTravel;
-    //double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
-    adjusted_power *= (-1)*Constants.ArmShoulderConstants.ArmShoulderRotatePower;
+    double target_sensorUnits = 10.00;
+    double adjusted_power = (target_sensorUnits-absolutePosition) * 0.001;
+    adjusted_power *= Constants.ArmShoulderConstants.ArmShoulderRotatePower;
 
     count++;
 
     if(count >= 10){
       System.out.println("ROTATING IN POS: " + deg + " " + absolutePosition);
-      System.out.println(adjusted_power + " " + target_sensorUnits);
+      System.out.println("POWER: " + adjusted_power + " " + m_armShoulder.getFollowerPower() + " " + m_armShoulder.getLeaderPower());
       count = 0;
     }
 
-    //m_armShoulder.setPower(-0.5);
-    m_armShoulder.setPower(adjusted_power);
+    //m_armShoulder.setPower(adjusted_power);
 
-    //m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, adjusted_power);    
+    m_armShoulder.setPosition(target_sensorUnits, adjusted_power);    
 
     // if(m_armShoulder.atZeroPos()){
     //   m_armShoulder.set(ControlMode.Position, 0);

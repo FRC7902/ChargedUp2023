@@ -30,7 +30,6 @@ public class ArmExtension extends SubsystemBase {
 
   
   //position test;
-  public int position = 0; //I think this can be removed, since there's an encoder now
   public String status = "Off";
 
   /** Creates a new ArmExtension. */

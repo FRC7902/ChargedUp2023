@@ -42,7 +42,7 @@ public class Stop extends CommandBase {
     //convert from ticks to degrees
     double deg = (double)absolutePosition/4096 * 360;
 
-    System.out.println("POS: " + deg + " " + absolutePosition);
+    System.out.println("STOPPING");
 
   }
 

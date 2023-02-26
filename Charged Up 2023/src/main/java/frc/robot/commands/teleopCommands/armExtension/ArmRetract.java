@@ -35,8 +35,6 @@ public class ArmRetract extends CommandBase {
   public void execute() {
 
     m_armExtension.setPower(-1*Constants.ArmExtensionConstants.ArmExtensionPower, 0);
-    m_armExtension.position--;
-    System.out.println(m_armExtension.position);
     System.out.println(m_armExtension.status);
   }
 

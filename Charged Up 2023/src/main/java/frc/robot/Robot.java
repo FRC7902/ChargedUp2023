@@ -90,7 +90,7 @@ public class Robot extends TimedRobot {
     count++;
 
     if(count >= 10){
-      System.out.println(m_ArmShoulder.getPower());
+      System.out.println(m_ArmShoulder.getFollowerPower());
       count = 0;
     }
 

@@ -50,7 +50,7 @@ public class armShoulderRotateToAngle extends CommandBase {
       double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
       adjusted_power *= Constants.ArmShoulderConstants.ArmShoulderRotatePower;
       adjusted_power *= m_direction;
-      m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, adjusted_power);    
+      m_armShoulder.setPosition(target_sensorUnits, adjusted_power);    
 
   }
 

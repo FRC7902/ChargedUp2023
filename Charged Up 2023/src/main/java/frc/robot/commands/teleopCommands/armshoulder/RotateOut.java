@@ -6,6 +6,8 @@ package frc.robot.commands.teleopCommands.armshoulder;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -37,27 +39,33 @@ public class RotateOut extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    if(m_armShoulder.getLimitSwitch() == 1){
+      System.out.println("LIMIT SWITCH TRIGGERED");
+      m_armMotor.getSensorCollection().setQuadraturePosition(0, 0);
+
+    }
     //System.out.println("Arm rotating out..");
 
     //absolute position gets the location of the arm in ticks (4096 per revolution)
-    int absolutePosition = m_armMotor.getSensorCollection().getQuadraturePosition();
+    double absolutePosition = m_armMotor.getSelectedSensorPosition();
 
     //convert from ticks to degrees
     double deg = (double)absolutePosition/4096 * 360;
 
       double target_sensorUnits = ArmShoulderConstants.kSensorUnitsPerRotation * ArmShoulderConstants.kRotationsToTravel;
-      double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.001);
+      double adjusted_power = (target_sensorUnits-absolutePosition) * 0.001;
       adjusted_power *= Constants.ArmShoulderConstants.ArmShoulderRotatePower;
 
       count++;
 
       if(count >= 10){
         System.out.println("ROTATING OUT POS: " + deg + " " + absolutePosition);
-        System.out.println(adjusted_power + " " + target_sensorUnits);
+        System.out.println("POWER: " + adjusted_power + " " + m_armShoulder.getFollowerPower() + " " + m_armShoulder.getLeaderPower());
         count = 0;
       }
-      m_armShoulder.setPower(adjusted_power);
-      //m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, adjusted_power);    
+      //m_armShoulder.setPower(adjusted_power);
+      m_armShoulder.setPosition(target_sensorUnits, adjusted_power);    
 
   }
 

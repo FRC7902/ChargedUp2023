@@ -59,12 +59,12 @@ public final class Constants {
     public final static double extendedMinInInches = 0; //dummy variable
 
     public final static int EncoderCPR = 8192; 
-    public static final int kEncoderA = 0;
-    public static final int kEncoderB = 1;
+    public static final int kEncoderA = 8;
+    public static final int kEncoderB = 9;
 
     public static final double kPD = 1.432;
     public static final double kPC = kPD*Math.PI;
-    public static final int ZeroPosLimitSwitchDIO = 3;
+    public static final int ZeroPosLimitSwitchDIO = 7;
 
 
   }
@@ -75,7 +75,7 @@ public final class Constants {
     public final static int ArmShoulderLeaderCAN = 4; // all dummies
     public final static int ArmShoulderFollowerCAN = 12;// 0
 
-    public final static double ArmShoulderRotatePower = 0.1; // testing, not final
+    public final static double ArmShoulderRotatePower = 0.5; // testing, not final
     public final static double ArmShoulderStop = 0.0; // testing, not final
     public final static double ArmShoulderFeedForwardMin = 0.075; // testing, not final
     public final static double ArmShoulderFeedForwardMax = 0.12; // testing, not final

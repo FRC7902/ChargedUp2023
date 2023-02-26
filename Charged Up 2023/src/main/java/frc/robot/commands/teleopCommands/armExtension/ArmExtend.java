@@ -36,8 +36,6 @@ public class ArmExtend extends CommandBase {
   @Override
   public void execute() {
     m_armExtension.setPower(ArmExtensionConstants.ArmExtensionPower, ArmExtensionConstants.extendedMaxInInches);
-    m_armExtension.position++;
-    System.out.println(m_armExtension.position);
     System.out.println(m_armExtension.status);
 
     // int absolutePosition = m_armExtensionMotor.getSensorCollection().getQuadraturePosition();
