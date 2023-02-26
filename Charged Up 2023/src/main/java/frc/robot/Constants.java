@@ -105,7 +105,7 @@ public final class Constants {
     public static boolean kSensorPhase = true;
 
     public final static int kSensorUnitsPerRotation = 4096;
-    public final static double kRotationsToTravel = 0.45;
+    public final static double kRotationsToTravel = 0.35;
   }
 
   public static class GainConstants {
