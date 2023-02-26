@@ -41,8 +41,6 @@ public class armExtendToDistance extends CommandBase {
   @Override
   public void execute() {
     m_armExtension.setPower(m_direction*ArmExtensionConstants.ArmExtensionPower, m_distance);
-    m_armExtension.position++;
-    System.out.println(m_armExtension.position);
     System.out.println(m_armExtension.status);
 
   }

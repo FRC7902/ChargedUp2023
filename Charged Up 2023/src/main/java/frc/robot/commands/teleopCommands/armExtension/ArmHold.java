@@ -33,8 +33,8 @@ public class ArmHold extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armExtension.setPower(m_power, Constants.ArmExtensionConstants.extendedMaxInInches);
-    m_armExtension.status = "Off";
+    System.out.println("Starting retraction");
+    m_armExtension.setPower(m_power, Constants.ArmExtensionConstants.extendedMaxSoftLimitInInches);
     
     // //absolute position gets the location of the arm in ticks (4096 per revolution)
     // int absolutePosition = m_armExtensionMotor.getSensorCollection().getQuadraturePosition();

@@ -20,6 +20,6 @@ public class armExtendShoulderToHigh extends ParallelCommandGroup {
   public armExtendShoulderToHigh(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader, ArmExtension armExtend) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new armShoulderRotateToAngle(armShoulder, armShoulderLeader, Constants.armShoulderRoutineConstants.shoulderExtendToHighAngle, 1), new armExtendToDistance(armExtend, Constants.ArmExtensionConstants.extendedMaxInInches, 1));
+    addCommands(new armShoulderRotateToAngle(armShoulder, armShoulderLeader, Constants.armShoulderRoutineConstants.shoulderExtendToHighAngle, 1), new armExtendToDistance(armExtend, Constants.ArmExtensionConstants.extendedMaxSoftLimitInInches, 1));
   }
 }

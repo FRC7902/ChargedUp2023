@@ -20,6 +20,6 @@ public class armRetractShoulderToLow extends ParallelCommandGroup {
   public armRetractShoulderToLow(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader, ArmExtension armExtend) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new armShoulderRotateToAngle(armShoulder, armShoulderLeader, Constants.armShoulderRoutineConstants.shoulderRetractToLowAngle, -1), new armExtendToDistance(armExtend, Constants.ArmExtensionConstants.extendedMinInInches, -1));
+    addCommands(new armShoulderRotateToAngle(armShoulder, armShoulderLeader, Constants.armShoulderRoutineConstants.shoulderRetractToLowAngle, -1), new armExtendToDistance(armExtend, Constants.ArmExtensionConstants.extendedMinSoftLimitInInches, -1));
   }
 }

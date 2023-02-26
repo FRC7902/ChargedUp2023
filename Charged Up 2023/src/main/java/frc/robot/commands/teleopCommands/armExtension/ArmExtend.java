@@ -35,17 +35,9 @@ public class ArmExtend extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armExtension.setPower(ArmExtensionConstants.ArmExtensionPower, ArmExtensionConstants.extendedMaxInInches);
+    m_armExtension.setPower(ArmExtensionConstants.ArmExtensionPower, ArmExtensionConstants.extendedMaxSoftLimitInInches);
     System.out.println(m_armExtension.status);
-
-    // int absolutePosition = m_armExtensionMotor.getSensorCollection().getQuadraturePosition();
-    // //convert from ticks to degrees
-    // double deg = (double)absolutePosition/4096 * 360;
-    // System.out.println("POS: " + deg + " " + absolutePosition);
-    // double target_sensorUnits = Constants.ArmConstants.kSensorUnitsPerRotation * Constants.ArmConstants.kRotationsToTravel;
-    // double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
     
-    // m_armExtension.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, adjusted_power);
   }
 
   // Called once the command ends or is interrupted.
