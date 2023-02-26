@@ -18,6 +18,7 @@ public class Hold extends CommandBase {
   private WPI_TalonSRX m_armMotor;
   private double m_minFeedForward = Constants.ArmShoulderConstants.ArmShoulderFeedForwardMin;
   private double m_maxFeedForward = Constants.ArmShoulderConstants.ArmShoulderFeedForwardMax;
+  int count = 0;
 
   /** Creates a new RotateOut. */
   public Hold(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader, ArmExtension armExtension) { 
@@ -48,7 +49,15 @@ public class Hold extends CommandBase {
     deg -= Constants.ArmShoulderConstants.restDegreesFromHorizontal;
 
     double power = (m_minFeedForward + ((m_maxFeedForward - m_minFeedForward) * m_ArmExtension.percentExtension) * Math.cos(deg));
-    m_armShoulder.setPower(power);
+    //m_armShoulder.setPower(power);
+    m_armShoulder.setPower(0.1);
+
+    count++;
+
+    if(count >= 10){
+      System.out.println("HOLDING POS: " + deg + " " + absolutePosition);
+      count = 0;
+    }
 
     // System.out.println("POS: " + deg + " " + absolutePosition);
 

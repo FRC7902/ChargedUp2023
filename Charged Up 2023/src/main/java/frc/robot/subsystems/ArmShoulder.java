@@ -13,6 +13,8 @@ import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants;
 import frc.robot.Constants.ArmShoulderConstants;
+import frc.robot.commands.routineCommands.armShoulderRotateToAngle;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 public class ArmShoulder {
@@ -59,6 +61,10 @@ public class ArmShoulder {
 
   public void set(ControlMode mode, double value){
     armShoulderLeader.set(mode, value);
+  }
+
+  public double getPower(){
+    return armShoulderLeader.get();
   }
 
   public double getEncoderPos(){ //needs testing

@@ -17,6 +17,7 @@ public class RotateOut extends CommandBase {
 
   private ArmShoulder m_armShoulder;
   private WPI_TalonSRX m_armMotor;
+  int count = 0;
 
   /** Creates a new RotateOut. */
   public RotateOut(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader) { 
@@ -44,13 +45,19 @@ public class RotateOut extends CommandBase {
     //convert from ticks to degrees
     double deg = (double)absolutePosition/4096 * 360;
 
-    System.out.println("POS: " + deg + " " + absolutePosition);
-
       double target_sensorUnits = ArmShoulderConstants.kSensorUnitsPerRotation * ArmShoulderConstants.kRotationsToTravel;
-      double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
+      double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.001);
       adjusted_power *= Constants.ArmShoulderConstants.ArmShoulderRotatePower;
 
-      m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, adjusted_power);    
+      count++;
+
+      if(count >= 10){
+        System.out.println("ROTATING OUT POS: " + deg + " " + absolutePosition);
+        System.out.println(adjusted_power + " " + target_sensorUnits);
+        count = 0;
+      }
+      m_armShoulder.setPower(adjusted_power);
+      //m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, adjusted_power);    
 
   }
 

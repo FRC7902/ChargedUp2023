@@ -16,6 +16,7 @@ public class RotateIn extends CommandBase {
 
   private ArmShoulder m_armShoulder;
   private WPI_TalonSRX m_armMotor;
+  int count = 0;
 
   /** Creates a new RotateOut. */
   public RotateIn(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader) { 
@@ -43,22 +44,29 @@ public class RotateIn extends CommandBase {
     //convert from ticks to degrees
     double deg = (double)absolutePosition/4096 * 360;
 
-
-    System.out.println("POS: " + deg + " " + absolutePosition);
-    double target_sensorUnits = Constants.ArmShoulderConstants.kSensorUnitsPerRotation * Constants.ArmShoulderConstants.kRotationsToTravel;
-    double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
+    double target_sensorUnits = 0;
+    double adjusted_power = Math.abs(absolutePosition * 0.001);
+    //double target_sensorUnits = Constants.ArmShoulderConstants.kSensorUnitsPerRotation * Constants.ArmShoulderConstants.kRotationsToTravel;
+    //double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
     adjusted_power *= (-1)*Constants.ArmShoulderConstants.ArmShoulderRotatePower;
 
-    if(m_armShoulder.atZeroPos()){
-      m_armShoulder.set(ControlMode.Position, 0);
-    } else {
-      m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, adjusted_power);
+    count++;
+
+    if(count >= 10){
+      System.out.println("ROTATING IN POS: " + deg + " " + absolutePosition);
+      System.out.println(adjusted_power + " " + target_sensorUnits);
+      count = 0;
     }
-    
 
+    //m_armShoulder.setPower(-0.5);
+    m_armShoulder.setPower(adjusted_power);
 
-    // if(deg < 90 || (deg > 350 && deg < 360)){//deg < 180
-    //   m_armShoulder.setPower(ArmConstants.ArmShoulderRotateIn);
+    //m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, adjusted_power);    
+
+    // if(m_armShoulder.atZeroPos()){
+    //   m_armShoulder.set(ControlMode.Position, 0);
+    // } else {
+    //   m_armShoulder.set(ControlMode.Position, target_sensorUnits, DemandType.ArbitraryFeedForward, adjusted_power);
     // }
 
   }

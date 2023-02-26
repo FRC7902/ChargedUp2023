@@ -85,9 +85,9 @@ public class RobotContainer {
   private void configureBindings() {
     //need recalibration
     //SHOULDER BINDINGS
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kA).onFalse(new Hold(m_ArmShoulder, ArmShoulder.armShoulderLeader, m_ArmExtension));//kA
     new JoystickButton(m_operatorStick, Constants.IOConstants.kA).whileTrue(new RotateOut(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kA
     new JoystickButton(m_operatorStick, Constants.IOConstants.kB).whileTrue(new RotateIn(m_ArmShoulder, ArmShoulder.armShoulderLeader));//kB
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kA).onFalse(new Hold(m_ArmShoulder, ArmShoulder.armShoulderLeader, m_ArmExtension));//kA
     
     //EXTENSION BINDINGS
     new JoystickButton(m_operatorStick, Constants.IOConstants.kY).whileTrue(new ArmExtend(m_ArmExtension)); //kY

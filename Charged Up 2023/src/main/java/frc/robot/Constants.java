@@ -43,13 +43,13 @@ public final class Constants {
 
   public final static class ArmExtensionConstants {
     // CAN ID's
-    public final static int ArmExtensionLeaderCAN = 10;
-    public final static int ArmExtensionFollowerCAN = 9;
+    public final static int ArmExtensionLeaderCAN = 11;
+    public final static int ArmExtensionFollowerCAN = 7;
 
     public final static int kSensorUnitsPerRotation = 4096;
     public final static double kRotationsToTravel = 6.666;
 
-    public final static double ArmExtensionFeedForward = 0.1;
+    public final static double ArmExtensionFeedForward = 0.0;
 
     // public final static double ArmExtensionExtend = 0.35; // testing, not final
     // public final static double ArmExtensionRetract = -0.35; // testing, not final
@@ -75,7 +75,7 @@ public final class Constants {
     public final static int ArmShoulderLeaderCAN = 4; // all dummies
     public final static int ArmShoulderFollowerCAN = 12;// 0
 
-    public final static double ArmShoulderRotatePower = 0.5; // testing, not final
+    public final static double ArmShoulderRotatePower = 0.1; // testing, not final
     public final static double ArmShoulderStop = 0.0; // testing, not final
     public final static double ArmShoulderFeedForwardMin = 0.075; // testing, not final
     public final static double ArmShoulderFeedForwardMax = 0.12; // testing, not final
