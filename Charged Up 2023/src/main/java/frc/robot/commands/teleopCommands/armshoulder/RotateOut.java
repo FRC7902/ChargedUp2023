@@ -18,15 +18,13 @@ import frc.robot.subsystems.ArmShoulder;
 public class RotateOut extends CommandBase {
 
   private ArmShoulder m_armShoulder;
-  private WPI_TalonSRX m_armMotor;
-  int count = 0;
+  int count = 0; // counter for print messages
 
   /** Creates a new RotateOut. */
-  public RotateOut(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader) { 
+  public RotateOut(ArmShoulder armShoulder) { 
     m_armShoulder = armShoulder;
-    m_armMotor = armShoulderLeader;
 
-    //addRequirements(armShoulder);
+    addRequirements(armShoulder);
   }
 
   // Called when the command is initially scheduled.
@@ -40,15 +38,11 @@ public class RotateOut extends CommandBase {
   @Override
   public void execute() {
 
-    if(m_armShoulder.getLimitSwitch() == 1){
-      System.out.println("LIMIT SWITCH TRIGGERED");
-      m_armMotor.getSensorCollection().setQuadraturePosition(0, 0);
-
-    }
+  
     //System.out.println("Arm rotating out..");
 
     //absolute position gets the location of the arm in ticks (4096 per revolution)
-    double absolutePosition = m_armMotor.getSelectedSensorPosition();
+    double absolutePosition = m_armShoulder.getPosition();
 
     //convert from ticks to degrees
     double deg = (double)absolutePosition/4096 * 360;
@@ -72,6 +66,7 @@ public class RotateOut extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_armShoulder.stopMotor();
   }
 
   // Returns true when the command should end.

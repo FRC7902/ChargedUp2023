@@ -12,12 +12,10 @@ import frc.robot.subsystems.ArmShoulder;
 public class Stop extends CommandBase {
 
   private ArmShoulder m_armShoulder;
-  private WPI_TalonSRX m_armMotor;
 
   /** Creates a new RotateOut. */
-  public Stop(ArmShoulder armShoulder, WPI_TalonSRX armShoulderLeader) { 
+  public Stop(ArmShoulder armShoulder) { 
     m_armShoulder = armShoulder;
-    m_armMotor = armShoulderLeader;
 
     //addRequirements(armShoulder);
   }
@@ -35,12 +33,6 @@ public class Stop extends CommandBase {
     //System.out.println("Arm rotating out..");
 
     m_armShoulder.setPower(ArmShoulderConstants.ArmShoulderStop);
-
-    //absolute position gets the location of the arm in ticks (4096 per revolution)
-    int absolutePosition = m_armMotor.getSensorCollection().getQuadraturePosition();
-
-    //convert from ticks to degrees
-    double deg = (double)absolutePosition/4096 * 360;
 
     System.out.println("STOPPING");
 

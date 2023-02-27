@@ -70,7 +70,7 @@ public class ArmExtension extends SubsystemBase {
       status = "Extending...";
 
     }else if(power < 0){
-      if(percentExtension >= 1){
+      if(percentExtension <= 1){
         armExtensionLeader.set(0); //retraction limit switch is hit so speed is 0
       }
       System.out.println(extensionEncoder.getDistance());
