@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
+import com.ctre.phoenix.motorcontrol.TalonSRXSimCollection;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants;
 import frc.robot.Constants.ArmShoulderConstants;
@@ -18,6 +19,17 @@ import frc.robot.commands.routineCommands.armShoulderRotateToAngle;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
+import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
+import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
+import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmShoulder extends SubsystemBase {
@@ -25,7 +37,31 @@ public class ArmShoulder extends SubsystemBase {
   private final static WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(
       ArmShoulderConstants.ArmShoulderFollowerCAN);
   private static double targetPosition;
-  // Encoder
+
+
+
+
+  // Arm simulations
+  private final SingleJointedArmSim armSim = new SingleJointedArmSim(DCMotor.getCIM(2),
+      139.78, 6.05, 1, -2, 2, 55, true);
+
+  // Simulation of TalonSRX   
+  private final TalonSRXSimCollection armShoulderLeaderSim = armShoulderLeader.getSimCollection();
+  
+  // Create a Mechanism2d display of an Arm with a fixed ArmTower and moving Arm.
+  private final Mechanism2d m_mech2d = new Mechanism2d(60, 60);
+  private final MechanismRoot2d m_armPivot = m_mech2d.getRoot("ArmPivot", 30, 30);
+  private final MechanismLigament2d m_armTower = m_armPivot.append(new MechanismLigament2d("ArmTower", 30, -90));
+  private final MechanismLigament2d m_arm = m_armPivot.append(
+      new MechanismLigament2d(
+          "Arm",
+          30,
+          Units.radiansToDegrees(armSim.getAngleRads()),
+          6,
+          new Color8Bit(Color.kYellow)));
+
+
+
 
   // Need limit switch
 
@@ -43,6 +79,10 @@ public class ArmShoulder extends SubsystemBase {
     // armShoulderLeader.configMotionCruiseVelocity(2000,
     // Constants.ArmShoulderConstants.kTimeoutMs);
 
+    // Put Mechanism 2d to SmartDashboard
+    SmartDashboard.putData("Arm Sim", m_mech2d);
+    m_armTower.setColor(new Color8Bit(Color.kBlue));
+
     // Encoder
     armShoulderLeader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0,
         0);
@@ -51,11 +91,12 @@ public class ArmShoulder extends SubsystemBase {
     armShoulderLeader.setSensorPhase(true);
 
     // limit switch
-    armShoulderLeader.configReverseLimitSwitchSource(LimitSwitchSource.RemoteTalonSRX,
+    armShoulderLeader.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector,
         LimitSwitchNormal.NormallyOpen);
 
     armShoulderLeader.configForwardLimitSwitchSource(LimitSwitchSource.Deactivated, LimitSwitchNormal.NormallyOpen);
     targetPosition = getPosition();
+
   }
 
   public int getLimitSwitch() {
@@ -115,6 +156,25 @@ public class ArmShoulder extends SubsystemBase {
    */
   int counter = 0;
 
+
+
+
+  @Override
+  public void simulationPeriodic(){
+
+    // In this method, we update our simulation of what our arm is doing
+    // First, we set our "inputs" (voltages)
+
+    armSim.setInput(armShoulderLeaderSim.getMotorOutputLeadVoltage());
+    // Next, we update it. The standard loop time is 20ms.
+    armSim.update(0.020);
+
+    m_arm.setAngle(armSim.getAngleRads());
+    
+    armShoulderLeaderSim.setQuadratureRawPosition(20);
+  }
+
+
   @Override
   public void periodic() {
 
@@ -128,6 +188,9 @@ public class ArmShoulder extends SubsystemBase {
       System.out.println("Current Position: " + currentPosition + "  Target Position: " + targetPosition);
       counter = 0;
 
+      System.out.println ("Simulation output V: " + armShoulderLeaderSim.getMotorOutputLeadVoltage());
+      System.out.println ("Simulation angle: " + armSim.getAngleRads());
+
     } else {
       counter++;
     }
@@ -136,6 +199,9 @@ public class ArmShoulder extends SubsystemBase {
 
     adjusted_power = (targetPosition - currentPosition) * 0.001;
     adjusted_power *= Constants.ArmShoulderConstants.ArmShoulderRotatePower;
+
+    // TODO try motionmagic:
+    // https://v5.docs.ctr-electronics.com/en/stable/ch16_ClosedLoop.html#gravity-offset-arm
     armShoulderLeader.set(ControlMode.Position, targetPosition, DemandType.ArbitraryFeedForward, adjusted_power);
 
     // Position control to current position variable

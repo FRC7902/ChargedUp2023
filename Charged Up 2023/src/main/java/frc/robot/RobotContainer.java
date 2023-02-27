@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.simulation.JoystickSim;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.autonomousCommands.drive.*;
@@ -48,6 +49,8 @@ public class RobotContainer {
   //THE FIRST CONTOLLER PLUGGED IN CONTROLS THE DRIVETRAIN, THE SECOND CONTROLLER PLUGGED IN CONTROLS THE ARM/INTAKE
   private final Joystick m_driverStick = new Joystick(Constants.IOConstants.kDriverStick);
   private final XboxController m_operatorStick = new XboxController(Constants.IOConstants.kOperatorStick);//should be kOperatorStick
+
+  
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
