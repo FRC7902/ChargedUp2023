@@ -106,6 +106,8 @@ public final class Constants {
 
     public final static int kSensorUnitsPerRotation = 4096;
     public final static double kRotationsToTravel = 0.35;
+    public final static double ticksPerDegree = kSensorUnitsPerRotation/360;
+
   }
 
   public static class GainConstants {

@@ -20,10 +20,11 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class ArmShoulder extends SubsystemBase{
-  public final static WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmShoulderConstants.ArmShoulderLeaderCAN);
-  public final static WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(ArmShoulderConstants.ArmShoulderFollowerCAN);
-
+public class ArmShoulder extends SubsystemBase {
+  private final static WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmShoulderConstants.ArmShoulderLeaderCAN);
+  private final static WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(
+      ArmShoulderConstants.ArmShoulderFollowerCAN);
+  private static double targetPosition;
   // Encoder
 
   // Need limit switch
@@ -34,10 +35,13 @@ public class ArmShoulder extends SubsystemBase{
     armShoulderLeader.setInverted(false);
     armShoulderFollower.setInverted(InvertType.FollowMaster);
 
-    // armShoulderLeader.config_kP(Constants.GainConstants.kSlot_Distanc, Constants.GainConstants.kGains_Distanc.kP,
-    //     Constants.ArmShoulderConstants.kTimeoutMs);
-    // armShoulderLeader.configMotionAcceleration(2000, Constants.ArmShoulderConstants.kTimeoutMs);
-    // armShoulderLeader.configMotionCruiseVelocity(2000, Constants.ArmShoulderConstants.kTimeoutMs);
+    // armShoulderLeader.config_kP(Constants.GainConstants.kSlot_Distanc,
+    // Constants.GainConstants.kGains_Distanc.kP,
+    // Constants.ArmShoulderConstants.kTimeoutMs);
+    // armShoulderLeader.configMotionAcceleration(2000,
+    // Constants.ArmShoulderConstants.kTimeoutMs);
+    // armShoulderLeader.configMotionCruiseVelocity(2000,
+    // Constants.ArmShoulderConstants.kTimeoutMs);
 
     // Encoder
     armShoulderLeader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0,
@@ -51,14 +55,12 @@ public class ArmShoulder extends SubsystemBase{
         LimitSwitchNormal.NormallyOpen);
 
     armShoulderLeader.configForwardLimitSwitchSource(LimitSwitchSource.Deactivated, LimitSwitchNormal.NormallyOpen);
-
+    targetPosition = getPosition();
   }
 
-  public int getLimitSwitch(){
+  public int getLimitSwitch() {
     return armShoulderLeader.isRevLimitSwitchClosed();
   }
-
-
 
   public void setPower(double power) {
     armShoulderLeader.set(power);
@@ -73,53 +75,70 @@ public class ArmShoulder extends SubsystemBase{
     // if statements needed for testing
   }
 
-  public void set(ControlMode mode, double value){
+  public void setTargetPosition(double newTargetPosition) {
+    targetPosition = newTargetPosition;
+  }
+
+  public void set(ControlMode mode, double value) {
     armShoulderLeader.set(mode, value);
   }
 
-  public double getFollowerPower(){
+  public double getFollowerPower() {
     return armShoulderFollower.get();
   }
 
-  public double getLeaderPower(){
+  public double getLeaderPower() {
     return armShoulderLeader.get();
   }
 
-  public double getEncoderPos(){ //needs testing
-    return armShoulderLeader.getSelectedSensorPosition()*2;
+  public double getEncoderPos() { // needs testing
+    return armShoulderLeader.getSelectedSensorPosition();
   }
 
-  public boolean atZeroPos(){
-    return armShoulderLeader.isRevLimitSwitchClosed() == 0; //switch is open
+  public boolean atZeroPos() {
+    return armShoulderLeader.isRevLimitSwitchClosed() == 0; // switch is open
   }
 
   public void stopMotor() {
     armShoulderLeader.stopMotor();
   }
 
-  public double getPosition () {
-    //absolute position gets the location of the arm in ticks (4096 per revolution)
+  public double getPosition() {
+    // absolute position gets the location of the arm in ticks (4096 per revolution)
     return armShoulderLeader.getSelectedSensorPosition();
   }
 
   // METHOD - GET NEW POSITION
 
-
-
   /**
    * This function is called periodically during operator control
    */
+  int counter = 0;
 
   @Override
   public void periodic() {
 
-    if(armShoulderLeader.isRevLimitSwitchClosed() == 1){
+    if (armShoulderLeader.isRevLimitSwitchClosed() == 1) {
       System.out.println("LIMIT SWITCH TRIGGERED");
       armShoulderLeader.getSensorCollection().setQuadraturePosition(0, 0);
     }
 
-    // Position control to current position variable
+    double currentPosition = getPosition();
+    if (counter >= 30) {
+      System.out.println("Current Position: " + currentPosition + "  Target Position: " + targetPosition);
+      counter = 0;
 
+    } else {
+      counter++;
+    }
+
+    double adjusted_power;
+
+    adjusted_power = (targetPosition - currentPosition) * 0.001;
+    adjusted_power *= Constants.ArmShoulderConstants.ArmShoulderRotatePower;
+    armShoulderLeader.set(ControlMode.Position, targetPosition, DemandType.ArbitraryFeedForward, adjusted_power);
+
+    // Position control to current position variable
 
   }
 

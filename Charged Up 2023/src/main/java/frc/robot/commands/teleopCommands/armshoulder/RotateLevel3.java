@@ -4,38 +4,39 @@
 
 package frc.robot.commands.teleopCommands.armshoulder;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ArmShoulderConstants;
 import frc.robot.subsystems.ArmShoulder;
 
-public class Stop extends CommandBase {
+public class RotateLevel3 extends CommandBase {
 
   private ArmShoulder m_armShoulder;
+  int count = 0; // counter for print messages
 
   /** Creates a new RotateOut. */
-  public Stop(ArmShoulder armShoulder) { 
+  public RotateLevel3(ArmShoulder armShoulder) { 
     m_armShoulder = armShoulder;
 
-    //addRequirements(armShoulder);
+    addRequirements(armShoulder);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_armShoulder.stopMotor();
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //System.out.println("Arm rotating out..");
-
-    m_armShoulder.setPower(ArmShoulderConstants.ArmShoulderStop);
-
-    System.out.println("STOPPING");
-
+    m_armShoulder.setTargetPosition(Constants.ArmShoulderConstants.kRotationsToTravel * Constants.ArmShoulderConstants.kSensorUnitsPerRotation);
   }
 
   // Called once the command ends or is interrupted.

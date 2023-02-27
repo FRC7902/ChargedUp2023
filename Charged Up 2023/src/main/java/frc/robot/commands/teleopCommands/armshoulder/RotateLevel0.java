@@ -12,17 +12,18 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.Constants.ArmShoulderConstants;
 import frc.robot.subsystems.ArmShoulder;
 
-public class RotateOut extends CommandBase {
+public class RotateLevel0 extends CommandBase {
 
   private ArmShoulder m_armShoulder;
-  int count = 0; // counter for print messages
+  int count = 0;
+
 
   /** Creates a new RotateOut. */
-  public RotateOut(ArmShoulder armShoulder) { 
+  public RotateLevel0(ArmShoulder armShoulder) { 
     m_armShoulder = armShoulder;
+
 
     addRequirements(armShoulder);
   }
@@ -30,37 +31,13 @@ public class RotateOut extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_armShoulder.stopMotor();
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-  
-    //System.out.println("Arm rotating out..");
-
-    //absolute position gets the location of the arm in ticks (4096 per revolution)
-    double absolutePosition = m_armShoulder.getPosition();
-
-    //convert from ticks to degrees
-    double deg = (double)absolutePosition/4096 * 360;
-
-      double target_sensorUnits = ArmShoulderConstants.kSensorUnitsPerRotation * ArmShoulderConstants.kRotationsToTravel;
-      double adjusted_power = (target_sensorUnits-absolutePosition) * 0.001;
-      adjusted_power *= Constants.ArmShoulderConstants.ArmShoulderRotatePower;
-
-      count++;
-
-      if(count >= 10){
-        System.out.println("ROTATING OUT POS: " + deg + " " + absolutePosition);
-        System.out.println("POWER: " + adjusted_power + " " + m_armShoulder.getFollowerPower() + " " + m_armShoulder.getLeaderPower());
-        count = 0;
-      }
-      //m_armShoulder.setPower(adjusted_power);
-      m_armShoulder.setPosition(target_sensorUnits, adjusted_power);    
-
+    m_armShoulder.setTargetPosition(10);
   }
 
   // Called once the command ends or is interrupted.

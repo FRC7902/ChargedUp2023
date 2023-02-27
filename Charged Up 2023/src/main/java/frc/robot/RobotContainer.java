@@ -37,11 +37,6 @@ public class RobotContainer {
   private final ArmExtension m_ArmExtension = new ArmExtension();
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
 
-
-  private final RotateIn m_RotateIn = new RotateIn(m_ArmShoulder);
-  private final RotateOut m_RotateOut = new RotateOut(m_ArmShoulder);
-
-
   //Auton commands:
   private final DriveToDistance m_DriveToDistance = new DriveToDistance(2, m_driveSubsystem);
   private final TurnToAngleLeft m_turnToAngleLeft = new TurnToAngleLeft(30, m_driveSubsystem);
@@ -90,10 +85,8 @@ public class RobotContainer {
   private void configureBindings() {
     //need recalibration
     //SHOULDER BINDINGS
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kA).whileFalse(new Stop(m_ArmShoulder));
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kB).whileFalse(new Stop(m_ArmShoulder));
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kA).whileTrue(new RotateOut(m_ArmShoulder));
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kB).whileTrue(new RotateIn(m_ArmShoulder));
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kA).onTrue(new RotateLevel3(m_ArmShoulder));
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kB).onTrue(new RotateLevel0(m_ArmShoulder));
     
     //EXTENSION BINDINGS
     new JoystickButton(m_operatorStick, Constants.IOConstants.kY).onFalse(new ArmHold(m_ArmExtension, Constants.ArmExtensionConstants.ArmExtensionFeedForward));//kY
