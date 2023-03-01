@@ -30,13 +30,16 @@ public class RotateLevel3 extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_armShoulder.setTargetPosition(Constants.ArmShoulderConstants.kRotationsToTravel * Constants.ArmShoulderConstants.kSensorUnitsPerRotation);
 
+    System.out.println("!!!!!!!!!! LEVEL 3 Triggered");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
+  // TODO try moving these from execute() to initialize() since they only need to be called once
   @Override
   public void execute() {
-    m_armShoulder.setTargetPosition(Constants.ArmShoulderConstants.kRotationsToTravel * Constants.ArmShoulderConstants.kSensorUnitsPerRotation);
+    
   }
 
   // Called once the command ends or is interrupted.

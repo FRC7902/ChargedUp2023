@@ -24,20 +24,22 @@ public class RotateLevel0 extends CommandBase {
   public RotateLevel0(ArmShoulder armShoulder) { 
     m_armShoulder = armShoulder;
 
-
     addRequirements(armShoulder);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_armShoulder.setTargetPosition(10);
+
+    System.out.println("Level 0 Triggered");
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armShoulder.setTargetPosition(10);
+    
   }
 
   // Called once the command ends or is interrupted.

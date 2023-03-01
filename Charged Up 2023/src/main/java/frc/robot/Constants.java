@@ -82,6 +82,10 @@ public final class Constants {
     public final static double EncoderToOutputRatio = 0.5;
     public final static double restDegreesFromHorizontal = 75;
 
+
+    /** SRX Mag Encoder counts per revolution**/
+    public final static int EncoderCPR = 4096;
+
     /**
      * Which PID slot to pull gains from. Starting 2018, you can choose from
      * 0,1,2 or 3. Only the first two (0,1) are visible in web-based
