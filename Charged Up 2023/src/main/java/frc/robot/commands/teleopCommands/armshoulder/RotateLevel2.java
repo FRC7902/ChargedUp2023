@@ -12,16 +12,16 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.Constants.ArmShoulderConstants;
 import frc.robot.subsystems.ArmShoulder;
 
-public class RotateLevel3 extends CommandBase {
+public class RotateLevel2 extends CommandBase {
 
   private ArmShoulder m_armShoulder;
-  int count = 0; // counter for print messages
+  int count = 0;
+
 
   /** Creates a new RotateOut. */
-  public RotateLevel3(ArmShoulder armShoulder) { 
+  public RotateLevel2(ArmShoulder armShoulder) { 
     m_armShoulder = armShoulder;
 
     addRequirements(armShoulder);
@@ -30,13 +30,13 @@ public class RotateLevel3 extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_armShoulder.setTargetPosition(Constants.ArmShoulderConstants.kLevel3EncoderTicks);
+    m_armShoulder.setTargetPosition(Constants.ArmShoulderConstants.kLevel2EncoderTicks);
 
-    System.out.println("!!!!!!!!!! LEVEL 3 Triggered");
+    System.out.println("Level 2 Triggered");
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
-  // TODO try moving these from execute() to initialize() since they only need to be called once
   @Override
   public void execute() {
     
@@ -45,6 +45,7 @@ public class RotateLevel3 extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_armShoulder.stopMotor();
   }
 
   // Returns true when the command should end.

@@ -4,45 +4,40 @@
 
 package frc.robot.commands.teleopCommands.armExtension;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
+import frc.robot.Constants;
 import frc.robot.Constants.ArmExtensionConstants;
 import frc.robot.subsystems.ArmExtension;
 
-public class ArmExtend extends CommandBase {
+public class ExtendLevel1 extends CommandBase {
   private ArmExtension m_armExtension;
-  
-  // private WPI_TalonSRX m_armExtensionMotor;
 
-  /** Creates a new ArmExtend. */
-  public ArmExtend(ArmExtension armExtension) {
+  /** Creates a new Retract. */
+  public ExtendLevel1(ArmExtension armExtension) {
     m_armExtension = armExtension;
-    m_armExtension.stopMotor();
-    addRequirements(armExtension);
-    // m_armExtensionMotor = armShoulderLeader;
+    // Use addRequirements() here to declare subsystem dependencies.
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_armExtension.stopMotor();
-    System.out.println("Starting Extension...");
+    m_armExtension.setTargetPercentExtension(Constants.ArmExtensionConstants.kLevel1Percentage);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armExtension.setPower(ArmExtensionConstants.ArmExtensionPower, ArmExtensionConstants.extendedMaxSoftLimitInInches);
-    System.out.println(m_armExtension.status);
-    
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

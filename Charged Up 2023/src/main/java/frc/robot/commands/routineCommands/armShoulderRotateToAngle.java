@@ -46,7 +46,7 @@ public class armShoulderRotateToAngle extends CommandBase {
     int absolutePosition = m_armMotor.getSensorCollection().getQuadraturePosition();
       double maxAnglePercentage = m_maxAngle/360;
 
-      double target_sensorUnits = ArmShoulderConstants.kSensorUnitsPerRotation * maxAnglePercentage;
+      double target_sensorUnits = ArmShoulderConstants.EncoderCPR * maxAnglePercentage;
       double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) * 0.0001);
       adjusted_power *= Constants.ArmShoulderConstants.ArmShoulderRotatePower;
       adjusted_power *= m_direction;

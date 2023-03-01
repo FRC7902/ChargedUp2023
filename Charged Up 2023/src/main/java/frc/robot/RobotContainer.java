@@ -88,13 +88,17 @@ public class RobotContainer {
   private void configureBindings() {
     //need recalibration
     //SHOULDER BINDINGS
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kA).onTrue(new RotateLevel3(m_ArmShoulder));
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kB).onTrue(new RotateLevel0(m_ArmShoulder));
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kA).onTrue(new RotateLevel0(m_ArmShoulder));
+    // new JoystickButton(m_operatorStick, Constants.IOConstants.kX).onTrue(new RotateLevel1(m_ArmShoulder));
+    // new JoystickButton(m_operatorStick, Constants.IOConstants.kY).onTrue(new RotateLevel2(m_ArmShoulder));
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kB).onTrue(new RotateLevel3(m_ArmShoulder));
     
+
     //EXTENSION BINDINGS
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kY).onFalse(new ArmHold(m_ArmExtension, Constants.ArmExtensionConstants.ArmExtensionFeedForward));//kY
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kY).whileTrue(new ArmExtend(m_ArmExtension)); //kY
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kX).whileTrue(new ArmRetract(m_ArmExtension)); //kX
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kY).onTrue(new ExtendLevel0(m_ArmExtension));
+    // new JoystickButton(m_operatorStick, Constants.IOConstants.kA).onTrue(new ExtendLevel1(m_ArmExtension));    
+    // new JoystickButton(m_operatorStick, Constants.IOConstants.kB).onTrue(new ExtendLevel2(m_ArmExtension));
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kX).onTrue(new ExtendLevel3(m_ArmExtension));
     
     //INTAKE BINDINGS
     new JoystickButton(m_operatorStick, Constants.IOConstants.kRB).onFalse(new stop(m_intake));//kA

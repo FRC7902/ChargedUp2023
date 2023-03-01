@@ -47,7 +47,11 @@ public final class Constants {
     public final static int ArmExtensionFollowerCAN = 7;
 
     public final static int kSensorUnitsPerRotation = 4096;
-    public final static double kRotationsToTravel = 6.666;
+
+    public final static double kLevel0Percentage = 0.01;
+    public final static double kLevel1Percentage = 0.33;
+    public final static double kLevel2Percentage = 0.67;
+    public final static double kLevel3Percentage = 1.0;
 
     public final static double ArmExtensionFeedForward = 0.0;
 
@@ -108,9 +112,16 @@ public final class Constants {
     /* Choose so that Talon does not report sensor out of phase */
     public static boolean kSensorPhase = true;
 
-    public final static int kSensorUnitsPerRotation = 4096;
-    public final static double kRotationsToTravel = 0.35;
-    public final static double ticksPerDegree = kSensorUnitsPerRotation/360;
+    public final static double kLevel0Degrees = 0.0;
+    public final static double kLevel1Degrees = 30.0;
+    public final static double kLevel2Degrees = 60.0;
+    public final static double kLevel3Degrees = 90.0;
+
+    public final static double kLevel0EncoderTicks = (kLevel0Degrees/360) * EncoderCPR;
+    public final static double kLevel1EncoderTicks = (kLevel1Degrees/360) * EncoderCPR;
+    public final static double kLevel2EncoderTicks = (kLevel2Degrees/360) * EncoderCPR;
+    public final static double kLevel3EncoderTicks = (kLevel3Degrees/360) * EncoderCPR;
+    public final static double ticksPerDegree = EncoderCPR/360;
 
   }
 
@@ -143,9 +154,9 @@ public final class Constants {
   }
 
   public static final class IntakeConstants {
-    public final static int IntakeCAN = 4;
+    public final static int IntakeCAN = 4;//DUMMY
     public final static double DirectionASpeed = 0.5;
-    public final static double DirectionBSpeed = -0.5;
+    public final static double DirectionBSpeed = (-1)*DirectionASpeed;
 
   }
 

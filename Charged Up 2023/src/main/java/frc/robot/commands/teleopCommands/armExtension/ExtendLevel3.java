@@ -13,11 +13,11 @@ import frc.robot.Constants;
 import frc.robot.Constants.ArmExtensionConstants;
 import frc.robot.subsystems.ArmExtension;
 
-public class ArmRetract extends CommandBase {
+public class ExtendLevel3 extends CommandBase {
   private ArmExtension m_armExtension;
 
   /** Creates a new Retract. */
-  public ArmRetract(ArmExtension armExtension) {
+  public ExtendLevel3(ArmExtension armExtension) {
     m_armExtension = armExtension;
     // Use addRequirements() here to declare subsystem dependencies.
 
@@ -26,31 +26,13 @@ public class ArmRetract extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_armExtension.stopMotor();
-    System.out.println("Retracting Extension...");
+    m_armExtension.setTargetPercentExtension(Constants.ArmExtensionConstants.kLevel3Percentage);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    m_armExtension.setPower(-1*Constants.ArmExtensionConstants.ArmExtensionPower, Constants.ArmExtensionConstants.extendedMinSoftLimitInInches);
-    System.out.println(m_armExtension.status);
   }
-
-  // int absolutePosition =
-  // m_armExtensionMotor.getSensorCollection().getQuadraturePosition();
-  // //convert from ticks to degrees
-  // double deg = (double)absolutePosition/4096 * 360;
-  // System.out.println("POS: " + deg + " " + absolutePosition);
-  // double target_sensorUnits = Constants.ArmConstants.kSensorUnitsPerRotation *
-  // Constants.ArmConstants.kRotationsToTravel;
-  // double adjusted_power = Math.abs((target_sensorUnits-absolutePosition) *
-  // 0.0001);
-
-  // m_armExtension.set(ControlMode.Position, target_sensorUnits,
-  // DemandType.ArbitraryFeedForward, -1*adjusted_power);
-  
 
   // Called once the command ends or is interrupted.
   @Override
