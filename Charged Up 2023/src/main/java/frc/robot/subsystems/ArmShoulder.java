@@ -104,7 +104,7 @@ public class ArmShoulder extends SubsystemBase {
         0);
 
     armShoulderLeader.setInverted(false);
-    armShoulderLeader.setSensorPhase(false);
+    armShoulderLeader.setSensorPhase(true);
    
 
     // limit switch
