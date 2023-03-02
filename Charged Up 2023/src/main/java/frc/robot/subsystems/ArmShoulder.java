@@ -114,6 +114,8 @@ public class ArmShoulder extends SubsystemBase {
     armShoulderLeader.configForwardLimitSwitchSource(LimitSwitchSource.Deactivated, LimitSwitchNormal.NormallyOpen);
     targetPosition = getPosition();
 
+ 
+
   }
 
   public int getLimitSwitch() {
