@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean
@@ -78,8 +80,12 @@ public final class Constants {
 
     public final static double ArmShoulderRotatePower = 0.5; // testing, not final
     public final static double ArmShoulderStop = 0.0; // testing, not final
-    public final static double ArmShoulderFeedForwardMin = 0.075; // testing, not final
-    public final static double ArmShoulderFeedForwardMax = 0.12; // testing, not final
+    public final static double ArmShoulderFeedForwardMin = 0.12; //final and tested
+    public final static double ArmShoulderFeedForwardMax = 0.22; //final and tested
+    public final static double ArmShoulderFeedForwardDifference = ArmShoulderFeedForwardMax - ArmShoulderFeedForwardMin;
+    public final static double angleAdjustmentDegrees = 71.57;
+    public final static double angleAdjustmentRadians = Units.degreesToRadians(angleAdjustmentDegrees);
+
     public final static double EncoderToOutputRatio = 0.5;
     public final static double restDegreesFromHorizontal = 75;
 
