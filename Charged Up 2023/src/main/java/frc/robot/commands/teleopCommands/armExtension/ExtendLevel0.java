@@ -5,11 +5,6 @@
 package frc.robot.commands.teleopCommands.armExtension;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import frc.robot.Constants;
 import frc.robot.Constants.ArmExtensionConstants;
 import frc.robot.subsystems.ArmExtension;
 
@@ -26,7 +21,7 @@ public class ExtendLevel0 extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_armExtension.setTargetPercentExtension(Constants.ArmExtensionConstants.kLevel0Percentage);
+    m_armExtension.setTargetPercentExtension(ArmExtensionConstants.kLevel0Percentage);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -19,9 +19,8 @@ package frc.robot;
 public final class Constants {
   public final static class DriveConstants {
 
-    // jane flashed these values into the hardware for now
-    public final static int DrivetrainRightLeaderCAN = 4;
-    public final static int DrivetrainRightFollowerCAN = 3;
+    public final static int DrivetrainRightLeaderCAN = 13; 
+    public final static int DrivetrainRightFollowerCAN = 14;
     public final static int DrivetrainLeftLeaderCAN = 15;
     public final static int DrivetrainLeftFollowerCAN = 16;
 
@@ -55,8 +54,6 @@ public final class Constants {
 
     public final static double ArmExtensionFeedForward = 0.0;
 
-    // public final static double ArmExtensionExtend = 0.35; // testing, not final
-    // public final static double ArmExtensionRetract = -0.35; // testing, not final
     public final static double ArmExtensionPower = 0.35;
 
     public final static double extendedMaxSoftLimitInInches = 27;//final and tested
@@ -155,7 +152,7 @@ public final class Constants {
   }
 
   public static final class IntakeConstants {
-    public final static int IntakeCAN = 4;//DUMMY
+    public final static int IntakeCAN = 8; 
     public final static double SuckCubeSpeed = 0.5; //These need testing
     public final static double ShootCubeSpeed = 0.8;
     public final static double SuckConeSpeed = -0.5;

@@ -4,12 +4,8 @@
 
 package frc.robot.commands.routineCommands;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-import frc.robot.Constants;
 import frc.robot.Constants.ArmExtensionConstants;
 import frc.robot.subsystems.ArmExtension;
 
@@ -18,10 +14,10 @@ public class armExtendToDistance extends CommandBase {
   private double m_targetExtension;
 
   /** Creates a new Retract. */
-  public armExtendToDistance(ArmExtension armExtension, double percentExtension) {
+  public armExtendToDistance(ArmExtension armExtension, double lengthInInches) {
     m_armExtension = armExtension;
-    m_targetExtension = percentExtension;
-    addRequirements(armExtension);
+    m_targetExtension = lengthInInches/ArmExtensionConstants.extendedMaxSoftLimitInInches;
+    addRequirements(m_armExtension);
 
   }
 

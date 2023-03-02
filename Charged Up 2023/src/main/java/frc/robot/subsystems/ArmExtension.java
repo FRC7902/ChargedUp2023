@@ -86,7 +86,7 @@ public class ArmExtension extends SubsystemBase {
       extensionEncoder.reset();
     }
 
-    currentPercentExtension = extensionEncoder.getDistance() / ArmExtensionConstants.extendedMaxSoftLimitInInches;
+    currentPercentExtension = getPercentExtension();
 
     double adjusted_power;
 
