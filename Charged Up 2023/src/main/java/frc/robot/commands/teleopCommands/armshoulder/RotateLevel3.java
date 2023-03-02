@@ -4,14 +4,7 @@
 
 package frc.robot.commands.teleopCommands.armshoulder;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
-import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.Constants.ArmShoulderConstants;
 import frc.robot.subsystems.ArmShoulder;
 
@@ -30,7 +23,7 @@ public class RotateLevel3 extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_armShoulder.setTargetPosition(Constants.ArmShoulderConstants.kLevel3EncoderTicks);
+    m_armShoulder.setTargetPosition(ArmShoulderConstants.kLevel3EncoderTicks);
 
     System.out.println("!!!!!!!!!! LEVEL 3 Triggered");
   }

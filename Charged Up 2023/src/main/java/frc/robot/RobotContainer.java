@@ -103,14 +103,14 @@ public class RobotContainer {
     //INTAKE BINDINGS
 
     //Cone stuff (left hand)
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kLB).whileTrue(new SuckCone(m_intake));//kLB
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kLT).whileTrue(new ShootCone(m_intake)); //kLT
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kLB).whileTrue(new suckCone(m_intake));//kLB
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kLT).whileTrue(new shootCone(m_intake)); //kLT
     new JoystickButton(m_operatorStick, Constants.IOConstants.kLB).onFalse(new IntakeStop(m_intake)); //kLB
     new JoystickButton(m_operatorStick, Constants.IOConstants.kLT).onFalse(new IntakeStop(m_intake)); //kLT
 
     //Cube stuff (right hand)
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kRB).whileTrue(new SuckCube(m_intake));//kRB
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kRT).whileTrue(new ShootCone(m_intake)); //kRT
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kRB).whileTrue(new suckCube(m_intake));//kRB
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kRT).whileTrue(new shootCone(m_intake)); //kRT
     new JoystickButton(m_operatorStick, Constants.IOConstants.kRB).onFalse(new IntakeStop(m_intake));//kRB
     new JoystickButton(m_operatorStick, Constants.IOConstants.kRT).onFalse(new IntakeStop(m_intake)); //kRT
 
