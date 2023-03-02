@@ -155,8 +155,11 @@ public final class Constants {
 
   public static final class IntakeConstants {
     public final static int IntakeCAN = 4;//DUMMY
-    public final static double DirectionASpeed = 0.5;
-    public final static double DirectionBSpeed = (-1)*DirectionASpeed;
+    public final static double suckCubeSpeed = 0.5;
+    public final static double shootCubeSpeed = (-1)*suckCubeSpeed;
+    public final static double suckConeSpeed = 0.5;
+    public final static double shootConeSpeed = (-1) * shootConeSpeed;
+
 
   }
 
