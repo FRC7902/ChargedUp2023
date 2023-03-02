@@ -15,39 +15,31 @@ import frc.robot.subsystems.ArmExtension;
 
 public class armExtendToDistance extends CommandBase {
   private ArmExtension m_armExtension;
-  private double m_distance;
-  private int m_direction;
-  
-  // private WPI_TalonSRX m_armExtensionMotor;
+  private double m_targetExtension;
 
-  /** Creates a new ArmExtend. */
-  public armExtendToDistance(ArmExtension armExtension, double distance, int direction) {
-    m_distance = distance;
-    m_direction = direction;
+  /** Creates a new Retract. */
+  public armExtendToDistance(ArmExtension armExtension, double percentExtension) {
     m_armExtension = armExtension;
-    m_armExtension.stopMotor();
+    m_targetExtension = percentExtension;
     addRequirements(armExtension);
-    // m_armExtensionMotor = armShoulderLeader;
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_armExtension.stopMotor();
-    System.out.println("Starting Extension...");
+    m_armExtension.setTargetPercentExtension(m_targetExtension);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armExtension.setPower(m_direction*ArmExtensionConstants.ArmExtensionPower, m_distance);
-    System.out.println(m_armExtension.status);
-
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override

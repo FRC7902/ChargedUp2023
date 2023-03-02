@@ -112,10 +112,11 @@ public final class Constants {
     /* Choose so that Talon does not report sensor out of phase */
     public static boolean kSensorPhase = true;
 
-    public final static double kLevel0Degrees = 0.0;
-    public final static double kLevel1Degrees = 30.0;
-    public final static double kLevel2Degrees = 60.0;
-    public final static double kLevel3Degrees = 90.0;
+    //NEED TO TEST THESE VARIABLES
+    public final static double kLevel0Degrees = 0.0; //off
+    public final static double kLevel1Degrees = 30.0; //low
+    public final static double kLevel2Degrees = 60.0; //medium
+    public final static double kLevel3Degrees = 95.0; //high
 
     public final static double kLevel0EncoderTicks = (kLevel0Degrees/360) * EncoderCPR;
     public final static double kLevel1EncoderTicks = (kLevel1Degrees/360) * EncoderCPR;
@@ -155,10 +156,10 @@ public final class Constants {
 
   public static final class IntakeConstants {
     public final static int IntakeCAN = 4;//DUMMY
-    public final static double suckCubeSpeed = 0.5;
-    public final static double shootCubeSpeed = (-1)*suckCubeSpeed;
-    public final static double suckConeSpeed = 0.5;
-    public final static double shootConeSpeed = (-1) * shootConeSpeed;
+    public final static double SuckCubeSpeed = 0.5; //These need testing
+    public final static double ShootCubeSpeed = 0.8;
+    public final static double SuckConeSpeed = -0.5;
+    public final static double ShootConeSpeed = -0.8;
 
 
   }

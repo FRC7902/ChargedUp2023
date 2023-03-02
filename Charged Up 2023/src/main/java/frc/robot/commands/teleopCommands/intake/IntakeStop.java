@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class stop extends CommandBase {
+public class IntakeStop extends CommandBase {
 
   private IntakeSubsystem m_intake;
 
   /** Creates a new RotateOut. */
-  public stop(IntakeSubsystem intake) { 
+  public IntakeStop(IntakeSubsystem intake) { 
     m_intake = intake;
   }
 
@@ -27,8 +27,6 @@ public class stop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //System.out.println("Arm rotating out..");
-    m_intake.setPower(IntakeConstants.DirectionASpeed);
   }
 
   // Called once the command ends or is interrupted.

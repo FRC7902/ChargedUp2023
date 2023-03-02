@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class suckCone extends CommandBase {
+public class SuckCone extends CommandBase {
   private IntakeSubsystem m_intake;
 
   /** Creates a new RotateOut. */
-  public suckCone(IntakeSubsystem intake) { 
+  public SuckCone(IntakeSubsystem intake) { 
     m_intake = intake;
   }
 
@@ -27,7 +27,7 @@ public class suckCone extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.setPower(IntakeConstants.suckConeSpeed);
+    m_intake.setPower(IntakeConstants.SuckConeSpeed);
   }
 
   // Called once the command ends or is interrupted.
