@@ -175,11 +175,8 @@ public final class Constants {
         kMENU = 7,
         kSTART = 8,
         kLA = 9,
-        kRA = 10,
-        kD1 = 11,
-        kD2 = 12,
-        kD3 = 13,
-        kD4 = 14;
+        kRA = 10;
+
         
 
     // Joystick Axis
