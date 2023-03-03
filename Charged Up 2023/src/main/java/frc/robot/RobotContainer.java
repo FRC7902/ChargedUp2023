@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.simulation.JoystickSim;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.autonomousCommands.drive.*;
-import frc.robot.commands.routineCommands.armExtendShoulderToHigh;
+import frc.robot.commands.routineCommands.*;
 import frc.robot.commands.teleopCommands.armExtension.*;
 import frc.robot.commands.teleopCommands.armshoulder.*;
 import frc.robot.commands.teleopCommands.intake.*;
@@ -101,6 +101,13 @@ public class RobotContainer {
     new POVButton(m_operatorStick, 180).onTrue(new ExtendLevel2(m_ArmExtension));
     new POVButton(m_operatorStick, 90).onTrue(new ExtendLevel3(m_ArmExtension));
     
+    //COMPOUND ARM MOVEMENT BINDINGS
+
+    // new JoystickButton(m_operatorStick, Constants.IOConstants.kA).onTrue(new ArmLevel0(m_ArmShoulder, m_ArmExtension));
+    // new JoystickButton(m_operatorStick, Constants.IOConstants.kB).onTrue(new ArmLevel1(m_ArmShoulder, m_ArmExtension));
+    // new JoystickButton(m_operatorStick, Constants.IOConstants.kY).onTrue(new ArmLevel2(m_ArmShoulder, m_ArmExtension));
+    // new JoystickButton(m_operatorStick, Constants.IOConstants.kX).onTrue(new ArmLevel3(m_ArmShoulder, m_ArmExtension));
+
     //INTAKE BINDINGS
 
     //Cone stuff (left hand)
