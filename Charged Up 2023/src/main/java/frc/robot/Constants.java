@@ -69,7 +69,7 @@ public final class Constants {
     public static final double kPC = kPD*Math.PI;
     public static final int ZeroPosLimitSwitchDIO = 7;
 
-    public static final double extensionHomingPower = 0.2;
+    public static final double extensionHomingPower = 0.5;
 
   }
 
@@ -128,7 +128,7 @@ public final class Constants {
     public final static double kLevel3EncoderTicks = (kLevel3Degrees/360) * EncoderCPR;
     public final static double ticksPerDegree = EncoderCPR/360;
 
-    public static final double shoulderHomingPower = 0.1;
+    public static final double shoulderHomingPower = 0.5;
   }
 
   public static class GainConstants {
