@@ -8,12 +8,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmExtension;
 import frc.robot.subsystems.ArmShoulder;
 
-public class homing extends CommandBase {
-  private ArmExtension m_armExtension;
-  private ArmShoulder m_armShoulder;
+public class Homing extends CommandBase {
+  private final ArmExtension m_armExtension;
+  private final ArmShoulder m_armShoulder;
 
   /** Creates a new homing. */
-  public homing() {
+  public Homing(ArmExtension armExtension, ArmShoulder armShoulder) {
+    m_armExtension = armExtension;
+    m_armShoulder = armShoulder;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,22 +28,30 @@ public class homing extends CommandBase {
   public void execute() {
 
     if(!m_armShoulder.atZeroPos()){
-      m_armShoulder.setPower(-0.2);
+      m_armShoulder.setPower(-0.5);
+    } else {
+      m_armShoulder.setPower(0);
     }
 
     if(!m_armExtension.atZeroPos()){
-      m_armExtension.setPower(-0.2);
+      m_armExtension.setPower(-0.5);
+    }else{
+      m_armExtension.setPower(0);
     }
+
+    System.out.println("Running.");
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    System.out.println("Done");
+    return (m_armExtension.atZeroPos() && m_armShoulder.atZeroPos());
   }
 }

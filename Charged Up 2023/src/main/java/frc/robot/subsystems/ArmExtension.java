@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 import frc.robot.Constants.ArmExtensionConstants;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -21,8 +22,10 @@ public class ArmExtension extends SubsystemBase {
   private final Encoder extensionEncoder = new Encoder(ArmExtensionConstants.kEncoderA,
       ArmExtensionConstants.kEncoderB);
   // This encoder connects directly back to 0 and 1 on the roboRIO
-  public double currentPercentExtension;
-  public double targetPercentExtension;
+  private double currentPercentExtension;
+  private double targetPercentExtension;
+
+  private PIDController armExtensionPID = new PIDController(2, 0, 0);
 
   int counter = 0;
 
@@ -39,7 +42,6 @@ public class ArmExtension extends SubsystemBase {
     armExtensionFollower.setInverted(InvertType.FollowMaster);
     armExtensionLeader.configContinuousCurrentLimit(ArmExtensionConstants.SoftwareCurrentLimit);
     extensionEncoder.setDistancePerPulse(ArmExtensionConstants.kPC / ArmExtensionConstants.EncoderCPR); // in inches
-    extensionEncoder.reset(); // set to zero position
     targetPercentExtension = extensionEncoder.getDistance()
         / Constants.ArmExtensionConstants.extendedMaxSoftLimitInInches;
 
@@ -88,17 +90,16 @@ public class ArmExtension extends SubsystemBase {
   @Override
   public void periodic() {
     if (retractionLimitSwitch.get()) {
-      //System.out.println("Hit retraction limit switch");
-      armExtensionLeader.set(0);
+      System.out.println("Hit retraction limit switch");
       extensionEncoder.reset();
     }
 
     currentPercentExtension = getPercentExtension();
 
-    double adjusted_power;
+    double adjusted_power = armExtensionPID.calculate(currentPercentExtension, targetPercentExtension);
 
-    adjusted_power = targetPercentExtension - currentPercentExtension; // positive when extending, negative when
-                                                                       // retracting
+    // adjusted_power = targetPercentExtension - currentPercentExtension; // positive when extending, negative when
+    //                                                                    // retracting
 
     armExtensionLeader.set(adjusted_power);
 
@@ -106,9 +107,12 @@ public class ArmExtension extends SubsystemBase {
 
     counter++;
 
-    if (counter >= 10) {
+    if (counter >= 20) {
       System.out.println(extensionEncoder.getDistance());
       counter = 0;
+      System.out.println("Voltage: "+ armExtensionLeader.getMotorOutputVoltage());
+      System.out.println("Current percent extension: "+currentPercentExtension);
+      System.out.println("PID Calculation: "+adjusted_power);
     }
 
     if (adjusted_power > 0) {

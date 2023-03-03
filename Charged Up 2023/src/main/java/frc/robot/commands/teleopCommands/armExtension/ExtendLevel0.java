@@ -22,6 +22,7 @@ public class ExtendLevel0 extends CommandBase {
   @Override
   public void initialize() {
     m_armExtension.setTargetPercentExtension(ArmExtensionConstants.kLevel0Percentage);
+    System.out.println("Set extension level 0.");
   }
 
   // Called every time the scheduler runs while the command is scheduled.

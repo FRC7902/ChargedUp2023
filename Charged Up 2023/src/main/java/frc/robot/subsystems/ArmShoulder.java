@@ -218,19 +218,22 @@ public class ArmShoulder extends SubsystemBase {
     }
 
     double currentPosition = getPosition();
+
+    double adjusted_feedForward = 
+    (ArmShoulderConstants.ArmShoulderFeedForwardMin + (ArmShoulderConstants.ArmShoulderFeedForwardDifference * m_ArmExtension.getPercentExtension())) * Math.cos(util.CTRESensorUnitsToRads(currentPosition, Constants.ArmShoulderConstants.EncoderCPR)-ArmShoulderConstants.angleAdjustmentRadians);
+
     if (counter >= 30) {
       System.out.println("Current Position: " + currentPosition + "  Target Position: " + targetPosition);
       counter = 0;
       System.out.println("Leader voltage: "+armShoulderLeader.getMotorOutputVoltage());
+      System.out.println("Position: "+currentPosition);
+      System.out.println("Adjusted Feedforward: "+adjusted_feedForward);
 
       // System.out.println ("Simulation output V: " + armShoulderLeaderSim.getMotorOutputLeadVoltage());
 
     } else {
       counter++;
     }
-
-    double adjusted_feedForward = 
-    (ArmShoulderConstants.ArmShoulderFeedForwardMin + (ArmShoulderConstants.ArmShoulderFeedForwardDifference * m_ArmExtension.currentPercentExtension)) * Math.cos(util.CTRESensorUnitsToRads(currentPosition, Constants.ArmShoulderConstants.EncoderCPR)-ArmShoulderConstants.angleAdjustmentRadians);
 
     // TODO try motionmagic:
     // https://v5.docs.ctr-electronics.com/en/stable/ch16_ClosedLoop.html#gravity-offset-arm
