@@ -22,7 +22,7 @@ public class ExtendLevel3 extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_armExtension.setTargetPercentExtension(Constants.ArmExtensionConstants.kLevel3Percentage);
+    m_armExtension.setTargetPercentExtension(ArmExtensionConstants.kLevel3Percentage);
     System.out.println("Set extension level 3.");
   }
 

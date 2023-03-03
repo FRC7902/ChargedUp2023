@@ -199,7 +199,7 @@ public class ArmShoulder extends SubsystemBase {
 
     double adjusted_feedForward = (ArmShoulderConstants.ArmShoulderFeedForwardMin
         + (ArmShoulderConstants.ArmShoulderFeedForwardDifference * m_ArmExtension.getPercentExtension()))
-        * Math.cos(util.CTRESensorUnitsToRads(currentPosition, Constants.ArmShoulderConstants.EncoderCPR)
+        * Math.cos(util.CTRESensorUnitsToRads(currentPosition, ArmShoulderConstants.EncoderCPR)
             - ArmShoulderConstants.angleAdjustmentRadians);
 
     if (counter >= 30) {

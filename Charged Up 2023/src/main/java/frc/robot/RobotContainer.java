@@ -15,8 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.IOConstants;
 import frc.robot.commands.autonomousCommands.drive.*;
-import frc.robot.commands.routineCommands.Homing;
-import frc.robot.commands.routineCommands.armExtendShoulderToHigh;
+import frc.robot.commands.routineCommands.homing;
 import frc.robot.commands.teleopCommands.armExtension.*;
 import frc.robot.commands.teleopCommands.armshoulder.*;
 import frc.robot.commands.teleopCommands.intake.*;
@@ -89,7 +88,7 @@ public class RobotContainer {
   private void configureBindings() {
     // Homing
     new JoystickButton(m_operatorStick, Constants.IOConstants.kSTART)
-        .toggleOnTrue(new Homing(m_ArmExtension, m_ArmShoulder));
+        .toggleOnTrue(new homing(m_ArmExtension, m_ArmShoulder));
 
     // SHOULDER BINDINGS
     new JoystickButton(m_operatorStick, IOConstants.kA).onTrue(new RotateLevel0(m_ArmShoulder));

@@ -10,12 +10,12 @@ import frc.robot.Constants.ArmShoulderConstants;
 import frc.robot.subsystems.ArmExtension;
 import frc.robot.subsystems.ArmShoulder;
 
-public class Homing extends CommandBase {
+public class homing extends CommandBase {
   private final ArmExtension m_armExtension;
   private final ArmShoulder m_armShoulder;
 
   /** Creates a new homing. */
-  public Homing(ArmExtension armExtension, ArmShoulder armShoulder) {
+  public homing(ArmExtension armExtension, ArmShoulder armShoulder) {
     m_armExtension = armExtension;
     m_armShoulder = armShoulder;
     // Use addRequirements() here to declare subsystem dependencies.
