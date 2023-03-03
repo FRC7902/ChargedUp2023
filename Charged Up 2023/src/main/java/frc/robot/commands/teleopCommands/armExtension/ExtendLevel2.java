@@ -5,7 +5,7 @@
 package frc.robot.commands.teleopCommands.armExtension;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import frc.robot.Constants.ArmExtensionConstants;
 import frc.robot.subsystems.ArmExtension;
 
 public class ExtendLevel2 extends CommandBase {
@@ -21,7 +21,7 @@ public class ExtendLevel2 extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_armExtension.setTargetPercentExtension(Constants.ArmExtensionConstants.kLevel2Percentage);
+    m_armExtension.setTargetPercentExtension(ArmExtensionConstants.kLevel2Percentage);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

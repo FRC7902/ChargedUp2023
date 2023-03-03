@@ -4,8 +4,6 @@
 
 package frc.robot.commands.routineCommands;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.teleopCommands.armExtension.ExtendLevel0;
 import frc.robot.commands.teleopCommands.armshoulder.RotateLevel0;

@@ -10,12 +10,9 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
-import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonSRXSimCollection;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import frc.robot.Constants;
 import frc.robot.Constants.ArmShoulderConstants;
-import com.ctre.phoenix.Util;
 
 import frc.robot.FireBirdsUtils;
 
@@ -23,8 +20,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
@@ -229,7 +224,7 @@ public class ArmShoulder extends SubsystemBase {
     }
 
     double adjusted_feedForward = 
-    (ArmShoulderConstants.ArmShoulderFeedForwardMin + (ArmShoulderConstants.ArmShoulderFeedForwardDifference * m_ArmExtension.currentPercentExtension)) * Math.cos(util.CTRESensorUnitsToRads(currentPosition, Constants.ArmShoulderConstants.EncoderCPR)-ArmShoulderConstants.angleAdjustmentRadians);
+    (ArmShoulderConstants.ArmShoulderFeedForwardMin + (ArmShoulderConstants.ArmShoulderFeedForwardDifference * m_ArmExtension.currentPercentExtension)) * Math.cos(util.CTRESensorUnitsToRads(currentPosition, ArmShoulderConstants.EncoderCPR)-ArmShoulderConstants.angleAdjustmentRadians);
 
     // TODO try motionmagic:
     // https://v5.docs.ctr-electronics.com/en/stable/ch16_ClosedLoop.html#gravity-offset-arm
