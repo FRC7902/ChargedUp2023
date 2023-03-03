@@ -38,7 +38,7 @@ public class DriveSubsystem extends SubsystemBase {
     left.setInverted(true);
     resetEncoders();
 
-    // tells how far you travelled in inches
+    // tells how far you travelled in inches. NOTE: RIGHT IS NEGATIVE WHEN DRIVING FORWARD
     m_leftEncoder
         .setPositionConversionFactor(DriveConstants.OutputGearRatio * DriveConstants.WheelCircumferenceInInches);
     m_rightEncoder

@@ -37,6 +37,7 @@ public class ArmExtension extends SubsystemBase {
     armExtensionFollower.follow(armExtensionLeader);
     armExtensionLeader.setInverted(false);
     armExtensionFollower.setInverted(InvertType.FollowMaster);
+    armExtensionLeader.configContinuousCurrentLimit(ArmExtensionConstants.SoftwareCurrentLimit);
     extensionEncoder.setDistancePerPulse(ArmExtensionConstants.kPC / ArmExtensionConstants.EncoderCPR); // in inches
     extensionEncoder.reset(); // set to zero position
     targetPercentExtension = extensionEncoder.getDistance()
@@ -88,6 +89,7 @@ public class ArmExtension extends SubsystemBase {
   public void periodic() {
     if (retractionLimitSwitch.get()) {
       //System.out.println("Hit retraction limit switch");
+      armExtensionLeader.set(0);
       extensionEncoder.reset();
     }
 
