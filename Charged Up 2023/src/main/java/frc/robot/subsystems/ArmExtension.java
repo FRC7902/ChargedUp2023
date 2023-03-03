@@ -87,7 +87,7 @@ public class ArmExtension extends SubsystemBase {
   @Override
   public void periodic() {
     if (retractionLimitSwitch.get()) {
-      System.out.println("Hit retraction limit switch");
+      //System.out.println("Hit retraction limit switch");
       extensionEncoder.reset();
     }
 

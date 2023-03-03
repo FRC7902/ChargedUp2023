@@ -82,8 +82,9 @@ public class ArmShoulder extends SubsystemBase {
     armShoulderLeader.setInverted(false);
     armShoulderFollower.setInverted(InvertType.FollowMaster);
 
+    armShoulderLeader.config_kP(0, 2);
 
-    armShoulderLeader.configMotionCruiseVelocity(9000);
+    armShoulderLeader.configMotionCruiseVelocity(500);
     armShoulderLeader.configMotionAcceleration(3000);
 
 
@@ -211,7 +212,7 @@ public class ArmShoulder extends SubsystemBase {
   public void periodic() {
 
     if (armShoulderLeader.isRevLimitSwitchClosed() == 1) {
-      System.out.println("LIMIT SWITCH TRIGGERED");
+      // System.out.println("LIMIT SWITCH TRIGGERED");
       armShoulderLeader.getSensorCollection().setQuadraturePosition(0, 0);
     }
 
@@ -219,8 +220,9 @@ public class ArmShoulder extends SubsystemBase {
     if (counter >= 30) {
       System.out.println("Current Position: " + currentPosition + "  Target Position: " + targetPosition);
       counter = 0;
+      System.out.println("Leader voltage: "+armShoulderLeader.getMotorOutputVoltage());
 
-      System.out.println ("Simulation output V: " + armShoulderLeaderSim.getMotorOutputLeadVoltage());
+      // System.out.println ("Simulation output V: " + armShoulderLeaderSim.getMotorOutputLeadVoltage());
 
     } else {
       counter++;
@@ -233,7 +235,7 @@ public class ArmShoulder extends SubsystemBase {
 
     // TODO try motionmagic:
     // https://v5.docs.ctr-electronics.com/en/stable/ch16_ClosedLoop.html#gravity-offset-arm
-    armShoulderLeader.set(ControlMode.MotionMagic, targetPosition, DemandType.ArbitraryFeedForward, adjusted_power);
+    armShoulderLeader.set(ControlMode.MotionMagic, targetPosition, DemandType.ArbitraryFeedForward, ArmShoulderConstants.ArmShoulderFeedForwardMin);
     
     
 
