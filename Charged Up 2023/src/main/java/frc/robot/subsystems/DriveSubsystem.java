@@ -93,6 +93,10 @@ public class DriveSubsystem extends SubsystemBase {
     return m_rightEncoder;
   }
 
+  public double getAvgEncoderDistance(){
+    return (m_leftEncoder.getPosition() - m_rightEncoder.getPosition())/2;
+  }
+
   public void resetEncoders() {
     m_leftEncoder.setPosition(0);
     m_rightEncoder.setPosition(0);
