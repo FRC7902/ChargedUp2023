@@ -10,13 +10,9 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
-import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonSRXSimCollection;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import frc.robot.Constants;
 import frc.robot.Constants.ArmShoulderConstants;
-import frc.robot.commands.routineCommands.armShoulderRotateToAngle;
-import com.ctre.phoenix.Util;
 
 import frc.robot.FireBirdsUtils;
 
@@ -24,8 +20,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
@@ -43,23 +37,21 @@ public class ArmShoulder extends SubsystemBase {
   private final static WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(
       ArmShoulderConstants.ArmShoulderFollowerCAN);
 
-
-  private final static FireBirdsUtils util = new FireBirdsUtils();    
+  private final static FireBirdsUtils util = new FireBirdsUtils();
 
   /** Target angle **/
   private static double targetPosition;
-
 
   /** Object of a simulated arm **/
   private final SingleJointedArmSim armSim = new SingleJointedArmSim(DCMotor.getCIM(2),
       139.78, 6.05, 1, Units.degreesToRadians(-ArmShoulderConstants.restDegreesFromHorizontal), 6, 5.5, true);
 
-  // Simulation of TalonSRX   
+  // Simulation of TalonSRX
   private final TalonSRXSimCollection armShoulderLeaderSim = armShoulderLeader.getSimCollection();
-  
+
   // Create a Mechanism2d display of an Arm with a fixed ArmTower and moving Arm.
-  private final Mechanism2d m_mech2d = new Mechanism2d(80, 80); //the overall arm
-  private final MechanismRoot2d m_armPivot = m_mech2d.getRoot("ArmPivot", 30, 30); //pivot point
+  private final Mechanism2d m_mech2d = new Mechanism2d(80, 80); // the overall arm
+  private final MechanismRoot2d m_armPivot = m_mech2d.getRoot("ArmPivot", 30, 30); // pivot point
   private final MechanismLigament2d m_armTower = m_armPivot.append(new MechanismLigament2d("ArmTower", 30, -90));
   private final MechanismLigament2d m_arm = m_armPivot.append(
       new MechanismLigament2d(
@@ -69,7 +61,6 @@ public class ArmShoulder extends SubsystemBase {
           6,
           new Color8Bit(Color.kAliceBlue)));
 
-
   // Need limit switch
 
   /** Creates a new ArmSubsystem. */
@@ -77,7 +68,6 @@ public class ArmShoulder extends SubsystemBase {
     m_ArmExtension = armExtension;
     armShoulderLeader.configFactoryDefault();
     armShoulderFollower.configFactoryDefault();
-    
 
     armShoulderFollower.follow(armShoulderLeader);
     armShoulderLeader.setInverted(false);
@@ -87,7 +77,6 @@ public class ArmShoulder extends SubsystemBase {
 
     armShoulderLeader.configMotionCruiseVelocity(500);
     armShoulderLeader.configMotionAcceleration(3000);
-
 
     // armShoulderLeader.config_kP(Constants.GainConstants.kSlot_Distanc,
     // Constants.GainConstants.kGains_Distanc.kP,
@@ -107,7 +96,6 @@ public class ArmShoulder extends SubsystemBase {
 
     armShoulderLeader.setInverted(false);
     armShoulderLeader.setSensorPhase(true);
-   
 
     // limit switch
     armShoulderLeader.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector,
@@ -115,8 +103,6 @@ public class ArmShoulder extends SubsystemBase {
 
     armShoulderLeader.configForwardLimitSwitchSource(LimitSwitchSource.Deactivated, LimitSwitchNormal.NormallyOpen);
     targetPosition = getPosition();
-
- 
 
   }
 
@@ -170,8 +156,6 @@ public class ArmShoulder extends SubsystemBase {
     return armShoulderLeader.getSelectedSensorPosition();
   }
 
-  
-
   // METHOD - GET NEW POSITION
 
   /**
@@ -179,11 +163,8 @@ public class ArmShoulder extends SubsystemBase {
    */
   int counter = 0;
 
-
-
-
   @Override
-  public void simulationPeriodic(){
+  public void simulationPeriodic() {
 
     // In this method, we update our simulation of what our arm is doing
     // First, we set our "inputs" (voltages)
@@ -191,23 +172,20 @@ public class ArmShoulder extends SubsystemBase {
     // Next, we update it. The standard loop time is 20ms.
     armSim.update(0.020);
 
-    armShoulderLeaderSim.setQuadratureRawPosition(util.radsToCTRESensorUnits(armSim.getAngleRads(), ArmShoulderConstants.EncoderCPR) );
+    armShoulderLeaderSim
+        .setQuadratureRawPosition(util.radsToCTRESensorUnits(armSim.getAngleRads(), ArmShoulderConstants.EncoderCPR));
 
-    m_arm.setAngle(Math.toDegrees(armSim.getAngleRads()) );
-
+    m_arm.setAngle(Math.toDegrees(armSim.getAngleRads()));
 
     // Zero the limit switch in simulation
-    if (armSim.getAngleRads() == Units.degreesToRadians(-ArmShoulderConstants.restDegreesFromHorizontal)){
+    if (armSim.getAngleRads() == Units.degreesToRadians(-ArmShoulderConstants.restDegreesFromHorizontal)) {
 
       armShoulderLeader.getSensorCollection().setQuadraturePosition(0, 0);
     }
-    
 
-    armShoulderLeaderSim.setAnalogPosition(util.radsToCTRESensorUnits(armSim.getAngleRads() , 4096));
-  
-  
+    armShoulderLeaderSim.setAnalogPosition(util.radsToCTRESensorUnits(armSim.getAngleRads(), 4096));
+
   }
-
 
   @Override
   public void periodic() {
@@ -219,17 +197,20 @@ public class ArmShoulder extends SubsystemBase {
 
     double currentPosition = getPosition();
 
-    double adjusted_feedForward = 
-    (ArmShoulderConstants.ArmShoulderFeedForwardMin + (ArmShoulderConstants.ArmShoulderFeedForwardDifference * m_ArmExtension.getPercentExtension())) * Math.cos(util.CTRESensorUnitsToRads(currentPosition, Constants.ArmShoulderConstants.EncoderCPR)-ArmShoulderConstants.angleAdjustmentRadians);
+    double adjusted_feedForward = (ArmShoulderConstants.ArmShoulderFeedForwardMin
+        + (ArmShoulderConstants.ArmShoulderFeedForwardDifference * m_ArmExtension.getPercentExtension()))
+        * Math.cos(util.CTRESensorUnitsToRads(currentPosition, Constants.ArmShoulderConstants.EncoderCPR)
+            - ArmShoulderConstants.angleAdjustmentRadians);
 
     if (counter >= 30) {
       System.out.println("Current Position: " + currentPosition + "  Target Position: " + targetPosition);
       counter = 0;
-      System.out.println("Leader voltage: "+armShoulderLeader.getMotorOutputVoltage());
-      System.out.println("Position: "+currentPosition);
-      System.out.println("Adjusted Feedforward: "+adjusted_feedForward);
+      System.out.println("Leader voltage: " + armShoulderLeader.getMotorOutputVoltage());
+      System.out.println("Position: " + currentPosition);
+      System.out.println("Adjusted Feedforward: " + adjusted_feedForward);
 
-      // System.out.println ("Simulation output V: " + armShoulderLeaderSim.getMotorOutputLeadVoltage());
+      // System.out.println ("Simulation output V: " +
+      // armShoulderLeaderSim.getMotorOutputLeadVoltage());
 
     } else {
       counter++;
@@ -237,10 +218,8 @@ public class ArmShoulder extends SubsystemBase {
 
     // TODO try motionmagic:
     // https://v5.docs.ctr-electronics.com/en/stable/ch16_ClosedLoop.html#gravity-offset-arm
-    armShoulderLeader.set(ControlMode.MotionMagic, targetPosition, DemandType.ArbitraryFeedForward, adjusted_feedForward);
-    
-    
-
+    armShoulderLeader.set(ControlMode.MotionMagic, targetPosition, DemandType.ArbitraryFeedForward,
+        adjusted_feedForward);
 
     // Position control to current position variable
 

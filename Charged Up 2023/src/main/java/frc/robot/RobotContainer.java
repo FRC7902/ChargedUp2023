@@ -10,11 +10,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.simulation.JoystickSim;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.IOConstants;
 import frc.robot.commands.autonomousCommands.drive.*;
 import frc.robot.commands.routineCommands.Homing;
 import frc.robot.commands.routineCommands.armExtendShoulderToHigh;
@@ -40,7 +39,7 @@ public class RobotContainer {
   private final ArmShoulder m_ArmShoulder = new ArmShoulder(m_ArmExtension);
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
 
-  //Auton commands:
+  // Auton commands:
   private final DriveToDistance m_DriveToDistance = new DriveToDistance(2, m_driveSubsystem);
   private final TurnToAngleLeft m_turnToAngleLeft = new TurnToAngleLeft(30, m_driveSubsystem);
 
@@ -48,11 +47,11 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
-  //THE FIRST CONTOLLER PLUGGED IN CONTROLS THE DRIVETRAIN, THE SECOND CONTROLLER PLUGGED IN CONTROLS THE ARM/INTAKE
-  private final XboxController m_driverStick = new XboxController(Constants.IOConstants.kDriverStick);
-  private final XboxController m_operatorStick = new XboxController(Constants.IOConstants.kOperatorStick);//should be kOperatorStick
-
-  
+  // THE FIRST CONTOLLER PLUGGED IN CONTROLS THE DRIVETRAIN, THE SECOND CONTROLLER
+  // PLUGGED IN CONTROLS THE ARM/INTAKE
+  private final XboxController m_driverStick = new XboxController(IOConstants.kDriverStick);
+  private final XboxController m_operatorStick = new XboxController(IOConstants.kOperatorStick);// should be
+                                                                                                // kOperatorStick
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -67,7 +66,7 @@ public class RobotContainer {
                 m_driverStick.getRawAxis(Constants.IOConstants.kRX)),
             m_driveSubsystem));
 
-    //AUTON TESTING
+    // AUTON TESTING
     m_chooser.setDefaultOption("Drive to Distance", m_DriveToDistance);
     m_chooser.addOption("Turn 30 degrees left", m_turnToAngleLeft);
     SmartDashboard.putData(m_chooser);
@@ -88,38 +87,50 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    //Homing
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kSTART).toggleOnTrue(new Homing(m_ArmExtension, m_ArmShoulder));
+    // Homing
+    new JoystickButton(m_operatorStick, Constants.IOConstants.kSTART)
+        .toggleOnTrue(new Homing(m_ArmExtension, m_ArmShoulder));
 
-    //SHOULDER BINDINGS
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kA).onTrue(new RotateLevel0(m_ArmShoulder));
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kB).onTrue(new RotateLevel1(m_ArmShoulder));
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kY).onTrue(new RotateLevel2(m_ArmShoulder));
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kX).onTrue(new RotateLevel3(m_ArmShoulder));
-    
+    // SHOULDER BINDINGS
+    new JoystickButton(m_operatorStick, IOConstants.kA).onTrue(new RotateLevel0(m_ArmShoulder));
+    new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new RotateLevel1(m_ArmShoulder));
+    new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new RotateLevel2(m_ArmShoulder));
+    new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new RotateLevel3(m_ArmShoulder));
 
-    //EXTENSION BINDINGS
+    // EXTENSION BINDINGS
     new POVButton(m_operatorStick, 0).onTrue(new ExtendLevel0(m_ArmExtension));
     new POVButton(m_operatorStick, 270).onTrue(new ExtendLevel1(m_ArmExtension));
     new POVButton(m_operatorStick, 180).onTrue(new ExtendLevel2(m_ArmExtension));
     new POVButton(m_operatorStick, 90).onTrue(new ExtendLevel3(m_ArmExtension));
-    
-    //INTAKE BINDINGS
 
-    //Cone stuff (left hand)
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kLB).whileTrue(new suckCone(m_intake));//kLB
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kLT).whileTrue(new shootCone(m_intake)); //kLT
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kLB).onFalse(new IntakeStop(m_intake)); //kLB
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kLT).onFalse(new IntakeStop(m_intake)); //kLT
+    // COMPOUND ARM MOVEMENT BINDINGS
 
-    //Cube stuff (right hand)
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kRB).whileTrue(new suckCube(m_intake));//kRB
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kRT).whileTrue(new shootCone(m_intake)); //kRT
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kRB).onFalse(new IntakeStop(m_intake));//kRB
-    new JoystickButton(m_operatorStick, Constants.IOConstants.kRT).onFalse(new IntakeStop(m_intake)); //kRT
+    // new JoystickButton(m_operatorStick, IOConstants.kA).onTrue(new
+    // ArmLevel0(m_ArmShoulder, m_ArmExtension));
+    // new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new
+    // ArmLevel1(m_ArmShoulder, m_ArmExtension));
+    // new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new
+    // ArmLevel2(m_ArmShoulder, m_ArmExtension));
+    // new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new
+    // ArmLevel3(m_ArmShoulder, m_ArmExtension));
 
-    //ROUTINE BINDINGS
-    //new JoystickButton(m_operatorStick, Constants.IOConstants.kMENU).onTrue(new armExtendShoulderToHigh(m_ArmShoulder, null, m_ArmExtension))
+    // INTAKE BINDINGS
+
+    // Cone stuff (left hand)
+    new JoystickButton(m_operatorStick, IOConstants.kLB).whileTrue(new suckCone(m_intake));// kLB
+    new JoystickButton(m_operatorStick, IOConstants.kLT).whileTrue(new shootCone(m_intake)); // kLT
+    new JoystickButton(m_operatorStick, IOConstants.kLB).onFalse(new IntakeStop(m_intake)); // kLB
+    new JoystickButton(m_operatorStick, IOConstants.kLT).onFalse(new IntakeStop(m_intake)); // kLT
+
+    // Cube stuff (right hand)
+    new JoystickButton(m_operatorStick, IOConstants.kRB).whileTrue(new suckCube(m_intake));// kRB
+    new JoystickButton(m_operatorStick, IOConstants.kRT).whileTrue(new shootCone(m_intake)); // kRT
+    new JoystickButton(m_operatorStick, IOConstants.kRB).onFalse(new IntakeStop(m_intake));// kRB
+    new JoystickButton(m_operatorStick, IOConstants.kRT).onFalse(new IntakeStop(m_intake)); // kRT
+
+    // ROUTINE BINDINGS
+    // new JoystickButton(m_operatorStick, IOConstants.kMENU).onTrue(new
+    // armExtendShoulderToHigh(m_ArmShoulder, null, m_ArmExtension))
   }
 
   /**
@@ -128,7 +139,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-  //   An example command will be run in autonomous
-  return m_chooser.getSelected();
+    // An example command will be run in autonomous
+    return m_chooser.getSelected();
   }
 }

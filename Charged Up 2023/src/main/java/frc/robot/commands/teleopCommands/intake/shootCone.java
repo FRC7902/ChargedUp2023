@@ -27,7 +27,7 @@ public class shootCone extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.setPower(IntakeConstants.ShootCubeSpeed);
+    m_intake.setPower(IntakeConstants.ShootConeSpeed);
   }
 
   // Called once the command ends or is interrupted.

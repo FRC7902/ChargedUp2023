@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import frc.robot.Constants;
 import frc.robot.Constants.ArmExtensionConstants;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -43,7 +42,7 @@ public class ArmExtension extends SubsystemBase {
     armExtensionLeader.configContinuousCurrentLimit(ArmExtensionConstants.SoftwareCurrentLimit);
     extensionEncoder.setDistancePerPulse(ArmExtensionConstants.kPC / ArmExtensionConstants.EncoderCPR); // in inches
     targetPercentExtension = extensionEncoder.getDistance()
-        / Constants.ArmExtensionConstants.extendedMaxSoftLimitInInches;
+        / ArmExtensionConstants.extendedMaxSoftLimitInInches;
 
     // armExtensionLeader.config_kP(Constants.ArmConstants.kSlot_Distanc,
     // Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kTimeoutMs);
@@ -58,7 +57,7 @@ public class ArmExtension extends SubsystemBase {
   }
 
   public double getPercentExtension() {
-    return extensionEncoder.getDistance() / Constants.ArmExtensionConstants.extendedMaxSoftLimitInInches;
+    return extensionEncoder.getDistance() / ArmExtensionConstants.extendedMaxSoftLimitInInches;
   }
 
   public void setTargetPercentExtension(double percentExtension) {
