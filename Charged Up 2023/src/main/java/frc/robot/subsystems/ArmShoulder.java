@@ -36,6 +36,7 @@ import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmShoulder extends SubsystemBase {
+  private static ArmExtension m_ArmExtension;
 
   // Declare motor controllers
   private final static WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmShoulderConstants.ArmShoulderLeaderCAN);
@@ -72,8 +73,8 @@ public class ArmShoulder extends SubsystemBase {
   // Need limit switch
 
   /** Creates a new ArmSubsystem. */
-  public ArmShoulder() {
-
+  public ArmShoulder(ArmExtension armExtension) {
+    m_ArmExtension = armExtension;
     armShoulderLeader.configFactoryDefault();
     armShoulderFollower.configFactoryDefault();
     
@@ -228,14 +229,12 @@ public class ArmShoulder extends SubsystemBase {
       counter++;
     }
 
-    double adjusted_power;
-
-    adjusted_power = (targetPosition - currentPosition) * 0.01;
-    adjusted_power *= Constants.ArmShoulderConstants.ArmShoulderRotatePower;
+    double adjusted_feedForward = 
+    (ArmShoulderConstants.ArmShoulderFeedForwardMin + (ArmShoulderConstants.ArmShoulderFeedForwardDifference * m_ArmExtension.currentPercentExtension)) * Math.cos(util.CTRESensorUnitsToRads(currentPosition, Constants.ArmShoulderConstants.EncoderCPR)-ArmShoulderConstants.angleAdjustmentRadians);
 
     // TODO try motionmagic:
     // https://v5.docs.ctr-electronics.com/en/stable/ch16_ClosedLoop.html#gravity-offset-arm
-    armShoulderLeader.set(ControlMode.MotionMagic, targetPosition, DemandType.ArbitraryFeedForward, ArmShoulderConstants.ArmShoulderFeedForwardMin);
+    armShoulderLeader.set(ControlMode.MotionMagic, targetPosition, DemandType.ArbitraryFeedForward, adjusted_feedForward);
     
     
 

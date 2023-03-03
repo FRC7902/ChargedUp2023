@@ -35,8 +35,8 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  private final ArmShoulder m_ArmShoulder = new ArmShoulder();
   private final ArmExtension m_ArmExtension = new ArmExtension();
+  private final ArmShoulder m_ArmShoulder = new ArmShoulder(m_ArmExtension);
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
 
   //Auton commands:

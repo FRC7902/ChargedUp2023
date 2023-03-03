@@ -19,7 +19,6 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  private final ArmShoulder m_ArmShoulder = new ArmShoulder();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -85,14 +84,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    int count = 0;
 
-    count++;
-
-    if(count >= 10){
-      System.out.println(m_ArmShoulder.getFollowerPower());
-      count = 0;
-    }
 
   }
 
@@ -104,9 +96,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {
-    m_ArmShoulder.simulationPeriodic();
-  }
+  public void testPeriodic() {}
 
   /** This function is called once when the robot is first started up. */
   @Override
