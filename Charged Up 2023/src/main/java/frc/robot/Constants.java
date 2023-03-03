@@ -46,6 +46,7 @@ public final class Constants {
     // CAN ID's
     public final static int ArmExtensionLeaderCAN = 11;
     public final static int ArmExtensionFollowerCAN = 7;
+    public final static int SoftwareCurrentLimit = 33;
 
     public final static int kSensorUnitsPerRotation = 4096;
 
