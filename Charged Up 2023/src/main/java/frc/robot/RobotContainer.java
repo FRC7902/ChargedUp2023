@@ -67,9 +67,9 @@ public class RobotContainer {
             m_driveSubsystem));
 
     // AUTON TESTING
-    m_chooser.setDefaultOption("Drive to Distance", m_DriveToDistance);
-    m_chooser.addOption("Turn 30 degrees left", m_turnToAngleLeft);
-    SmartDashboard.putData(m_chooser);
+    // m_chooser.setDefaultOption("Drive to Distance", m_DriveToDistance);
+    // m_chooser.addOption("Turn 30 degrees left", m_turnToAngleLeft);
+    // SmartDashboard.putData(m_chooser);
   }
 
   /**
@@ -87,6 +87,9 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    new JoystickButton(m_driverStick, IOConstants.kLB).whileTrue(new SlowDriveForward(m_driveSubsystem));
+    new JoystickButton(m_driverStick, IOConstants.kLT).whileTrue(new SlowDriveBackward(m_driveSubsystem));
+
     // Homing
     new JoystickButton(m_operatorStick, Constants.IOConstants.kSTART)
         .toggleOnTrue(new homing(m_ArmExtension, m_ArmShoulder));
