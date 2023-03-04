@@ -123,7 +123,7 @@ public class RobotContainer {
 
     // Cube stuff (right hand)
     new JoystickButton(m_operatorStick, IOConstants.kRB).whileTrue(new suckCube(m_intake));// kRB
-    new JoystickButton(m_operatorStick, IOConstants.kRT).whileTrue(new shootCone(m_intake)); // kRT
+    new JoystickButton(m_operatorStick, IOConstants.kRT).whileTrue(new shootCube(m_intake)); // kRT
     new JoystickButton(m_operatorStick, IOConstants.kRB).onFalse(new IntakeStop(m_intake));// kRB
     new JoystickButton(m_operatorStick, IOConstants.kRT).onFalse(new IntakeStop(m_intake)); // kRT
 
