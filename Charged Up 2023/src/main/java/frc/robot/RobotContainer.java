@@ -18,6 +18,7 @@ import frc.robot.commands.autonomousCommands.drive.*;
 import frc.robot.commands.routineCommands.homing;
 import frc.robot.commands.teleopCommands.armExtension.*;
 import frc.robot.commands.teleopCommands.armshoulder.*;
+import frc.robot.commands.teleopCommands.drive.*;
 import frc.robot.commands.teleopCommands.intake.*;
 //subsystem imports
 import frc.robot.subsystems.*;
@@ -130,6 +131,11 @@ public class RobotContainer {
     // ROUTINE BINDINGS
     // new JoystickButton(m_operatorStick, IOConstants.kMENU).onTrue(new
     // armExtendShoulderToHigh(m_ArmShoulder, null, m_ArmExtension))
+
+    //SLOW DRIVE BINDINGS
+    new JoystickButton(m_driverStick, IOConstants.kLT).whileTrue(new SlowDriveForward(m_driveSubsystem));
+    new JoystickButton(m_driverStick, IOConstants.kLB).whileTrue(new SlowDriveBackward(m_driveSubsystem));
+
   }
 
   /**
