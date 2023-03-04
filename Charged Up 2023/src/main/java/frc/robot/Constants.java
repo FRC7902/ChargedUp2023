@@ -59,7 +59,9 @@ public final class Constants {
     public final static double ArmExtensionPower = 0.35;
 
     public final static double extendedMaxSoftLimitInInches = 27;//final and tested
-    public final static double extendedMinSoftLimitInInches = 1.5; //dummy variable
+    public final static double extendedMinSoftLimitInInches = 1.5;
+    public final static double extendedLevel1SoftLimitInInches = 0.33*extendedMaxSoftLimitInInches;
+    public final static double extendedLevel2SoftLimitInInches = 0.66*extendedMaxSoftLimitInInches;
 
     public final static int EncoderCPR = 2048; 
     public static final int kEncoderA = 8;

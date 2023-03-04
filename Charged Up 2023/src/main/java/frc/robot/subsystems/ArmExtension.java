@@ -4,12 +4,15 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.Constants;
 import frc.robot.Constants.ArmExtensionConstants;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -18,20 +21,16 @@ public class ArmExtension extends SubsystemBase {
 
   private final WPI_TalonSRX armExtensionLeader = new WPI_TalonSRX(ArmExtensionConstants.ArmExtensionLeaderCAN);
   private final WPI_VictorSPX armExtensionFollower = new WPI_VictorSPX(ArmExtensionConstants.ArmExtensionFollowerCAN);
-  private final Encoder extensionEncoder = new Encoder(ArmExtensionConstants.kEncoderA,
-      ArmExtensionConstants.kEncoderB);
-  // This encoder connects directly back to 0 and 1 on the roboRIO
-  private double currentPercentExtension;
-  private double targetPercentExtension;
-
-  private PIDController armExtensionPID = new PIDController(2, 0, 0);
-
+  private final Encoder extensionEncoder = new Encoder(ArmExtensionConstants.kEncoderA,ArmExtensionConstants.kEncoderB);
+  //This encoder connects directly back to 0 and 1 on the roboRIO
+  public double percentExtension;
   int counter = 0;
 
-  // Limit Switch
+  //Limit Switch
   DigitalInput retractionLimitSwitch = new DigitalInput(ArmExtensionConstants.ZeroPosLimitSwitchDIO);
 
-  // position test;
+  
+  //position test;
   public String status = "Off";
 
   /** Creates a new ArmExtension. */
@@ -39,39 +38,58 @@ public class ArmExtension extends SubsystemBase {
     armExtensionFollower.follow(armExtensionLeader);
     armExtensionLeader.setInverted(false);
     armExtensionFollower.setInverted(InvertType.FollowMaster);
-    armExtensionLeader.configContinuousCurrentLimit(ArmExtensionConstants.SoftwareCurrentLimit);
-    extensionEncoder.setDistancePerPulse(ArmExtensionConstants.kPC / ArmExtensionConstants.EncoderCPR); // in inches
-    targetPercentExtension = extensionEncoder.getDistance()
-        / ArmExtensionConstants.extendedMaxSoftLimitInInches;
+    extensionEncoder.setDistancePerPulse(ArmExtensionConstants.kPC/ArmExtensionConstants.EncoderCPR); //in inches
+    extensionEncoder.reset(); //set to zero position
+    
+  //   armExtensionLeader.config_kP(Constants.ArmConstants.kSlot_Distanc, Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kTimeoutMs);
+  //   // armShoulderLeader.setPID(Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kGains_Distanc.kI, Constants.ArmConstants.kGains_Distanc.kD);
+  // 		/* Motion Magic Configurations */
+  //     armExtensionLeader.configMotionAcceleration(2000, Constants.ArmConstants.kTimeoutMs);
+  //     armExtensionLeader.configMotionCruiseVelocity(2000, Constants.ArmConstants.kTimeoutMs);
+  }
 
-    // armExtensionLeader.config_kP(Constants.ArmConstants.kSlot_Distanc,
-    // Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kTimeoutMs);
-    // // armShoulderLeader.setPID(Constants.ArmConstants.kGains_Distanc.kP,
-    // Constants.ArmConstants.kGains_Distanc.kI,
-    // Constants.ArmConstants.kGains_Distanc.kD);
-    // /* Motion Magic Configurations */
-    // armExtensionLeader.configMotionAcceleration(2000,
-    // Constants.ArmConstants.kTimeoutMs);
-    // armExtensionLeader.configMotionCruiseVelocity(2000,
-    // Constants.ArmConstants.kTimeoutMs);
+  public void setPower(double power, double extensionDistanceInInches) {
+    percentExtension = extensionEncoder.getDistance()/extensionDistanceInInches;
+
+    counter++;
+
+    if(counter >= 10){
+      System.out.println(extensionEncoder.getDistance());
+    }
+
+    if(retractionLimitSwitch.get()){
+      System.out.println("Hit retraction limit switch");
+      extensionEncoder.reset();
+    }
+    armExtensionLeader.set(power);
+    if(power > 0){
+      if(percentExtension >= 1){
+        armExtensionLeader.set(0);
+        System.out.println("Fully extended.");
+      }
+      status = "Extending...";
+
+    }else if(power < 0){
+      if(percentExtension <= 1){
+        armExtensionLeader.set(0); //retraction limit switch is hit so speed is 0
+      }
+      System.out.println(extensionEncoder.getDistance());
+    }
+  }
+
+  public Encoder getEncoder(){
+    return extensionEncoder;
+  }
+
+  public void stopMotor(){
+    armExtensionLeader.stopMotor();
+    status = "Off";
   }
 
   public double getPercentExtension() {
     return extensionEncoder.getDistance() / ArmExtensionConstants.extendedMaxSoftLimitInInches;
   }
 
-  public void setTargetPercentExtension(double percentExtension) {
-    targetPercentExtension = percentExtension;
-  }
-
-  public Encoder getEncoder() {
-    return extensionEncoder;
-  }
-
-  public void stopMotor() {
-    armExtensionLeader.stopMotor();
-    status = "Off";
-  }
 
   public void setPower(double power){
     armExtensionLeader.set(power);
@@ -81,59 +99,8 @@ public class ArmExtension extends SubsystemBase {
     return retractionLimitSwitch.get();
   }
 
-  // public void set(ControlMode mode, double demand0, DemandType demand1Type,
-  // double demand1) {
-  // armExtensionLeader.set(mode, demand0, demand1Type, demand1);
-  // }
-
   @Override
   public void periodic() {
-    if (retractionLimitSwitch.get()) {
-      System.out.println("Hit retraction limit switch");
-      extensionEncoder.reset();
-    }
-
-    currentPercentExtension = getPercentExtension();
-
-    double adjusted_power = armExtensionPID.calculate(currentPercentExtension, targetPercentExtension);
-
-    // adjusted_power = targetPercentExtension - currentPercentExtension; // positive when extending, negative when
-    //                                                                    // retracting
-
-    armExtensionLeader.set(adjusted_power);
-
-    double currentPercentProgress = currentPercentExtension / targetPercentExtension;
-
-    counter++;
-
-    if (counter >= 20) {
-      System.out.println(extensionEncoder.getDistance());
-      counter = 0;
-      System.out.println("Voltage: "+ armExtensionLeader.getMotorOutputVoltage());
-      System.out.println("Current percent extension: "+currentPercentExtension);
-      System.out.println("PID Calculation: "+adjusted_power);
-    }
-
-    if (adjusted_power > 0) {
-      if (currentPercentExtension >= 1) { // just for bulletproofing should we add operator override
-        armExtensionLeader.set(0);
-        System.out.println("Max Extension Reached");
-
-      } else {
-        if (currentPercentProgress >= 1) {
-          armExtensionLeader.set(0);
-          System.out.println("Hit max");
-        }
-
-      }
-
-    } else if (adjusted_power < 0) {
-      if (currentPercentProgress <= 1) {
-        armExtensionLeader.set(0); // retraction limit switch is hit so speed is 0
-        System.out.println("Hit min");
-      }
-    }
-
     // This method will be called once per scheduler run
   }
 }
