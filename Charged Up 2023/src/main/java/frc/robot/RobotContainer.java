@@ -98,8 +98,8 @@ public class RobotContainer {
 
     // EXTENSION BINDINGS
     new POVButton(m_operatorStick, 0).onTrue(new ExtendLevel0(m_ArmExtension));
-    new POVButton(m_operatorStick, 270).onTrue(new ExtendLevel1(m_ArmExtension));
-    new POVButton(m_operatorStick, 180).onTrue(new ExtendLevel2(m_ArmExtension));
+    //new POVButton(m_operatorStick, 270).onTrue(new ExtendLevel1(m_ArmExtension));
+    //new POVButton(m_operatorStick, 180).onTrue(new ExtendLevel2(m_ArmExtension));
     new POVButton(m_operatorStick, 90).onTrue(new ExtendLevel3(m_ArmExtension));
 
     // COMPOUND ARM MOVEMENT BINDINGS

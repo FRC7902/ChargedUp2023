@@ -33,7 +33,6 @@ public class ExtendLevel0 extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
     m_armExtension.setPower(-1*Constants.ArmExtensionConstants.ArmExtensionPower, Constants.ArmExtensionConstants.extendedMinSoftLimitInInches);
     System.out.println(m_armExtension.status);
   }

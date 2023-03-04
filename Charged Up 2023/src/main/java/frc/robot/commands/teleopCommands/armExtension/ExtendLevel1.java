@@ -22,7 +22,6 @@ public class ExtendLevel1 extends CommandBase {
     m_armExtension = armExtension;
     m_armExtension.stopMotor();
     addRequirements(armExtension);
-    // m_armExtensionMotor = armShoulderLeader;
   }
 
   // Called when the command is initially scheduled.

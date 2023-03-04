@@ -25,6 +25,7 @@ public class ArmExtension extends SubsystemBase {
   //This encoder connects directly back to 0 and 1 on the roboRIO
   public double percentExtension;
   int counter = 0;
+  public int state;
 
   //Limit Switch
   DigitalInput retractionLimitSwitch = new DigitalInput(ArmExtensionConstants.ZeroPosLimitSwitchDIO);
@@ -60,7 +61,16 @@ public class ArmExtension extends SubsystemBase {
     if(retractionLimitSwitch.get()){
       System.out.println("Hit retraction limit switch");
       extensionEncoder.reset();
+      state = 0;
     }
+
+    if(extensionEncoder.getDistance() < extensionDistanceInInches){
+      power = Math.abs(power);
+    }else if(extensionEncoder.getDistance() > extensionDistanceInInches){
+      power = (-1)*Math.abs(power);
+
+    }
+
     armExtensionLeader.set(power);
     if(power > 0){
       if(percentExtension >= 1){
