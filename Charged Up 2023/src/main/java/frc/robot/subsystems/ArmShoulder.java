@@ -34,8 +34,8 @@ public class ArmShoulder extends SubsystemBase {
 
   // Declare motor controllers
   private final static WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmShoulderConstants.ArmShoulderLeaderCAN);
-  private final static WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(
-      ArmShoulderConstants.ArmShoulderFollowerCAN);
+  // private final static WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(
+  //     ArmShoulderConstants.ArmShoulderFollowerCAN);
 
   private final static FireBirdsUtils util = new FireBirdsUtils();
 
@@ -67,16 +67,17 @@ public class ArmShoulder extends SubsystemBase {
   public ArmShoulder(ArmExtension armExtension) {
     m_ArmExtension = armExtension;
     armShoulderLeader.configFactoryDefault();
-    armShoulderFollower.configFactoryDefault();
+    // armShoulderFollower.configFactoryDefault();
 
-    armShoulderFollower.follow(armShoulderLeader);
+    // armShoulderFollower.follow(armShoulderLeader);
     armShoulderLeader.setInverted(false);
-    armShoulderFollower.setInverted(InvertType.FollowMaster);
+    // armShoulderFollower.setInverted(InvertType.FollowMaster);
 
-    armShoulderLeader.config_kP(0, 2);
+    armShoulderLeader.config_kP(0, 3);
 
     armShoulderLeader.configMotionCruiseVelocity(500);
     armShoulderLeader.configMotionAcceleration(3000);
+    
 
     // armShoulderLeader.config_kP(Constants.GainConstants.kSlot_Distanc,
     // Constants.GainConstants.kGains_Distanc.kP,
@@ -131,9 +132,9 @@ public class ArmShoulder extends SubsystemBase {
     armShoulderLeader.set(mode, value);
   }
 
-  public double getFollowerPower() {
-    return armShoulderFollower.get();
-  }
+  // public double getFollowerPower() {
+  //   return armShoulderFollower.get();
+  // }
 
   public double getLeaderPower() {
     return armShoulderLeader.get();
@@ -191,15 +192,16 @@ public class ArmShoulder extends SubsystemBase {
   public void periodic() {
 
     if (armShoulderLeader.isRevLimitSwitchClosed() == 1) {
-      // System.out.println("LIMIT SWITCH TRIGGERED");
-      armShoulderLeader.getSensorCollection().setQuadraturePosition(0, 0);
+      System.out.println("LIMIT SWITCH TRIGGERED");
+      armShoulderLeader.setSelectedSensorPosition(0);
+
     }
 
     double currentPosition = getPosition();
 
     double adjusted_feedForward = (ArmShoulderConstants.ArmShoulderFeedForwardMin
         + (ArmShoulderConstants.ArmShoulderFeedForwardDifference * m_ArmExtension.getPercentExtension()))
-        * Math.cos(util.CTRESensorUnitsToRads(currentPosition, ArmShoulderConstants.EncoderCPR)
+        * Math.cos(util.CTRESensorUnitsToRads(targetPosition, ArmShoulderConstants.EncoderCPR)
             - ArmShoulderConstants.angleAdjustmentRadians);
 
     if (counter >= 30) {

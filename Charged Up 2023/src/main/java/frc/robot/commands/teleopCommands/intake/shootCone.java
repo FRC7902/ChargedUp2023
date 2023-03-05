@@ -27,6 +27,7 @@ public class shootCone extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("Shooting Cone");
     m_intake.setPower(IntakeConstants.ShootConeSpeed);
   }
 

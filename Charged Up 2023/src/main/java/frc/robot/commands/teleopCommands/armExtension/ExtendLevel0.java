@@ -14,7 +14,7 @@ import frc.robot.Constants.ArmExtensionConstants;
 import frc.robot.subsystems.ArmExtension;
 
 public class ExtendLevel0 extends CommandBase {
-  private ArmExtension m_armExtension;
+  private final ArmExtension m_armExtension;
 
   /** Creates a new Retract. */
   public ExtendLevel0(ArmExtension armExtension) {
@@ -26,14 +26,15 @@ public class ExtendLevel0 extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_armExtension.stopMotor();
+    // m_armExtension.stopMotor();
+    m_armExtension.setTargetPosition(ArmExtensionConstants.extendedMinSoftLimitInInches);
     System.out.println("Retracting Extension...");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armExtension.setPower(-1*Constants.ArmExtensionConstants.ArmExtensionPower, Constants.ArmExtensionConstants.extendedMinSoftLimitInInches);
+    // m_armExtension.setPower(-1*Constants.ArmExtensionConstants.ArmExtensionPower, ArmExtensionConstants.extendedMinSoftLimitInInches);
     System.out.println(m_armExtension.status);
   }
 

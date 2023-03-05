@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import frc.robot.Constants;
 import frc.robot.Constants.ArmExtensionConstants;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,6 +24,10 @@ public class ArmExtension extends SubsystemBase {
   private final WPI_TalonSRX armExtensionLeader = new WPI_TalonSRX(ArmExtensionConstants.ArmExtensionLeaderCAN);
   private final WPI_VictorSPX armExtensionFollower = new WPI_VictorSPX(ArmExtensionConstants.ArmExtensionFollowerCAN);
   private final Encoder extensionEncoder = new Encoder(ArmExtensionConstants.kEncoderA,ArmExtensionConstants.kEncoderB);
+  private final Debouncer m_debouncer = new Debouncer(0.1, Debouncer.DebounceType.kBoth);
+  private double targetExtension;
+  public double SDBTargetExtension = 0;
+  
   //This encoder connects directly back to 0 and 1 on the roboRIO
   public double percentExtension;
   int counter = 0;
@@ -30,6 +36,8 @@ public class ArmExtension extends SubsystemBase {
   //Limit Switch
   DigitalInput retractionLimitSwitch = new DigitalInput(ArmExtensionConstants.ZeroPosLimitSwitchDIO);
 
+  //PID Controller
+  private final PIDController armExtensionPID = new PIDController(0.5, 0, 0);
   
   //position test;
   public String status = "Off";
@@ -41,6 +49,9 @@ public class ArmExtension extends SubsystemBase {
     armExtensionFollower.setInverted(InvertType.FollowMaster);
     extensionEncoder.setDistancePerPulse(ArmExtensionConstants.kPC/ArmExtensionConstants.EncoderCPR); //in inches
     extensionEncoder.reset(); //set to zero position
+    extensionEncoder.setReverseDirection(true);
+    targetExtension = extensionEncoder.getDistance();
+    //armExtensionPID.setTolerance(0.5);
     
   //   armExtensionLeader.config_kP(Constants.ArmConstants.kSlot_Distanc, Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kTimeoutMs);
   //   // armShoulderLeader.setPID(Constants.ArmConstants.kGains_Distanc.kP, Constants.ArmConstants.kGains_Distanc.kI, Constants.ArmConstants.kGains_Distanc.kD);
@@ -49,42 +60,41 @@ public class ArmExtension extends SubsystemBase {
   //     armExtensionLeader.configMotionCruiseVelocity(2000, Constants.ArmConstants.kTimeoutMs);
   }
 
-  public void setPower(double power, double extensionDistanceInInches) {
-    percentExtension = extensionEncoder.getDistance()/extensionDistanceInInches;
+  public void setPower(double power, double distance) {
+    // percentExtension = extensionEncoder.getDistance()/distance;
 
-    counter++;
+    // if(retractionLimitSwitch.get()){
+    //   System.out.println("Hit retraction limit switch");
+    //   extensionEncoder.reset();
+    //   state = 0;
+    // }
 
-    if(counter >= 10){
-      System.out.println(extensionEncoder.getDistance());
-    }
+    // // if(extensionEncoder.getDistance() < extensionDistanceInInches){
+    // //   power = Math.abs(power);
+    // // }else if(extensionEncoder.getDistance() > extensionDistanceInInches){
+    // //   power = (-1)*Math.abs(power);
 
-    if(retractionLimitSwitch.get()){
-      System.out.println("Hit retraction limit switch");
-      extensionEncoder.reset();
-      state = 0;
-    }
+    // // }
 
-    if(extensionEncoder.getDistance() < extensionDistanceInInches){
-      power = Math.abs(power);
-    }else if(extensionEncoder.getDistance() > extensionDistanceInInches){
-      power = (-1)*Math.abs(power);
+    // armExtensionLeader.set(power);
+    // if(power > 0){
+    //   if(percentExtension >= 1){
+    //     armExtensionLeader.set(0);
+    //     System.out.println("Fully extended.");
+    //   }
+    //   status = "Extending...";
 
-    }
+    // }else if(power < 0){
+    //   if(percentExtension <= 1){
+    //     armExtensionLeader.set(0); //retraction limit switch is hit so speed is 0
+    //   }
 
-    armExtensionLeader.set(power);
-    if(power > 0){
-      if(percentExtension >= 1){
-        armExtensionLeader.set(0);
-        System.out.println("Fully extended.");
-      }
-      status = "Extending...";
+    //   // if(extensionEncoder.getDistance() < 1.5){
+    //   //   armExtensionLeader.set(0); //retraction limit switch is hit so speed is 0
+    //   // }
 
-    }else if(power < 0){
-      if(percentExtension <= 1){
-        armExtensionLeader.set(0); //retraction limit switch is hit so speed is 0
-      }
-      System.out.println(extensionEncoder.getDistance());
-    }
+    //   System.out.println(extensionEncoder.getDistance());
+    // }
   }
 
   public Encoder getEncoder(){
@@ -100,17 +110,34 @@ public class ArmExtension extends SubsystemBase {
     return extensionEncoder.getDistance() / ArmExtensionConstants.extendedMaxSoftLimitInInches;
   }
 
-
-  public void setPower(double power){
-    armExtensionLeader.set(power);
+  public boolean atZeroPos(){
+    return m_debouncer.calculate(retractionLimitSwitch.get());
   }
 
-  public boolean atZeroPos(){
-    return retractionLimitSwitch.get();
+  public void setTargetPosition(double targetInInches){
+    targetExtension = targetInInches;
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    if(atZeroPos()){
+      extensionEncoder.reset(); //set to zero position
+    }
+    counter++;
+    percentExtension = getPercentExtension();
+
+    if(counter >= 10){
+      System.out.println(extensionEncoder.getDistance());
+    }
+
+    armExtensionLeader.set(armExtensionPID.calculate(extensionEncoder.getDistance(), targetExtension));
+
+
+    SmartDashboard.putNumber("% Extension", percentExtension);
+    SmartDashboard.putNumber("Target extension", targetExtension);
+    SmartDashboard.putNumber("Arm Ext PID Calculate: ", armExtensionPID.calculate(extensionEncoder.get(), SDBTargetExtension));
+    SmartDashboard.putBoolean("Arm Limit Switch", retractionLimitSwitch.get());
+
+
   }
 }

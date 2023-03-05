@@ -27,7 +27,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   private final MotorControllerGroup left = new MotorControllerGroup(m_leftleader, m_leftfollower);
   private final MotorControllerGroup right = new MotorControllerGroup(m_rightleader, m_rightfollower);
-
   private final DifferentialDrive drive = new DifferentialDrive(left, right);
 
   // Encoders
@@ -36,6 +35,10 @@ public class DriveSubsystem extends SubsystemBase {
 
   public DriveSubsystem() {
     left.setInverted(true);
+    m_leftleader.setSmartCurrentLimit(DriveConstants.SoftwareCurrentLimit);
+    m_rightleader.setSmartCurrentLimit(DriveConstants.SoftwareCurrentLimit);
+    m_leftleader.setOpenLoopRampRate(2);
+    m_rightleader.setOpenLoopRampRate(2);
     resetEncoders();
 
     // tells how far you travelled in inches. NOTE: RIGHT IS NEGATIVE WHEN DRIVING FORWARD

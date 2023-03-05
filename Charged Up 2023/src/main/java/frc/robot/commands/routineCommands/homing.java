@@ -35,7 +35,7 @@ public class homing extends CommandBase {
     }
 
     if (!m_armExtension.atZeroPos()) {
-      m_armExtension.setPower(-1 * ArmExtensionConstants.extensionHomingPower);
+      //m_armExtension.setPower(-1 * ArmExtensionConstants.extensionHomingPower);
     }
 
     System.out.println("Running.");

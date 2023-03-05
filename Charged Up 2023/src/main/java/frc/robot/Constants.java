@@ -85,8 +85,8 @@ public final class Constants {
 
     public final static double ArmShoulderRotatePower = 0.5; // testing, not final
     public final static double ArmShoulderStop = 0.0; // testing, not final
-    public final static double ArmShoulderFeedForwardMin = 0.12; //final and tested
-    public final static double ArmShoulderFeedForwardMax = 0.22; //final and tested
+    public final static double ArmShoulderFeedForwardMin = 0.26; //final and tested
+    public final static double ArmShoulderFeedForwardMax = 0.5; //final and tested
     public final static double ArmShoulderFeedForwardDifference = ArmShoulderFeedForwardMax - ArmShoulderFeedForwardMin;
     public final static double angleAdjustmentDegrees = 71.57;
     public final static double angleAdjustmentRadians = Units.degreesToRadians(angleAdjustmentDegrees);
@@ -124,7 +124,7 @@ public final class Constants {
     public final static double kLevel0Degrees = 0.0; //off
     public final static double kLevel1Degrees = 30.0; //low
     public final static double kLevel2Degrees = 60.0; //medium
-    public final static double kLevel3Degrees = 95.0; //high
+    public final static double kLevel3Degrees = 105.0; //high
 
     public final static double kLevel0EncoderTicks = (kLevel0Degrees/360) * EncoderCPR;
     public final static double kLevel1EncoderTicks = (kLevel1Degrees/360) * EncoderCPR;
@@ -165,9 +165,9 @@ public final class Constants {
 
   public static final class IntakeConstants {
     public final static int IntakeCAN = 8; 
-    public final static double SuckCubeSpeed = 0.5; //These need testing
+    public final static double SuckCubeSpeed = 0.8; //These need testing
     public final static double ShootCubeSpeed = -0.8;
-    public final static double SuckConeSpeed = -0.5;
+    public final static double SuckConeSpeed = -0.8;
     public final static double ShootConeSpeed = 0.8;
 
 
