@@ -51,11 +51,6 @@ public final class Constants {
 
     public final static int kSensorUnitsPerRotation = 4096;
 
-    public final static double kLevel0Percentage = 0.01;
-    public final static double kLevel1Percentage = 0.33;
-    public final static double kLevel2Percentage = 0.67;
-    public final static double kLevel3Percentage = 1.0;
-
     public final static double ArmExtensionFeedForward = 0.0;
 
     public final static double ArmExtensionPower = 0.35;
@@ -64,7 +59,11 @@ public final class Constants {
     public final static double extendedMinSoftLimitInInches = 1.5;
     public final static double extendedLevel1SoftLimitInInches = 0.33*extendedMaxSoftLimitInInches;
     public final static double extendedLevel2SoftLimitInInches = 0.66*extendedMaxSoftLimitInInches;
-
+    
+    public final static double kLevel0Percentage = 0.01;
+    public final static double kLevel1Percentage = 0.49093327967541; //ground engagement
+    public final static double kLevel2Percentage = (11/extendedMaxSoftLimitInInches); //mid engagement
+    public final static double kLevel3Percentage = 1.0; //high shooting
     public final static int EncoderCPR = 2048; 
     public static final int kEncoderA = 8;
     public static final int kEncoderB = 9;
@@ -122,9 +121,9 @@ public final class Constants {
 
     //NEED TO TEST THESE VARIABLES
     public final static double kLevel0Degrees = 0.0; //off
-    public final static double kLevel1Degrees = 30.0; //low
-    public final static double kLevel2Degrees = 60.0; //medium
-    public final static double kLevel3Degrees = 105.0; //high
+    public final static double kLevel1Degrees = 20.0; //ground
+    public final static double kLevel2Degrees = 60.0; //Mid-height/grabbing from human player
+    public final static double kLevel3Degrees = 75.0; //high
 
     public final static double kLevel0EncoderTicks = (kLevel0Degrees/360) * EncoderCPR;
     public final static double kLevel1EncoderTicks = (kLevel1Degrees/360) * EncoderCPR;
@@ -135,6 +134,15 @@ public final class Constants {
     public static final double shoulderHomingPower = 0.5;
   }
 
+  // public static final CameraConstants {
+  //   public static final int resX = 80;
+  //   public static final int resY = 80;
+
+
+
+  // }
+  
+  
   public static class GainConstants {
 
     /**
@@ -144,7 +152,7 @@ public final class Constants {
     public static boolean kMotorInvert = false;
     public static Object IntakeConstants;
 
-    public final static Gains kGains_Distanc = new Gains(0.1, 0.0, 0.0, 0.0, 100, 0.50);
+    public final static Gains kGains_Distanc = new Gains(0.5, 0.0, 0.0, 0.0, 100, 0.50);
     public final static Gains kGains_Turning = new Gains(2.0, 0.0, 4.0, 0.0, 200, 1.00);
     public final static Gains kGains_Velocit = new Gains(0.1, 0.0, 20.0, 1023.0 / 6800.0, 300, 0.50);
     public final static Gains kGains_MotProf = new Gains(1.0, 0.0, 0.0, 1023.0 / 6800.0, 400, 1.00);

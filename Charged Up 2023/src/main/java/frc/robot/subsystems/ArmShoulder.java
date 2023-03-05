@@ -75,8 +75,8 @@ public class ArmShoulder extends SubsystemBase {
 
     armShoulderLeader.config_kP(0, 3);
 
-    armShoulderLeader.configMotionCruiseVelocity(500);
-    armShoulderLeader.configMotionAcceleration(3000);
+    armShoulderLeader.configMotionCruiseVelocity(1000);
+    armShoulderLeader.configMotionAcceleration(4000);
     
 
     // armShoulderLeader.config_kP(Constants.GainConstants.kSlot_Distanc,
@@ -140,10 +140,6 @@ public class ArmShoulder extends SubsystemBase {
     return armShoulderLeader.get();
   }
 
-  public double getEncoderPos() { // needs testing
-    return armShoulderLeader.getSelectedSensorPosition();
-  }
-
   public boolean atZeroPos() {
     return armShoulderLeader.isRevLimitSwitchClosed() == 0; // switch is open
   }
@@ -204,23 +200,17 @@ public class ArmShoulder extends SubsystemBase {
         * Math.cos(util.CTRESensorUnitsToRads(targetPosition, ArmShoulderConstants.EncoderCPR)
             - ArmShoulderConstants.angleAdjustmentRadians);
 
-    if (counter >= 30) {
-      System.out.println("Current Position: " + currentPosition + "  Target Position: " + targetPosition);
-      counter = 0;
-      System.out.println("Leader voltage: " + armShoulderLeader.getMotorOutputVoltage());
-      System.out.println("Position: " + currentPosition);
-      System.out.println("Adjusted Feedforward: " + adjusted_feedForward);
+    SmartDashboard.putNumber("Current Position: ",currentPosition);
+    SmartDashboard.putNumber("Target Position", targetPosition);
+    SmartDashboard.putNumber("Leader Voltage", armShoulderLeader.getMotorOutputVoltage());
+    SmartDashboard.putNumber("Adjusted feedforward", adjusted_feedForward);
+    SmartDashboard.putNumber("Shoulder Current (A)", armShoulderLeader.getSupplyCurrent());
+    SmartDashboard.putNumber("Shoulder Error", armShoulderLeader.getClosedLoopError(0));
 
-      // System.out.println ("Simulation output V: " +
-      // armShoulderLeaderSim.getMotorOutputLeadVoltage());
-
-    } else {
-      counter++;
-    }
 
     // TODO try motionmagic:
     // https://v5.docs.ctr-electronics.com/en/stable/ch16_ClosedLoop.html#gravity-offset-arm
-    armShoulderLeader.set(ControlMode.MotionMagic, targetPosition, DemandType.ArbitraryFeedForward,
+    armShoulderLeader.set(ControlMode.MotionMagic, targetPosition*2, DemandType.ArbitraryFeedForward,
         adjusted_feedForward);
 
     // Position control to current position variable

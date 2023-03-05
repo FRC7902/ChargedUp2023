@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.IOConstants;
 import frc.robot.commands.autonomousCommands.drive.*;
+import frc.robot.commands.routineCommands.*;
 import frc.robot.commands.routineCommands.homing;
 import frc.robot.commands.teleopCommands.armExtension.*;
 import frc.robot.commands.teleopCommands.armshoulder.*;
@@ -38,6 +39,7 @@ public class RobotContainer {
   private final ArmExtension m_ArmExtension = new ArmExtension();
   private final ArmShoulder m_ArmShoulder = new ArmShoulder(m_ArmExtension);
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
+  private final CameraSubsystem cameraSubsystem = new CameraSubsystem();
 
   // Auton commands:
   private final DriveToDistance m_DriveToDistance = new DriveToDistance(2, m_driveSubsystem);
@@ -67,9 +69,9 @@ public class RobotContainer {
             m_driveSubsystem));
 
     // AUTON TESTING
-    // m_chooser.setDefaultOption("Drive to Distance", m_DriveToDistance);
-    // m_chooser.addOption("Turn 30 degrees left", m_turnToAngleLeft);
-    // SmartDashboard.putData(m_chooser);
+    m_chooser.setDefaultOption("Drive to Distance", m_DriveToDistance);
+    m_chooser.addOption("Turn 30 degrees left", m_turnToAngleLeft);
+    SmartDashboard.putData(m_chooser);
   }
 
   /**
@@ -94,7 +96,7 @@ public class RobotContainer {
     new JoystickButton(m_operatorStick, Constants.IOConstants.kSTART)
         .toggleOnTrue(new homing(m_ArmExtension, m_ArmShoulder));
 
-    // SHOULDER BINDINGS
+    //SHOULDER BINDINGS
     new JoystickButton(m_operatorStick, IOConstants.kA).onTrue(new RotateLevel0(m_ArmShoulder));
     new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new RotateLevel1(m_ArmShoulder));
     new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new RotateLevel2(m_ArmShoulder));

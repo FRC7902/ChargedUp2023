@@ -9,9 +9,11 @@ import frc.robot.Constants.DriveConstants;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -37,9 +39,14 @@ public class DriveSubsystem extends SubsystemBase {
     left.setInverted(true);
     m_leftleader.setSmartCurrentLimit(DriveConstants.SoftwareCurrentLimit);
     m_rightleader.setSmartCurrentLimit(DriveConstants.SoftwareCurrentLimit);
-    m_leftleader.setOpenLoopRampRate(2);
-    m_rightleader.setOpenLoopRampRate(2);
+    m_leftleader.setOpenLoopRampRate(1);
+    m_rightleader.setOpenLoopRampRate(1);
     resetEncoders();
+
+    m_leftleader.setIdleMode(IdleMode.kBrake);
+    m_leftfollower.setIdleMode(IdleMode.kBrake);
+    m_rightleader.setIdleMode(IdleMode.kBrake);
+    m_rightfollower.setIdleMode(IdleMode.kBrake);
 
     // tells how far you travelled in inches. NOTE: RIGHT IS NEGATIVE WHEN DRIVING FORWARD
     m_leftEncoder
@@ -47,24 +54,15 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightEncoder
         .setPositionConversionFactor(DriveConstants.OutputGearRatio * DriveConstants.WheelCircumferenceInInches);
 
+
+    
   }
 
   double tester = 0; // this is used to prevent the values from flashing too quickly across the
                      // screeen
 
   public void driveArcade(double xForward, double zRotation) {
-    if (tester < 50) { // to slow the output for testing purposes
-      tester++;
-    } else {
-      // Note from Jane: I fear that there may be a bug here. Regardless of whether I
-      // put -1 as the right position conversion factor, it's always negative when
-      // moving forward. Just be aware of this if it can't be fixed.
-      //System.out.println("Position left: " + m_leftEncoder.getPosition());
-      //System.out.println("Position right: " + (-1)*m_rightEncoder.getPosition());
-      tester = 0;
-    }
-
-    drive.arcadeDrive(xForward, zRotation);
+    drive.arcadeDrive(xForward, 0.5*zRotation);
 
   }
 
@@ -86,6 +84,11 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+
+    SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
+    SmartDashboard.putNumber("Right Encoder", m_rightEncoder.getPosition());
+    SmartDashboard.putNumber("Average encoder distance",getAvgEncoderDistance());
   }
 
   public RelativeEncoder getLeftEncoder() {
@@ -105,4 +108,7 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightEncoder.setPosition(0);
   }
 
+
 }
+
+

@@ -22,13 +22,18 @@ public class DriveToDistance extends PIDCommand {
         targetDistanceInFeet*12, //target distance in inches
         // This uses the output
         output -> { //Going off the interpretation that output = error between target and current position
-          double adjustment = output/(targetDistanceInFeet*12);
+          double adjustment = 0.1*output/(targetDistanceInFeet*12);
           m_driveSubsytem.driveRaw(adjustment, adjustment);
         }, m_driveSubsytem);
 
         m_DriveSubsystem = m_driveSubsytem;
-        getController().setTolerance(1);
+        getController().setTolerance(1,0.1);
 
+  }
+
+  @Override
+  public void initialize(){
+    m_DriveSubsystem.resetEncoders();
   }
 
   // Returns true when the command should end.
