@@ -41,9 +41,9 @@ public class RobotContainer {
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   private final CameraSubsystem cameraSubsystem = new CameraSubsystem();
 
-  // Auton commands:
+  // Auton commands: Parameters are currently dummies
   private final DriveToDistance m_DriveToDistance = new DriveToDistance(2, m_driveSubsystem);
-  private final TurnToAngleR m_turnToAngleLeft = new TurnToAngleR(30, m_driveSubsystem);
+  private final TurnToAngleR m_turnToAngleRight = new TurnToAngleR(30, m_driveSubsystem);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -70,7 +70,7 @@ public class RobotContainer {
 
     // AUTON TESTING
     m_chooser.setDefaultOption("Drive to Distance", m_DriveToDistance);
-    m_chooser.addOption("Turn 30 degrees left", m_turnToAngleLeft);
+    m_chooser.addOption("Turn 30 degrees Right", m_turnToAngleRight);
     SmartDashboard.putData(m_chooser);
   }
 
@@ -123,13 +123,13 @@ public class RobotContainer {
     // INTAKE BINDINGS
 
     // Cone stuff (left hand)
-    new JoystickButton(m_operatorStick, IOConstants.kLB).whileTrue(new suckCone(m_intake));// kLB
+    new JoystickButton(m_operatorStick, IOConstants.kLB).whileTrue(new SuckCone(m_intake));// kLB
     //new JoystickButton(m_operatorStick, IOConstants.kLT).whileTrue(new shootCone(m_intake)); // kLT
     new JoystickButton(m_operatorStick, IOConstants.kLB).onFalse(new IntakeStop(m_intake)); // kLB
    // new JoystickButton(m_operatorStick, IOConstants.kLT).onFalse(new IntakeStop(m_intake)); // kLT
 
     // Cube stuff (right hand)
-    new JoystickButton(m_operatorStick, IOConstants.kRB).whileTrue(new suckCube(m_intake));// kRB
+    new JoystickButton(m_operatorStick, IOConstants.kRB).whileTrue(new SuckCube(m_intake));// kRB
    // new JoystickButton(m_operatorStick, IOConstants.kRT).whileTrue(new shootCube(m_intake)); // kRT
     new JoystickButton(m_operatorStick, IOConstants.kRB).onFalse(new IntakeStop(m_intake));// kRB
     //new JoystickButton(m_operatorStick, IOConstants.kRT).onFalse(new IntakeStop(m_intake)); // kRT

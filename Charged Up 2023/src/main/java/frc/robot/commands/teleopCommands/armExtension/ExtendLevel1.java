@@ -13,7 +13,7 @@ import frc.robot.Constants.ArmExtensionConstants;
 import frc.robot.subsystems.ArmExtension;
 
 public class ExtendLevel1 extends CommandBase {
-  private ArmExtension m_armExtension;
+  private final ArmExtension m_armExtension;
   
   // private WPI_TalonSRX m_armExtensionMotor;
 
@@ -27,9 +27,7 @@ public class ExtendLevel1 extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // m_armExtension.stopMotor();
     m_armExtension.setTargetPosition(ArmExtensionConstants.extendedLevel1SoftLimitInInches);
-    System.out.println("Starting Extension...");
   }
 
   // Called every time the scheduler runs while the command is scheduled.

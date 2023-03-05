@@ -56,13 +56,13 @@ public final class Constants {
     public final static double ArmExtensionPower = 0.35;
 
     public final static double extendedMaxSoftLimitInInches = 27;//final and tested
-    public final static double extendedMinSoftLimitInInches = 1.5;
+    public final static double extendedMinSoftLimitInInches = 1;
     public final static double extendedLevel1SoftLimitInInches = 0.33*extendedMaxSoftLimitInInches;
     public final static double extendedLevel2SoftLimitInInches = 0.66*extendedMaxSoftLimitInInches;
     
     public final static double kLevel0Percentage = 0.01;
-    public final static double kLevel1Percentage = 0.49093327967541; //ground engagement
-    public final static double kLevel2Percentage = (11/extendedMaxSoftLimitInInches); //mid engagement
+    public final static double kLevel1Percentage = 14.0/extendedMaxSoftLimitInInches; //ground engagement
+    public final static double kLevel2Percentage = 11.0/extendedMaxSoftLimitInInches; //mid engagement
     public final static double kLevel3Percentage = 1.0; //high shooting
     public final static int EncoderCPR = 2048; 
     public static final int kEncoderA = 8;
@@ -119,17 +119,16 @@ public final class Constants {
     /* Choose so that Talon does not report sensor out of phase */
     public static boolean kSensorPhase = true;
 
-    //NEED TO TEST THESE VARIABLES
-    public final static double kLevel0Degrees = 0.0; //off
-    public final static double kLevel1Degrees = 20.0; //ground
-    public final static double kLevel2Degrees = 60.0; //Mid-height/grabbing from human player
-    public final static double kLevel3Degrees = 75.0; //high
+    //DEGREES ARE ALL MEASURED FROM THE VERTICAL
+    public final static double kLevel0Degrees = 90 - angleAdjustmentDegrees; //off
+    public final static double kLevel1Degrees = 48.0; //ground
+    public final static double kLevel2Degrees = 78.0; //Mid-height/grabbing from human player
+    public final static double kLevel3Degrees = 95.0; //high
 
     public final static double kLevel0EncoderTicks = (kLevel0Degrees/360) * EncoderCPR;
     public final static double kLevel1EncoderTicks = (kLevel1Degrees/360) * EncoderCPR;
     public final static double kLevel2EncoderTicks = (kLevel2Degrees/360) * EncoderCPR;
     public final static double kLevel3EncoderTicks = (kLevel3Degrees/360) * EncoderCPR;
-    public final static double ticksPerDegree = EncoderCPR/360;
 
     public static final double shoulderHomingPower = 0.5;
   }
