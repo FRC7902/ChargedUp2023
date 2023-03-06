@@ -92,7 +92,7 @@ public class ArmShoulder extends SubsystemBase {
     m_armTower.setColor(new Color8Bit(Color.kBlue));
 
     // Encoder
-    armShoulderLeader.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0,
+    armShoulderLeader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0,
         0);
 
     armShoulderLeader.setInverted(false);
@@ -149,7 +149,7 @@ public class ArmShoulder extends SubsystemBase {
   }
 
   public double getPosition() {
-    // absolute position gets the location of the arm in encoder ticks (4096 per ENCODER revolution, 8192 per arm rev)
+    // absolute position gets the location of the arm in ticks (4096 per revolution)
     return armShoulderLeader.getSelectedSensorPosition();
   }
 
@@ -193,7 +193,6 @@ public class ArmShoulder extends SubsystemBase {
 
     }
 
-    //in encoder ticks
     double currentPosition = getPosition();
 
     double adjusted_feedForward = (ArmShoulderConstants.ArmShoulderFeedForwardMin

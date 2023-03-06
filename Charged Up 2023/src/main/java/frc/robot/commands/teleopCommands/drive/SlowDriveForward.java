@@ -24,7 +24,7 @@ public class SlowDriveForward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveSubsystem.driveRaw(DriveConstants.SlowDriveSpeed);
+    m_driveSubsystem.driveRaw(DriveConstants.SlowDriveSpeed, DriveConstants.SlowDriveSpeed);
 
   }
 

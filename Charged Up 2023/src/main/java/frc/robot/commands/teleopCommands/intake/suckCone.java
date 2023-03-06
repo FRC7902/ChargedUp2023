@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class SuckCone extends CommandBase {
+public class suckCone extends CommandBase {
   private IntakeSubsystem m_intake;
 
   /** Creates a new RotateOut. */
-  public SuckCone(IntakeSubsystem intake) { 
+  public suckCone(IntakeSubsystem intake) { 
     m_intake = intake;
   }
 

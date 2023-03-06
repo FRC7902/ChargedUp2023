@@ -28,7 +28,9 @@ public class ExtendLevel3 extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    // m_armExtension.stopMotor();
     m_armExtension.setTargetPosition(ArmExtensionConstants.extendedMaxSoftLimitInInches);
+    System.out.println("Starting Extension...");
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -66,9 +66,9 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
-  public void driveRaw(double power) {
-    this.left.set(power);
-    this.right.set(power);
+  public void driveRaw(double left, double right) {
+    this.left.set(left);
+    this.right.set(right);
   }
 
   public void turnLeft(double amount){ 
@@ -79,11 +79,6 @@ public class DriveSubsystem extends SubsystemBase {
   public void turnRight(double amount){ 
     right.set(amount);
     left.set(-amount);
-  }
-
-  public void stopMotors(){
-    this.left.stopMotor();
-    this.right.stopMotor();
   }
 
   @Override
