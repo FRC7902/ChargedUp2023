@@ -20,6 +20,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
@@ -35,7 +36,7 @@ public class ArmShoulder extends SubsystemBase {
   // Declare motor controllers
   private final static WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmShoulderConstants.ArmShoulderLeaderCAN);
   // private final static WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(
-  //     ArmShoulderConstants.ArmShoulderFollowerCAN);
+  // ArmShoulderConstants.ArmShoulderFollowerCAN);
 
   private final static FireBirdsUtils util = new FireBirdsUtils();
 
@@ -77,7 +78,6 @@ public class ArmShoulder extends SubsystemBase {
 
     armShoulderLeader.configMotionCruiseVelocity(1000);
     armShoulderLeader.configMotionAcceleration(4000);
-    
 
     // armShoulderLeader.config_kP(Constants.GainConstants.kSlot_Distanc,
     // Constants.GainConstants.kGains_Distanc.kP,
@@ -95,8 +95,13 @@ public class ArmShoulder extends SubsystemBase {
     armShoulderLeader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0,
         0);
 
-    armShoulderLeader.setInverted(false);
-    armShoulderLeader.setSensorPhase(true);
+    if (RobotBase.isSimulation()) {
+      armShoulderLeader.setInverted(false);
+      armShoulderLeader.setSensorPhase(false);
+    } else {
+      armShoulderLeader.setInverted(false);
+      armShoulderLeader.setSensorPhase(true);
+    }
 
     // limit switch
     armShoulderLeader.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector,
@@ -133,7 +138,7 @@ public class ArmShoulder extends SubsystemBase {
   }
 
   // public double getFollowerPower() {
-  //   return armShoulderFollower.get();
+  // return armShoulderFollower.get();
   // }
 
   public double getLeaderPower() {
@@ -200,18 +205,21 @@ public class ArmShoulder extends SubsystemBase {
         * Math.cos(util.CTRESensorUnitsToRads(targetPosition, ArmShoulderConstants.EncoderCPR)
             - ArmShoulderConstants.angleAdjustmentRadians);
 
-    SmartDashboard.putNumber("Current Position: ",currentPosition);
+    SmartDashboard.putNumber("Current Position: ", currentPosition);
     SmartDashboard.putNumber("Target Position", targetPosition);
     SmartDashboard.putNumber("Leader Voltage", armShoulderLeader.getMotorOutputVoltage());
     SmartDashboard.putNumber("Adjusted feedforward", adjusted_feedForward);
     SmartDashboard.putNumber("Shoulder Current (A)", armShoulderLeader.getSupplyCurrent());
     SmartDashboard.putNumber("Shoulder Error", armShoulderLeader.getClosedLoopError(0));
 
+    if (RobotBase.isSimulation()) {
+      armShoulderLeader.set(ControlMode.MotionMagic, targetPosition, DemandType.ArbitraryFeedForward,
+          adjusted_feedForward);
 
-    // TODO try motionmagic:
-    // https://v5.docs.ctr-electronics.com/en/stable/ch16_ClosedLoop.html#gravity-offset-arm
-    armShoulderLeader.set(ControlMode.MotionMagic, targetPosition*2, DemandType.ArbitraryFeedForward,
-        adjusted_feedForward);
+    } else {
+      armShoulderLeader.set(ControlMode.MotionMagic, targetPosition * 2, DemandType.ArbitraryFeedForward,
+          adjusted_feedForward);
+    }
 
     // Position control to current position variable
 

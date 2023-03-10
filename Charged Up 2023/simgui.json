@@ -1,21 +1,18 @@
 {
-  "HALProvider": {
-    "Other Devices": {
-      "SPARK MAX [15]": {
-        "header": {
-          "open": true
-        }
-      },
-      "SPARK MAX [16]": {
-        "header": {
-          "open": true
-        }
-      }
-    }
-  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
+      "/LiveWindow/Ungrouped/DigitalInput[7]": "Digital Input",
+      "/LiveWindow/Ungrouped/PIDController[1]": "PIDController",
+      "/LiveWindow/Ungrouped/PIDController[2]": "PIDController",
+      "/LiveWindow/Ungrouped/PIDController[3]": "PIDController",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Talon SRX [11]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon SRX [4]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [7]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Victor SPX [8]": "Motor Controller",
+      "/Shuffleboard/Drivetrain/DifferentialDrive[1]": "DifferentialDrive",
       "/SmartDashboard/Arm Sim": "Mechanism2d",
       "/SmartDashboard/SendableChooser[0]": "String Chooser"
     },

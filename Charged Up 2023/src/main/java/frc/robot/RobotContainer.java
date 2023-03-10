@@ -39,7 +39,7 @@ public class RobotContainer {
   private final ArmExtension m_ArmExtension = new ArmExtension();
   private final ArmShoulder m_ArmShoulder = new ArmShoulder(m_ArmExtension);
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
-  private final CameraSubsystem cameraSubsystem = new CameraSubsystem();
+  //private final CameraSubsystem cameraSubsystem = new CameraSubsystem();
 
   // Auton commands:
   private final DriveToDistance m_DriveToDistance = new DriveToDistance(2, m_driveSubsystem);

@@ -62,6 +62,7 @@ public class DriveSubsystem extends SubsystemBase {
                      // screeen
 
   public void driveArcade(double xForward, double zRotation) {
+    // TODO move rotation multiplier into constants
     drive.arcadeDrive(xForward, 0.5*zRotation);
 
   }
@@ -81,16 +82,6 @@ public class DriveSubsystem extends SubsystemBase {
     left.set(-amount);
   }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-
-
-    SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
-    SmartDashboard.putNumber("Right Encoder", m_rightEncoder.getPosition());
-    SmartDashboard.putNumber("Average encoder distance",getAvgEncoderDistance());
-  }
-
   public RelativeEncoder getLeftEncoder() {
     return m_leftEncoder;
   }
@@ -106,6 +97,17 @@ public class DriveSubsystem extends SubsystemBase {
   public void resetEncoders() {
     m_leftEncoder.setPosition(0);
     m_rightEncoder.setPosition(0);
+  }
+
+
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+
+
+    SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
+    SmartDashboard.putNumber("Right Encoder", m_rightEncoder.getPosition());
+    SmartDashboard.putNumber("Average encoder distance",getAvgEncoderDistance());
   }
 
 
