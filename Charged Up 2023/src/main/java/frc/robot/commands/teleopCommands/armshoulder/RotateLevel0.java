@@ -24,7 +24,6 @@ public class RotateLevel0 extends CommandBase {
   @Override
   public void initialize() {
     m_armShoulder.setTargetPosition(ArmShoulderConstants.kLevel0EncoderTicks);
-    m_armShoulder.setShoulderStatus(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

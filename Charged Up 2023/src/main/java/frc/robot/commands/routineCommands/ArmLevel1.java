@@ -22,22 +22,22 @@ public class ArmLevel1 extends SequentialCommandGroup {
   private final ArmShoulder m_ArmShoulder;
   private final ArmExtension m_ArmExtension;
 
-  public ArmLevel1(ArmShoulder armShoulder, ArmExtension armExtend) {
+  public ArmLevel1(ArmShoulder armShoulder, ArmExtension armExtend, double ArmPosition) {
 
     m_ArmShoulder = armShoulder;
     m_ArmExtension = armExtend;
     Command[]commands = new Command[2];
-    System.out.println("Arm position: " + m_ArmShoulder.getShoulderStatus());
+    System.out.println("Arm position: " + ArmPosition);
     System.out.println("Target position: " + Constants.ArmShoulderConstants.kLevel1EncoderTicks);
 
 
     
-    if(m_ArmShoulder.getShoulderStatus() < 1){
+    if(ArmPosition < Constants.ArmShoulderConstants.kLevel1EncoderTicks){
       commands[0] = new RotateLevel1(m_ArmShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds);
       commands [1] = new ExtendLevel1(m_ArmExtension);
     }
     
-    if(m_ArmShoulder.getShoulderStatus() > 1){
+    if(ArmPosition > Constants.ArmShoulderConstants.kLevel1EncoderTicks){
       commands [0] = new ExtendLevel1(m_ArmExtension).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds); 
       commands [1] = new RotateLevel1(m_ArmShoulder);
     }

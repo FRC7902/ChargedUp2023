@@ -113,7 +113,7 @@ public class RobotContainer {
 
     // COMPOUND ARM MOVEMENT BINDINGS
     new JoystickButton(m_operatorStick, IOConstants.kA).onTrue(new ArmLevel0(m_ArmShoulder, m_ArmExtension));
-    new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new ArmLevel1(m_ArmShoulder, m_ArmExtension));
+    new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new ArmLevel1(m_ArmShoulder, m_ArmExtension, m_ArmShoulder.getPosition()));
     new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new ArmLevel2(m_ArmShoulder, m_ArmExtension));
     new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new ArmLevel3(m_ArmShoulder, m_ArmExtension));
 

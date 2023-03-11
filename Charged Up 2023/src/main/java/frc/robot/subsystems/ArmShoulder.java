@@ -147,14 +147,6 @@ public class ArmShoulder extends SubsystemBase {
     return armShoulderLeader.getSelectedSensorPosition();
   }
 
-  public void setShoulderStatus(int newShoulderStatus){
-    shoulderStatus = newShoulderStatus;
-  }
-
-  public int getShoulderStatus(){
-    return shoulderStatus;
-  }
-
   // METHOD - GET NEW POSITION
 
   /**
