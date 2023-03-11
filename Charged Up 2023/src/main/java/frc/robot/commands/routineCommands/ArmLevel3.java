@@ -18,6 +18,9 @@ public class ArmLevel3 extends SequentialCommandGroup {
   public ArmLevel3(ArmShoulder armShoulder, ArmExtension armExtend) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new RotateLevel3(armShoulder).andThen(new ExtendLevel3(armExtend)));
+    addCommands(
+      new RotateLevel3(armShoulder), 
+      new ExtendLevel3(armExtend)
+    );
   }
 }

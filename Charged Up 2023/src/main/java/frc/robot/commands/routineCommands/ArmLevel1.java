@@ -22,9 +22,13 @@ public class ArmLevel1 extends SequentialCommandGroup {
     double currentArmAngle = armShoulder.getPosition();
 
     if(currentArmAngle < Constants.ArmShoulderConstants.kLevel1EncoderTicks){
-        new RotateLevel1(armShoulder).andThen(new ExtendLevel1(armExtend));
+      addCommands(
+        new RotateLevel1(armShoulder), new ExtendLevel1(armExtend)
+      );
     }else{
-        new ExtendLevel1(armExtend).andThen(new RotateLevel1(armShoulder));
+      addCommands(
+        new ExtendLevel1(armExtend), new RotateLevel1(armShoulder)
+      );
     }
   }
 }
