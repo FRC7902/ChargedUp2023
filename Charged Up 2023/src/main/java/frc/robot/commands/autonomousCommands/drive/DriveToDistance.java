@@ -22,7 +22,7 @@ public class DriveToDistance extends PIDCommand {
         targetDistanceInFeet*12, //target distance in inches
         // This uses the output
         output -> { //Going off the interpretation that output = error between target and current position
-          double adjustment = 0.1*output/(targetDistanceInFeet*12);
+          double adjustment = 0.01*output;
           SmartDashboard.putNumber("PID output", output);
           m_driveSubsytem.driveRaw(adjustment);
         }, m_driveSubsytem);
@@ -40,6 +40,7 @@ public class DriveToDistance extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    System.out.println("Done.");
     return getController().atSetpoint();
   }
 

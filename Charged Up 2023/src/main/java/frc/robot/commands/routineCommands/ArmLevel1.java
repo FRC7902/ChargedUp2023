@@ -31,14 +31,16 @@ public class ArmLevel1 extends SequentialCommandGroup {
     System.out.println("Target position: " + Constants.ArmShoulderConstants.kLevel1EncoderTicks);
 
 
-    if(m_ArmShoulder.getShoulderStatus() == 3 || m_ArmShoulder.getShoulderStatus() == 2){
-      commands [0] = new ExtendLevel1(m_ArmExtension).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds); 
-      commands [1] = new RotateLevel1(m_ArmShoulder);
-    }else if(m_ArmShoulder.getShoulderStatus() == 0){
+    
+    if(m_ArmShoulder.getShoulderStatus() < 1){
       commands[0] = new RotateLevel1(m_ArmShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds);
       commands [1] = new ExtendLevel1(m_ArmExtension);
     }
     
+    if(m_ArmShoulder.getShoulderStatus() > 1){
+      commands [0] = new ExtendLevel1(m_ArmExtension).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds); 
+      commands [1] = new RotateLevel1(m_ArmShoulder);
+    }
     addCommands(commands);
 
   }

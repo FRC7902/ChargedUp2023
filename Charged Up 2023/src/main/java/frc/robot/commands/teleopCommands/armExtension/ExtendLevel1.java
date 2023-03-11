@@ -4,18 +4,13 @@
 
 package frc.robot.commands.teleopCommands.armExtension;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import frc.robot.Constants.ArmExtensionConstants;
 import frc.robot.subsystems.ArmExtension;
 
 public class ExtendLevel1 extends CommandBase {
   private ArmExtension m_armExtension;
-  
-  // private WPI_TalonSRX m_armExtensionMotor;
 
   /** Creates a new ArmExtend. */
   public ExtendLevel1(ArmExtension armExtension) {

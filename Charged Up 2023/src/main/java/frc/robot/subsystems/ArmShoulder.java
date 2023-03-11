@@ -31,18 +31,18 @@ import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmShoulder extends SubsystemBase {
-  private static ArmExtension m_ArmExtension;
+  private ArmExtension m_ArmExtension;
 
   // Declare motor controllers
-  private final static WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmShoulderConstants.ArmShoulderLeaderCAN);
-  private final static WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(
+  private final WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmShoulderConstants.ArmShoulderLeaderCAN);
+  private final WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(
   ArmShoulderConstants.ArmShoulderFollowerCAN);
 
   private final static FireBirdsUtils util = new FireBirdsUtils();
 
   /** Target angle **/
   private static double targetPosition;
-  private static int ShoulderStatus;
+  private int shoulderStatus;
 
   /** Object of a simulated arm **/
   private final SingleJointedArmSim armSim = new SingleJointedArmSim(DCMotor.getCIM(2), 139.78, 6.05, 1, Units.degreesToRadians(-ArmShoulderConstants.restDegreesFromHorizontal),6,true);
@@ -147,12 +147,12 @@ public class ArmShoulder extends SubsystemBase {
     return armShoulderLeader.getSelectedSensorPosition();
   }
 
-  public void setShoulderStatus(int ShoulderStatusLocation){
-    ShoulderStatus = ShoulderStatusLocation;
+  public void setShoulderStatus(int newShoulderStatus){
+    shoulderStatus = newShoulderStatus;
   }
 
   public int getShoulderStatus(){
-    return ShoulderStatus;
+    return shoulderStatus;
   }
 
   // METHOD - GET NEW POSITION
@@ -191,7 +191,6 @@ public class ArmShoulder extends SubsystemBase {
 
     if (armShoulderLeader.isRevLimitSwitchClosed() == 1) {
       armShoulderLeader.setSelectedSensorPosition(0);
-      ShoulderStatus = 0;
 
     }
 
@@ -208,7 +207,7 @@ public class ArmShoulder extends SubsystemBase {
     SmartDashboard.putNumber("Adjusted feedforward", adjusted_feedForward);
     SmartDashboard.putNumber("Shoulder Current (A)", armShoulderLeader.getSupplyCurrent());
     SmartDashboard.putNumber("Shoulder Error", armShoulderLeader.getClosedLoopError(0));
-    SmartDashboard.putNumber("ShoulderStatus: ",  ShoulderStatus);
+    SmartDashboard.putNumber("ShoulderStatus: ",  shoulderStatus);
 
     if (RobotBase.isSimulation()) {
       armShoulderLeader.set(ControlMode.MotionMagic, targetPosition, DemandType.ArbitraryFeedForward,

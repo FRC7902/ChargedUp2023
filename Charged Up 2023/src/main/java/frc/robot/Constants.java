@@ -151,8 +151,8 @@ public final class Constants {
 
   public static final class IntakeConstants {
     public final static int IntakeCAN = 8; 
-    public final static double SuckCubeSpeed = 0.8; //These need testing
-    public final static double ShootCubeSpeed = -0.8;
+    public final static double SuckCubeSpeed = 0.8; 
+    public final static double ShootCubeSpeed = -0.4;
     public final static double SuckConeSpeed = -0.8;
     public final static double ShootConeSpeed = 0.8;
 

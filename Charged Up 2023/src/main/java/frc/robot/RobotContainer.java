@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.IOConstants;
+import frc.robot.commands.autonomousCommands.PlaceCubeOnHigh;
 import frc.robot.commands.autonomousCommands.drive.*;
 import frc.robot.commands.routineCommands.*;
 import frc.robot.commands.routineCommands.homing;
@@ -42,7 +43,8 @@ public class RobotContainer {
   //private final CameraSubsystem cameraSubsystem = new CameraSubsystem();
 
   // Auton commands:
-  private final DriveToDistance m_DriveToDistance = new DriveToDistance(2, m_driveSubsystem);
+  private final DriveToDistanceNew m_DriveToDistanceNew = new DriveToDistanceNew(2, m_driveSubsystem);
+  private final PlaceCubeOnHigh m_PlaceCubeOnHigh = new PlaceCubeOnHigh(m_ArmShoulder, m_ArmExtension, m_intake);
   private final TurnToAngleR m_turnToAngleLeft = new TurnToAngleR(30, m_driveSubsystem);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -68,7 +70,8 @@ public class RobotContainer {
             m_driveSubsystem));
 
     // AUTON TESTING
-    m_chooser.setDefaultOption("Drive to Distance", m_DriveToDistance);
+    m_chooser.setDefaultOption("Place Cube on High", m_PlaceCubeOnHigh);
+    m_chooser.addOption("Drive to Distance", m_DriveToDistanceNew);
     m_chooser.addOption("Turn 30 degrees left", m_turnToAngleLeft);
     SmartDashboard.putData(m_chooser);
   }

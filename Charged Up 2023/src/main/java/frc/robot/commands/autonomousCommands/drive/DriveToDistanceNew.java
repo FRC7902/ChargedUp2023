@@ -5,6 +5,7 @@
 package frc.robot.commands.autonomousCommands.drive;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
@@ -31,7 +32,9 @@ public class DriveToDistanceNew extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_DriveSubsystem.driveRaw(drivePID.calculate(m_DriveSubsystem.getAvgEncoderDistance(), targetDistanceInInches));
+    double speed = 0.001*drivePID.calculate(m_DriveSubsystem.getAvgEncoderDistance(), targetDistanceInInches);
+    SmartDashboard.putNumber("PID output",speed);
+    m_DriveSubsystem.driveRaw(speed);
 
   }
 

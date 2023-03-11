@@ -5,6 +5,7 @@
 package frc.robot.commands.autonomousCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.commands.teleopCommands.armExtension.*;
 import frc.robot.commands.teleopCommands.armshoulder.*;
 import frc.robot.commands.teleopCommands.intake.*;
@@ -21,12 +22,12 @@ public class PlaceCubeOnHigh extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RotateLevel3(armShoulder),
-      new ExtendLevel3(armExtend),
-      new shootCube(intake).withTimeout(1),
-      new IntakeStop(intake),
-      new ExtendLevel0(armExtend),
-      new RotateLevel0(armShoulder)
+      new RotateLevel2(armShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds),
+      new ExtendLevel3(armExtend).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds),
+      new shootCube(intake).withTimeout(0.2),
+      new IntakeStop(intake).withTimeout(0.1),
+      new ExtendLevel0(armExtend).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds),
+      new RotateLevel0(armShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds)
     );
   }
 }
