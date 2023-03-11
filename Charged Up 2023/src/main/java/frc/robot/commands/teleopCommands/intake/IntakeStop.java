@@ -9,7 +9,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeStop extends CommandBase {
 
-  private IntakeSubsystem m_intake;
+  private final IntakeSubsystem m_intake;
 
   /** Creates a new RotateOut. */
   public IntakeStop(IntakeSubsystem intake) { 

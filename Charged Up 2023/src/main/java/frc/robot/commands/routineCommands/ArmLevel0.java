@@ -14,13 +14,14 @@ import frc.robot.subsystems.ArmExtension;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ArmLevel0 extends SequentialCommandGroup {
-  /** Creates a new armExtendToLow. */
+  private final ArmShoulder m_ArmShoulder;
+  private final ArmExtension m_Extension;
   public ArmLevel0(ArmShoulder armShoulder, ArmExtension armExtend) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
+    m_ArmShoulder = armShoulder;
+    m_Extension = armExtend;
     addCommands(
-      new ExtendLevel0(armExtend), 
-      new RotateLevel0(armShoulder)
+      new ExtendLevel0(m_Extension).withTimeout(1), 
+      new RotateLevel0(m_ArmShoulder)
     );
     
   }

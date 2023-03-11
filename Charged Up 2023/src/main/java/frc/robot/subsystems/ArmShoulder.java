@@ -185,7 +185,6 @@ public class ArmShoulder extends SubsystemBase {
   public void periodic() {
 
     if (armShoulderLeader.isRevLimitSwitchClosed() == 1) {
-      System.out.println("LIMIT SWITCH TRIGGERED");
       armShoulderLeader.setSelectedSensorPosition(0);
 
     }

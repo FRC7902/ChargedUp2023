@@ -24,7 +24,6 @@ public class RotateLevel0 extends CommandBase {
   @Override
   public void initialize() {
     m_armShoulder.setTargetPosition(ArmShoulderConstants.kLevel0EncoderTicks);
-    System.out.println("Level 0 Triggered");
 
   }
 

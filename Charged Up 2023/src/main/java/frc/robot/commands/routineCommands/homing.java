@@ -38,8 +38,6 @@ public class homing extends CommandBase {
       //m_armExtension.setPower(-1 * ArmExtensionConstants.extensionHomingPower);
     }
 
-    System.out.println("Running.");
-
   }
 
   // Called once the command ends or is interrupted.
@@ -50,7 +48,6 @@ public class homing extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    System.out.println("Done");
     return (m_armExtension.atZeroPos() && m_armShoulder.atZeroPos());
   }
 }

@@ -30,7 +30,6 @@ public class ArmExtension extends SubsystemBase {
   
   //This encoder connects directly back to 0 and 1 on the roboRIO
   public double percentExtension;
-  int counter = 0;
   public int state;
 
   //Limit Switch
@@ -123,12 +122,7 @@ public class ArmExtension extends SubsystemBase {
     if(atZeroPos()){
       extensionEncoder.reset(); //set to zero position
     }
-    counter++;
     percentExtension = getPercentExtension();
-
-    if(counter >= 10){
-      System.out.println(extensionEncoder.getDistance());
-    }
 
     armExtensionLeader.set(armExtensionPID.calculate(extensionEncoder.getDistance(), targetExtension));
 

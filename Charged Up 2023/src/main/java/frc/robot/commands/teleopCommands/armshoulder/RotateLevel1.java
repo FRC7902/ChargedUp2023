@@ -26,8 +26,6 @@ public class RotateLevel1 extends CommandBase {
   public void initialize() {
     m_armShoulder.setTargetPosition(ArmShoulderConstants.kLevel1EncoderTicks);
 
-    System.out.println("Level 1 Triggered");
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.

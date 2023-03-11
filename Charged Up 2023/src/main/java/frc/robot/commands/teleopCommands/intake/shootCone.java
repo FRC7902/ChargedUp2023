@@ -10,7 +10,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class shootCone extends CommandBase {
 
-  private IntakeSubsystem m_intake;
+  private final IntakeSubsystem m_intake;
 
   /** Creates a new RotateOut. */
   public shootCone(IntakeSubsystem intake) { 
@@ -27,7 +27,6 @@ public class shootCone extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("Shooting Cone");
     m_intake.setPower(IntakeConstants.ShootConeSpeed);
   }
 

@@ -35,10 +35,10 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  private final ArmExtension m_ArmExtension = new ArmExtension();
-  private final ArmShoulder m_ArmShoulder = new ArmShoulder(m_ArmExtension);
-  private final IntakeSubsystem m_intake = new IntakeSubsystem();
+  private static final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+  private static final ArmExtension m_ArmExtension = new ArmExtension();
+  private static final ArmShoulder m_ArmShoulder = new ArmShoulder(m_ArmExtension);
+  private static final IntakeSubsystem m_intake = new IntakeSubsystem();
   //private final CameraSubsystem cameraSubsystem = new CameraSubsystem();
 
   // Auton commands:
@@ -96,43 +96,31 @@ public class RobotContainer {
     new JoystickButton(m_operatorStick, Constants.IOConstants.kSTART)
         .toggleOnTrue(new homing(m_ArmExtension, m_ArmShoulder));
 
-    //SHOULDER BINDINGS
-    new JoystickButton(m_operatorStick, IOConstants.kA).onTrue(new RotateLevel0(m_ArmShoulder));
-    new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new RotateLevel1(m_ArmShoulder));
-    new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new RotateLevel2(m_ArmShoulder));
-    new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new RotateLevel3(m_ArmShoulder));
+    // //SHOULDER BINDINGS
+    // new JoystickButton(m_operatorStick, IOConstants.kA).onTrue(new RotateLevel0(m_ArmShoulder));
+    // new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new RotateLevel1(m_ArmShoulder));
+    // new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new RotateLevel2(m_ArmShoulder));
+    // new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new RotateLevel3(m_ArmShoulder));
 
     //EXTENSION BINDINGS (bound to driver for testing purposes)
-    new JoystickButton(m_driverStick, IOConstants.kA).onTrue(new ExtendLevel0(m_ArmExtension));
-    new JoystickButton(m_driverStick, IOConstants.kB).onTrue(new ExtendLevel1(m_ArmExtension));
-    new JoystickButton(m_driverStick, IOConstants.kY).onTrue(new ExtendLevel2(m_ArmExtension));
-    new JoystickButton(m_driverStick, IOConstants.kX).onTrue(new ExtendLevel3(m_ArmExtension));
+    new POVButton(m_operatorStick, 0).onTrue(new ExtendLevel0(m_ArmExtension));
+    new POVButton(m_operatorStick, 270).onTrue(new ExtendLevel1(m_ArmExtension));
+    new POVButton(m_operatorStick, 180).onTrue(new ExtendLevel2(m_ArmExtension));
+    new POVButton(m_operatorStick, 90).onTrue(new ExtendLevel3(m_ArmExtension));
 
 
     // COMPOUND ARM MOVEMENT BINDINGS
-
-    // new JoystickButton(m_operatorStick, IOConstants.kA).onTrue(new
-    // ArmLevel0(m_ArmShoulder, m_ArmExtension));
-    // new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new
-    // ArmLevel1(m_ArmShoulder, m_ArmExtension));
-    // new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new
-    // ArmLevel2(m_ArmShoulder, m_ArmExtension));
-    // new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new
-    // ArmLevel3(m_ArmShoulder, m_ArmExtension));
+    new JoystickButton(m_operatorStick, IOConstants.kA).onTrue(new ArmLevel0(m_ArmShoulder, m_ArmExtension));
+    new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new ArmLevel1(m_ArmShoulder, m_ArmExtension));
+    new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new ArmLevel2(m_ArmShoulder, m_ArmExtension));
+    new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new ArmLevel3(m_ArmShoulder, m_ArmExtension));
 
     // INTAKE BINDINGS
 
-    // Cone stuff (left hand)
     new JoystickButton(m_operatorStick, IOConstants.kLB).whileTrue(new suckCone(m_intake));// kLB
-    //new JoystickButton(m_operatorStick, IOConstants.kLT).whileTrue(new shootCone(m_intake)); // kLT
     new JoystickButton(m_operatorStick, IOConstants.kLB).onFalse(new IntakeStop(m_intake)); // kLB
-   // new JoystickButton(m_operatorStick, IOConstants.kLT).onFalse(new IntakeStop(m_intake)); // kLT
-
-    // Cube stuff (right hand)
     new JoystickButton(m_operatorStick, IOConstants.kRB).whileTrue(new suckCube(m_intake));// kRB
-   // new JoystickButton(m_operatorStick, IOConstants.kRT).whileTrue(new shootCube(m_intake)); // kRT
     new JoystickButton(m_operatorStick, IOConstants.kRB).onFalse(new IntakeStop(m_intake));// kRB
-    //new JoystickButton(m_operatorStick, IOConstants.kRT).onFalse(new IntakeStop(m_intake)); // kRT
 
     // ROUTINE BINDINGS
     // new JoystickButton(m_operatorStick, IOConstants.kMENU).onTrue(new
