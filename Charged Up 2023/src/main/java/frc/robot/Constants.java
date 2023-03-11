@@ -34,6 +34,7 @@ public final class Constants {
     public final static double DistanceBetweenWheels = 20; // inches
 
     public final static double SlowDriveSpeed = 0.1;
+    public final static double AutonDriveMultiplier = 0.1;
 
     // need deadband
   }

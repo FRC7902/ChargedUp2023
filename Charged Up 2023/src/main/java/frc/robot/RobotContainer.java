@@ -43,7 +43,7 @@ public class RobotContainer {
   //private final CameraSubsystem cameraSubsystem = new CameraSubsystem();
 
   // Auton commands:
-  private final DriveToDistanceNew m_DriveToDistanceNew = new DriveToDistanceNew(2, m_driveSubsystem);
+  private final DriveToDistanceNew m_DriveToDistanceNew = new DriveToDistanceNew(10, m_driveSubsystem);
   private final PlaceCubeOnHigh m_PlaceCubeOnHigh = new PlaceCubeOnHigh(m_ArmShoulder, m_ArmExtension, m_intake);
   private final TurnToAngleR m_turnToAngleLeft = new TurnToAngleR(30, m_driveSubsystem);
 
@@ -70,8 +70,8 @@ public class RobotContainer {
             m_driveSubsystem));
 
     // AUTON TESTING
-    m_chooser.setDefaultOption("Place Cube on High", m_PlaceCubeOnHigh);
-    m_chooser.addOption("Drive to Distance", m_DriveToDistanceNew);
+    m_chooser.setDefaultOption("Drive to Distance", m_DriveToDistanceNew);
+    m_chooser.addOption("Place Cube on High", m_PlaceCubeOnHigh);
     m_chooser.addOption("Turn 30 degrees left", m_turnToAngleLeft);
     SmartDashboard.putData(m_chooser);
   }
