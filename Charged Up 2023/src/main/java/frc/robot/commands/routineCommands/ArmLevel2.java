@@ -23,7 +23,7 @@ public class ArmLevel2 extends SequentialCommandGroup {
     m_ArmShoulder = armShoulder;
     m_ArmExtension = armExtend;
     addCommands(
-        new RotateLevel2(m_ArmShoulder).withTimeout(1),
+        new RotateLevel2(m_ArmShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds),
         new ExtendLevel2(m_ArmExtension)
     );
 

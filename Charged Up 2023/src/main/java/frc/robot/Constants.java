@@ -74,6 +74,8 @@ public final class Constants {
 
     public static final double extensionHomingPower = 0.5;
 
+    public static final double ExtensionBufferTimeInSeconds = 0.75;
+
   }
 
   public final static class ArmShoulderConstants {
@@ -89,6 +91,9 @@ public final class Constants {
     public final static double ArmShoulderFeedForwardDifference = ArmShoulderFeedForwardMax - ArmShoulderFeedForwardMin;
     public final static double angleAdjustmentDegrees = 71.57;
     public final static double angleAdjustmentRadians = Units.degreesToRadians(angleAdjustmentDegrees);
+
+    public static final double ShoulderBufferTimeInSeconds = 0.75;
+
 
     public final static double EncoderToOutputRatio = 0.5;
     public final static double restDegreesFromHorizontal = 75;

@@ -52,8 +52,7 @@ public class RobotContainer {
   // THE FIRST CONTOLLER PLUGGED IN CONTROLS THE DRIVETRAIN, THE SECOND CONTROLLER
   // PLUGGED IN CONTROLS THE ARM/INTAKE
   private final XboxController m_driverStick = new XboxController(IOConstants.kDriverStick);
-  private final XboxController m_operatorStick = new XboxController(IOConstants.kOperatorStick);// should be
-                                                                                                // kOperatorStick
+  private final XboxController m_operatorStick = new XboxController(IOConstants.kOperatorStick);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.

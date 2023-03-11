@@ -5,6 +5,7 @@
 package frc.robot.commands.routineCommands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.teleopCommands.armExtension.ExtendLevel1;
@@ -22,22 +23,24 @@ public class ArmLevel1 extends SequentialCommandGroup {
   private final ArmExtension m_ArmExtension;
 
   public ArmLevel1(ArmShoulder armShoulder, ArmExtension armExtend) {
+
     m_ArmShoulder = armShoulder;
     m_ArmExtension = armExtend;
-    double currentArmAngle = m_ArmShoulder.getPosition()*2;
-    SmartDashboard.putNumber("ArmLevel1 Current Arm Angle",currentArmAngle);
-    SmartDashboard.putNumber("ArmLevel1 Target",Constants.ArmShoulderConstants.kLevel1EncoderTicks);
+    double ArmPosition = m_ArmShoulder.getPosition();
+    Command[]commands = new Command[2];
 
-    if(currentArmAngle < Constants.ArmShoulderConstants.kLevel1EncoderTicks){
-      SmartDashboard.putString("Order","Rotating first");
-      addCommands(
-        new RotateLevel1(m_ArmShoulder).withTimeout(1), new ExtendLevel1(m_ArmExtension)
-      );
-    }else{
-      SmartDashboard.putString("Order","Extending first");
-      addCommands(
-        new ExtendLevel1(m_ArmExtension).withTimeout(1), new RotateLevel1(m_ArmShoulder)
-      );
+
+    if(ArmPosition < Constants.ArmShoulderConstants.kLevel1EncoderTicks){
+      SmartDashboard.putNumber("Position: ",  ArmPosition);
+        commands[0] = new RotateLevel1(m_ArmShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds);
+        commands [1] = new ExtendLevel1(m_ArmExtension);
+    }else if(ArmPosition > Constants.ArmShoulderConstants.kLevel1EncoderTicks){
+      SmartDashboard.putNumber("Position: ",  ArmPosition);
+        commands [0] = new ExtendLevel1(m_ArmExtension).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds); 
+        commands [1] = new RotateLevel1(m_ArmShoulder);
     }
+    
+    addCommands(commands);
+
   }
 }

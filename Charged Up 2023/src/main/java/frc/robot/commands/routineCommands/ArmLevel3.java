@@ -5,6 +5,7 @@
 package frc.robot.commands.routineCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.commands.teleopCommands.armExtension.ExtendLevel3;
 import frc.robot.commands.teleopCommands.armshoulder.RotateLevel3;
 import frc.robot.subsystems.ArmShoulder;
@@ -21,7 +22,7 @@ public class ArmLevel3 extends SequentialCommandGroup {
     m_ArmShoulder = armShoulder;
     m_ArmExtension = armExtend;
     addCommands(
-      new RotateLevel3(m_ArmShoulder).withTimeout(1), 
+      new RotateLevel3(m_ArmShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds), 
       new ExtendLevel3(m_ArmExtension)
     );
   }
