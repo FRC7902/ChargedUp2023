@@ -42,6 +42,7 @@ public class ArmShoulder extends SubsystemBase {
 
   /** Target angle **/
   private static double targetPosition;
+  private static int ShoulderStatus;
 
   /** Object of a simulated arm **/
   private final SingleJointedArmSim armSim = new SingleJointedArmSim(DCMotor.getCIM(2), 139.78, 6.05, 1, Units.degreesToRadians(-ArmShoulderConstants.restDegreesFromHorizontal),6,true);
@@ -125,10 +126,6 @@ public class ArmShoulder extends SubsystemBase {
     targetPosition = newTargetPosition;
   }
 
-  public void set(ControlMode mode, double value) {
-    armShoulderLeader.set(mode, value);
-  }
-
   // public double getFollowerPower() {
   // return armShoulderFollower.get();
   // }
@@ -148,6 +145,14 @@ public class ArmShoulder extends SubsystemBase {
   public double getPosition() {
     // absolute position gets the location of the arm in ticks (4096 per revolution)
     return armShoulderLeader.getSelectedSensorPosition();
+  }
+
+  public void setShoulderStatus(int ShoulderStatusLocation){
+    ShoulderStatus = ShoulderStatusLocation;
+  }
+
+  public int getShoulderStatus(){
+    return ShoulderStatus;
   }
 
   // METHOD - GET NEW POSITION
@@ -186,6 +191,7 @@ public class ArmShoulder extends SubsystemBase {
 
     if (armShoulderLeader.isRevLimitSwitchClosed() == 1) {
       armShoulderLeader.setSelectedSensorPosition(0);
+      ShoulderStatus = 0;
 
     }
 
@@ -202,6 +208,7 @@ public class ArmShoulder extends SubsystemBase {
     SmartDashboard.putNumber("Adjusted feedforward", adjusted_feedForward);
     SmartDashboard.putNumber("Shoulder Current (A)", armShoulderLeader.getSupplyCurrent());
     SmartDashboard.putNumber("Shoulder Error", armShoulderLeader.getClosedLoopError(0));
+    SmartDashboard.putNumber("ShoulderStatus: ",  ShoulderStatus);
 
     if (RobotBase.isSimulation()) {
       armShoulderLeader.set(ControlMode.MotionMagic, targetPosition, DemandType.ArbitraryFeedForward,

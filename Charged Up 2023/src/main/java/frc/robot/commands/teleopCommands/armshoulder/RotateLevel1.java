@@ -25,6 +25,7 @@ public class RotateLevel1 extends CommandBase {
   @Override
   public void initialize() {
     m_armShoulder.setTargetPosition(ArmShoulderConstants.kLevel1EncoderTicks);
+    m_armShoulder.setShoulderStatus(1);
 
   }
 

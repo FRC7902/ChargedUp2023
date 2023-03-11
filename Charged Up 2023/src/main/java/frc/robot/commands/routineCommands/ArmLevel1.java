@@ -26,18 +26,17 @@ public class ArmLevel1 extends SequentialCommandGroup {
 
     m_ArmShoulder = armShoulder;
     m_ArmExtension = armExtend;
-    double ArmPosition = m_ArmShoulder.getPosition();
     Command[]commands = new Command[2];
+    System.out.println("Arm position: " + m_ArmShoulder.getShoulderStatus());
+    System.out.println("Target position: " + Constants.ArmShoulderConstants.kLevel1EncoderTicks);
 
 
-    if(ArmPosition < Constants.ArmShoulderConstants.kLevel1EncoderTicks){
-      SmartDashboard.putNumber("Position: ",  ArmPosition);
-        commands[0] = new RotateLevel1(m_ArmShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds);
-        commands [1] = new ExtendLevel1(m_ArmExtension);
-    }else if(ArmPosition > Constants.ArmShoulderConstants.kLevel1EncoderTicks){
-      SmartDashboard.putNumber("Position: ",  ArmPosition);
-        commands [0] = new ExtendLevel1(m_ArmExtension).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds); 
-        commands [1] = new RotateLevel1(m_ArmShoulder);
+    if(m_ArmShoulder.getShoulderStatus() == 3 || m_ArmShoulder.getShoulderStatus() == 2){
+      commands [0] = new ExtendLevel1(m_ArmExtension).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds); 
+      commands [1] = new RotateLevel1(m_ArmShoulder);
+    }else if(m_ArmShoulder.getShoulderStatus() == 0){
+      commands[0] = new RotateLevel1(m_ArmShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds);
+      commands [1] = new ExtendLevel1(m_ArmExtension);
     }
     
     addCommands(commands);
