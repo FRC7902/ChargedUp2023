@@ -57,11 +57,11 @@ public final class Constants {
 
     public final static double extendedMaxSoftLimitInInches = 27;//final and tested
     public final static double extendedMinSoftLimitInInches = 0.5;
-    public final static double extendedLevel1SoftLimitInInches = 0.33*extendedMaxSoftLimitInInches;
+    public final static double extendedLevel1SoftLimitInInches = 0.41836*extendedMaxSoftLimitInInches;
     public final static double extendedLevel2SoftLimitInInches = 0.66*extendedMaxSoftLimitInInches;
     
     public final static double kLevel0Percentage = 0.01;
-    public final static double kLevel1Percentage = 0.49093327967541; //ground engagement
+    public final static double kLevel1Percentage = 0.41836; //ground engagement
     public final static double kLevel2Percentage = (11/extendedMaxSoftLimitInInches); //mid engagement
     public final static double kLevel3Percentage = 1.0; //high shooting
     public final static int EncoderCPR = 2048; 
@@ -121,7 +121,7 @@ public final class Constants {
 
     //All these values are measured off the pillar, not the vertical
     public final static double kLevel0Degrees = 2.0; //off
-    public final static double kLevel1Degrees = 20.0; //ground
+    public final static double kLevel1Degrees = 15; //ground
     public final static double kLevel2Degrees = 60.0; //Mid-height/grabbing from human player
     public final static double kLevel3Degrees = 75.0; //high
 
