@@ -102,11 +102,11 @@ public class RobotContainer {
     new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new RotateLevel2(m_ArmShoulder));
     new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new RotateLevel3(m_ArmShoulder));
 
-    //EXTENSION BINDINGS
-    new POVButton(m_operatorStick, 0).onTrue(new ExtendLevel0(m_ArmExtension));
-    new POVButton(m_operatorStick, 270).onTrue(new ExtendLevel1(m_ArmExtension));
-    new POVButton(m_operatorStick, 180).onTrue(new ExtendLevel2(m_ArmExtension));
-    new POVButton(m_operatorStick, 90).onTrue(new ExtendLevel3(m_ArmExtension));
+    //EXTENSION BINDINGS (bound to driver for testing purposes)
+    new JoystickButton(m_driverStick, IOConstants.kA).onTrue(new ExtendLevel0(m_ArmExtension));
+    new JoystickButton(m_driverStick, IOConstants.kB).onTrue(new ExtendLevel1(m_ArmExtension));
+    new JoystickButton(m_driverStick, IOConstants.kY).onTrue(new ExtendLevel2(m_ArmExtension));
+    new JoystickButton(m_driverStick, IOConstants.kX).onTrue(new ExtendLevel3(m_ArmExtension));
 
 
     // COMPOUND ARM MOVEMENT BINDINGS

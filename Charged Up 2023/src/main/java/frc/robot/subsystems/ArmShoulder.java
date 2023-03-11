@@ -35,8 +35,8 @@ public class ArmShoulder extends SubsystemBase {
 
   // Declare motor controllers
   private final static WPI_TalonSRX armShoulderLeader = new WPI_TalonSRX(ArmShoulderConstants.ArmShoulderLeaderCAN);
-  // private final static WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(
-  // ArmShoulderConstants.ArmShoulderFollowerCAN);
+  private final static WPI_VictorSPX armShoulderFollower = new WPI_VictorSPX(
+  ArmShoulderConstants.ArmShoulderFollowerCAN);
 
   private final static FireBirdsUtils util = new FireBirdsUtils();
 
@@ -44,8 +44,7 @@ public class ArmShoulder extends SubsystemBase {
   private static double targetPosition;
 
   /** Object of a simulated arm **/
-  private final SingleJointedArmSim armSim = new SingleJointedArmSim(DCMotor.getCIM(2),
-      139.78, 6.05, 1, Units.degreesToRadians(-ArmShoulderConstants.restDegreesFromHorizontal), 6, 5.5, true);
+  private final SingleJointedArmSim armSim = new SingleJointedArmSim(DCMotor.getCIM(2), 139.78, 6.05, 1, Units.degreesToRadians(-ArmShoulderConstants.restDegreesFromHorizontal),6,true);
 
   // Simulation of TalonSRX
   private final TalonSRXSimCollection armShoulderLeaderSim = armShoulderLeader.getSimCollection();
@@ -68,13 +67,14 @@ public class ArmShoulder extends SubsystemBase {
   public ArmShoulder(ArmExtension armExtension) {
     m_ArmExtension = armExtension;
     armShoulderLeader.configFactoryDefault();
-    // armShoulderFollower.configFactoryDefault();
+    armShoulderFollower.configFactoryDefault();
 
-    // armShoulderFollower.follow(armShoulderLeader);
+    armShoulderFollower.follow(armShoulderLeader);
     armShoulderLeader.setInverted(false);
-    // armShoulderFollower.setInverted(InvertType.FollowMaster);
+    armShoulderFollower.setInverted(InvertType.FollowMaster);
+    armShoulderLeader.configVoltageCompSaturation(12,0);
 
-    armShoulderLeader.config_kP(0, 3);
+    armShoulderLeader.config_kP(0, 1.5);
 
     armShoulderLeader.configMotionCruiseVelocity(1000);
     armShoulderLeader.configMotionAcceleration(4000);
@@ -92,7 +92,7 @@ public class ArmShoulder extends SubsystemBase {
     m_armTower.setColor(new Color8Bit(Color.kBlue));
 
     // Encoder
-    armShoulderLeader.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0,
+    armShoulderLeader.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0,
         0);
 
     if (RobotBase.isSimulation()) {
@@ -112,21 +112,13 @@ public class ArmShoulder extends SubsystemBase {
 
   }
 
-  public int getLimitSwitch() {
-    return armShoulderLeader.isRevLimitSwitchClosed();
-  }
-
   public void setPower(double power) {
     armShoulderLeader.set(power);
 
   }
 
-  // need configure the encoder 2:1 ratio
-
   public void setPosition(double demand0, double demand1) {
     armShoulderLeader.set(ControlMode.Position, demand0, DemandType.ArbitraryFeedForward, 0);
-
-    // if statements needed for testing
   }
 
   public void setTargetPosition(double newTargetPosition) {
@@ -198,14 +190,14 @@ public class ArmShoulder extends SubsystemBase {
 
     }
 
-    double currentPosition = getPosition();
+    double currentPosition = getPosition(); //in raw sensor units
 
     double adjusted_feedForward = (ArmShoulderConstants.ArmShoulderFeedForwardMin
         + (ArmShoulderConstants.ArmShoulderFeedForwardDifference * m_ArmExtension.getPercentExtension()))
-        * Math.cos(util.CTRESensorUnitsToRads(targetPosition, ArmShoulderConstants.EncoderCPR)
-            - ArmShoulderConstants.angleAdjustmentRadians);
+        * Math.cos(util.CTRESensorUnitsToRads(targetPosition, ArmShoulderConstants.EncoderCPR)-
+            ArmShoulderConstants.angleAdjustmentRadians);
 
-    SmartDashboard.putNumber("Current Position: ", currentPosition);
+    SmartDashboard.putNumber("Current Arm Position: ", currentPosition);
     SmartDashboard.putNumber("Target Position", targetPosition);
     SmartDashboard.putNumber("Leader Voltage", armShoulderLeader.getMotorOutputVoltage());
     SmartDashboard.putNumber("Adjusted feedforward", adjusted_feedForward);
@@ -217,7 +209,7 @@ public class ArmShoulder extends SubsystemBase {
           adjusted_feedForward);
 
     } else {
-      armShoulderLeader.set(ControlMode.MotionMagic, targetPosition * 2, DemandType.ArbitraryFeedForward,
+      armShoulderLeader.set(ControlMode.MotionMagic, targetPosition*2, DemandType.ArbitraryFeedForward,
           adjusted_feedForward);
     }
 

@@ -67,9 +67,9 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
-  public void driveRaw(double left, double right) {
-    this.left.set(left);
-    this.right.set(right);
+  public void driveRaw(double power) {
+    this.left.set(power);
+    this.right.set(power);
   }
 
   public void turnLeft(double amount){ 
@@ -97,6 +97,11 @@ public class DriveSubsystem extends SubsystemBase {
   public void resetEncoders() {
     m_leftEncoder.setPosition(0);
     m_rightEncoder.setPosition(0);
+  }
+
+  public void stopMotors(){
+    left.stopMotor();
+    right.stopMotor();
   }
 
 

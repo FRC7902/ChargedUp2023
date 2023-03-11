@@ -17,7 +17,6 @@ public class RotateLevel0 extends CommandBase {
   /** Creates a new RotateOut. */
   public RotateLevel0(ArmShoulder armShoulder) { 
     m_armShoulder = armShoulder;
-
     addRequirements(armShoulder);
   }
 
@@ -25,7 +24,6 @@ public class RotateLevel0 extends CommandBase {
   @Override
   public void initialize() {
     m_armShoulder.setTargetPosition(ArmShoulderConstants.kLevel0EncoderTicks);
-
     System.out.println("Level 0 Triggered");
 
   }

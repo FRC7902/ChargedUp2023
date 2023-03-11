@@ -5,8 +5,8 @@
 package frc.robot.commands.autonomousCommands.drive;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Constants.GainConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveToDistance extends PIDCommand {
@@ -15,7 +15,7 @@ public class DriveToDistance extends PIDCommand {
   public DriveToDistance(double targetDistanceInFeet, DriveSubsystem m_driveSubsytem) {
     super(
         // The controller that the command will use
-        new PIDController(GainConstants.kGains_Distanc.kP, GainConstants.kGains_Distanc.kI, GainConstants.kGains_Distanc.kD), 
+        new PIDController(0.5,0, 0), 
         // This should return the measurement
         m_driveSubsytem::getAvgEncoderDistance, //distance to be measured in inches
         // This should return the setpoint (can also be a constant)
@@ -23,7 +23,8 @@ public class DriveToDistance extends PIDCommand {
         // This uses the output
         output -> { //Going off the interpretation that output = error between target and current position
           double adjustment = 0.1*output/(targetDistanceInFeet*12);
-          m_driveSubsytem.driveRaw(adjustment, adjustment);
+          SmartDashboard.putNumber("PID output", output);
+          m_driveSubsytem.driveRaw(adjustment);
         }, m_driveSubsytem);
 
         m_DriveSubsystem = m_driveSubsytem;

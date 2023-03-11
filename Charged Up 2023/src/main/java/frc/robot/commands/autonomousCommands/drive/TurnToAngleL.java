@@ -6,7 +6,6 @@ package frc.robot.commands.autonomousCommands.drive;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.Constants.GainConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
@@ -15,7 +14,7 @@ public class TurnToAngleL extends PIDCommand {
   /** Creates a new TurnToAngle. */
   public TurnToAngleL(double targetDegrees, DriveSubsystem m_DriveSubsystem) { 
     super(
-        new PIDController(GainConstants.kGains_Turning.kP, GainConstants.kGains_Turning.kI, GainConstants.kGains_Distanc.kD),
+        new PIDController(0.5, 0, 0),
         //in inches
         () -> m_DriveSubsystem.getRightEncoder().getPosition(),
         // in inches

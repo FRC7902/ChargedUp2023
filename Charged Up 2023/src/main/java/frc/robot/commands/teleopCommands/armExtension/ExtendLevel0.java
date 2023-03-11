@@ -19,14 +19,14 @@ public class ExtendLevel0 extends CommandBase {
   /** Creates a new Retract. */
   public ExtendLevel0(ArmExtension armExtension) {
     m_armExtension = armExtension;
-    // Use addRequirements() here to declare subsystem dependencies.
+    m_armExtension.stopMotor();
+    addRequirements(armExtension);
 
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // m_armExtension.stopMotor();
     m_armExtension.setTargetPosition(ArmExtensionConstants.extendedMinSoftLimitInInches);
     System.out.println("Retracting Extension...");
   }

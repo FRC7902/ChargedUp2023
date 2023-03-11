@@ -56,7 +56,7 @@ public final class Constants {
     public final static double ArmExtensionPower = 0.35;
 
     public final static double extendedMaxSoftLimitInInches = 27;//final and tested
-    public final static double extendedMinSoftLimitInInches = 1.5;
+    public final static double extendedMinSoftLimitInInches = 0.5;
     public final static double extendedLevel1SoftLimitInInches = 0.33*extendedMaxSoftLimitInInches;
     public final static double extendedLevel2SoftLimitInInches = 0.66*extendedMaxSoftLimitInInches;
     
@@ -119,8 +119,8 @@ public final class Constants {
     /* Choose so that Talon does not report sensor out of phase */
     public static boolean kSensorPhase = true;
 
-    //NEED TO TEST THESE VARIABLES
-    public final static double kLevel0Degrees = 0.0; //off
+    //All these values are measured off the pillar, not the vertical
+    public final static double kLevel0Degrees = 2.0; //off
     public final static double kLevel1Degrees = 20.0; //ground
     public final static double kLevel2Degrees = 60.0; //Mid-height/grabbing from human player
     public final static double kLevel3Degrees = 75.0; //high
@@ -143,33 +143,6 @@ public final class Constants {
   // }
   
   
-  public static class GainConstants {
-
-    /**
-     * Choose based on what direction you want to be positive,
-     * this does not affect motor invert.
-     */
-    public static boolean kMotorInvert = false;
-    public static Object IntakeConstants;
-
-    public final static Gains kGains_Distanc = new Gains(0.5, 0.0, 0.0, 0.0, 100, 0.50);
-    public final static Gains kGains_Turning = new Gains(2.0, 0.0, 4.0, 0.0, 200, 1.00);
-    public final static Gains kGains_Velocit = new Gains(0.1, 0.0, 20.0, 1023.0 / 6800.0, 300, 0.50);
-    public final static Gains kGains_MotProf = new Gains(1.0, 0.0, 0.0, 1023.0 / 6800.0, 400, 1.00);
-    /*
-     * Firmware currently supports slots [0, 3] and can be used for either PID Set
-     */
-    public final static int SLOT_0 = 0;
-    public final static int SLOT_1 = 1;
-    public final static int SLOT_2 = 2;
-    public final static int SLOT_3 = 3;
-    /* ---- Named slots, used to clarify code ---- */
-    public final static int kSlot_Distanc = SLOT_0;
-    public final static int kSlot_Turning = SLOT_1;
-    public final static int kSlot_Velocit = SLOT_2;
-    public final static int kSlot_MotProf = SLOT_3;
-
-  }
 
   public static final class IntakeConstants {
     public final static int IntakeCAN = 8; 
