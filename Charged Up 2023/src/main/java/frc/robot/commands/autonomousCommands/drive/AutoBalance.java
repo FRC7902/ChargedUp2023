@@ -10,17 +10,13 @@ import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.AutoBalanceConstants;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class AutoBalance extends CommandBase {
 
   private final DriveSubsystem m_DriveSubsystem;
-  double PitchAngle;
-  double RollAngle;
-  double TiltAngle;
-  int state = 0;
-  int debounceCount = 0;
+  private int state = 0;
+  private int debounceCount = 0;
 
   BuiltInAccelerometer m_RioAccel = new BuiltInAccelerometer();
 
@@ -35,19 +31,31 @@ public class AutoBalance extends CommandBase {
   @Override
   public void initialize() {
     m_DriveSubsystem.resetEncoders();
+    state = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    double speed = AutoBalancingSpeed();
+    m_DriveSubsystem.driveRaw(speed);
+    SmartDashboard.putNumber("Autobal Speed", speed);
   }
 
+// +Y --> -Z
+// +Z --> -X
+// +X --> -Y
+
   public double getPitch(){
-    return Math.atan2((-m_RioAccel.getX()),
-    Math.sqrt(m_RioAccel.getY() * m_RioAccel.getY() + m_RioAccel.getZ() * m_RioAccel.getZ())) * 57.3;  }
+    return Math.atan2((m_RioAccel.getY()),
+    Math.sqrt(-m_RioAccel.getZ() * -m_RioAccel.getZ() + -m_RioAccel.getX() * -m_RioAccel.getX())) * 57.3;  }
 
   public double getRoll(){
-    return Math.atan2(m_RioAccel.getY(), m_RioAccel.getZ()) * 57.3;
+    return Math.atan2(-m_RioAccel.getZ(), -m_RioAccel.getX()) * 57.3;
+  }
+
+  public void resetState(){
+    state = 0;
   }
 
   public double getTilt(){
@@ -71,8 +79,10 @@ public class AutoBalance extends CommandBase {
       case 0:
         SmartDashboard.putNumber("Autobalance state", state);
         SmartDashboard.putNumber("Tilt", getTilt());
+        SmartDashboard.putNumber("Pitch", getPitch());
+        SmartDashboard.putNumber("Roll", getRoll());
 
-        if(getTilt() > AutoBalanceConstants.onStationDegree){
+        if(getTilt() < AutoBalanceConstants.onStationDegree){
           debounceCount++;
         }
 
@@ -86,8 +96,10 @@ public class AutoBalance extends CommandBase {
       case 1:
         SmartDashboard.putNumber("Autobalance state", state);
         SmartDashboard.putNumber("Tilt", getTilt());
+        SmartDashboard.putNumber("Pitch", getPitch());
+        SmartDashboard.putNumber("Roll", getRoll());
 
-        if(getTilt() < AutoBalanceConstants.balancedDegree){
+        if(getTilt() > AutoBalanceConstants.balancedDegree){
           debounceCount++;
         }
         if(debounceCount > secondsToTicks(AutoBalanceConstants.debounceTime)){
@@ -100,8 +112,10 @@ public class AutoBalance extends CommandBase {
       case 2:
         SmartDashboard.putNumber("Autobalance state", state);
         SmartDashboard.putNumber("Tilt", getTilt());
+        SmartDashboard.putNumber("Pitch", getPitch());
+        SmartDashboard.putNumber("Roll", getRoll());
 
-        if(Math.abs(getTilt()) <= AutoBalanceConstants.balancedDegree / 2){
+        if(-1*Math.abs(getTilt()) >= AutoBalanceConstants.balancedDegree / 2){
           debounceCount++;
         }
         if(debounceCount > secondsToTicks(AutoBalanceConstants.debounceTime)){
@@ -118,6 +132,8 @@ public class AutoBalance extends CommandBase {
       case 3:
         SmartDashboard.putNumber("Autobalance state", state);
         SmartDashboard.putNumber("Tilt", getTilt());
+        SmartDashboard.putNumber("Pitch", getPitch());
+        SmartDashboard.putNumber("Roll", getRoll());
 
         return 0.0;
     }

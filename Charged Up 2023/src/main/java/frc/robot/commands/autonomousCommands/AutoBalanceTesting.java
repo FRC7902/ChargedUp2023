@@ -5,9 +5,7 @@
 package frc.robot.commands.autonomousCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants;
 import frc.robot.commands.autonomousCommands.drive.AutoBalance;
-import frc.robot.commands.autonomousCommands.drive.AutoBalanceSetPower;
 import frc.robot.subsystems.DriveSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -18,8 +16,9 @@ public class AutoBalanceTesting extends SequentialCommandGroup {
   public AutoBalanceTesting(DriveSubsystem driveSubsystem, AutoBalance autoBalance) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    autoBalance.resetState();
     addCommands(
-      new AutoBalanceSetPower(driveSubsystem, autoBalance).repeatedly()
+        new AutoBalance(driveSubsystem)
     );
   }
 }

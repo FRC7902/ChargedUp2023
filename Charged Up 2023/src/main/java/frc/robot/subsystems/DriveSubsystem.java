@@ -110,8 +110,11 @@ public class DriveSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
 
 
-    SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
-    SmartDashboard.putNumber("Right Encoder", m_rightEncoder.getPosition());
+    //SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
+    //SmartDashboard.putNumber("Right Encoder", m_rightEncoder.getPosition());
+    SmartDashboard.putNumber("Left power", m_leftleader.get());
+    SmartDashboard.putNumber("Right power", m_rightleader.get());
+
     SmartDashboard.putNumber("Average encoder distance",getAvgEncoderDistance());
   }
 

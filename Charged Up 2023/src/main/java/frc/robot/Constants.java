@@ -150,22 +150,22 @@ public final class Constants {
 
     //OPERATIONAL
     public final static double SuckCubeSpeed = 0.8; 
-    public final static double ShootCubeSpeed = -0.4;
+    public final static double ShootCubeSpeed = -0.2;
     public final static double SuckConeSpeed = -0.8;
-    public final static double ShootConeSpeed = 0.8;
+    public final static double ShootConeSpeed = 0.2;
   }
 
 
 
   public static final class AutoBalanceConstants{
-    public final static double speedFast = -0.4;
-    public final static double speedSlow = -0.2;
-    public final static double speedExtraSlow = -0.1;
-    public final static double onStationDegree = 13.0;
-    public final static double balancedDegree = 6.0;
+
+    //NEEDS TESTING ON OFFICIAL BALANCE
+    public final static double speedFast = 0.8;
+    public final static double speedSlow = 0.4;
+    public final static double speedExtraSlow = 0.2;
+    public final static double onStationDegree = -25.0;
+    public final static double balancedDegree = -8.0;
     public final static double debounceTime = 0.2;
-
-
   }
 
   public static final class IOConstants {
