@@ -150,12 +150,16 @@ public final class Constants {
 
     //OPERATIONAL
     public final static double SuckCubeSpeed = 0.8; 
-    public final static double ShootCubeSpeed = -0.2;
+    public final static double ShootCubeSpeed = -0.4;
     public final static double SuckConeSpeed = -0.8;
+<<<<<<< Updated upstream
     public final static double ShootConeSpeed = 0.2;
     public final static double HoldingCubeFeedForward = 0.05;
     public final static double HoldingConeFeedForward = -0.05;
 
+=======
+    public final static double ShootConeSpeed = 0.4;
+>>>>>>> Stashed changes
   }
 
 

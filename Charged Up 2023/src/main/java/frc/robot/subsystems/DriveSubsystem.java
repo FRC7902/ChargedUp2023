@@ -63,7 +63,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void driveArcade(double xForward, double zRotation) {
     // TODO move rotation multiplier into constants
-    drive.arcadeDrive(xForward, 0.6*zRotation);
+    drive.arcadeDrive(xForward, 0.6*zRotation, true);
 
   }
 
