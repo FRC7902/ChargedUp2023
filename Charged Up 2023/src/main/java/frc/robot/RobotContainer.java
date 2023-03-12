@@ -117,6 +117,7 @@ public class RobotContainer {
     new POVButton(m_operatorStick, 180).onTrue(new ExtendLevel2(m_ArmExtension));
     new POVButton(m_operatorStick, 90).onTrue(new ExtendLevel3(m_ArmExtension));
 
+    new JoystickButton(m_operatorStick, IOConstants.kSTART).onTrue(new RotateLevel2(m_ArmShoulder));
 
     // COMPOUND ARM MOVEMENT BINDINGS
     new JoystickButton(m_operatorStick, IOConstants.kA).onTrue(new ArmLevel0(m_ArmShoulder, m_ArmExtension));
