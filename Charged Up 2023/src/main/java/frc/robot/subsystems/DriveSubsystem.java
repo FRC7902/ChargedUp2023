@@ -68,13 +68,13 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void driveRaw(double power) {
-    this.left.set(power);
-    this.right.set(power);
+    left.set(power);
+    right.set(power);
   }
 
   public void turnLeft(double amount){ 
-    left.set(amount);
-    right.set(-amount);
+    left.set(-amount);
+    right.set(amount);
   }
 
   public void turnRight(double amount){ 

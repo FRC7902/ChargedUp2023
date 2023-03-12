@@ -9,17 +9,19 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class TurnToAngleLeft extends CommandBase {
+public class TurnToAngleRight extends CommandBase {
+
   private final DriveSubsystem m_DriveSubsystem;
   private final double targetDistanceInInches;
-  private final PIDController drivePID = new PIDController(0.5, 0, 0);
-  
-  public TurnToAngleLeft(double targetDegrees, DriveSubsystem driveSubsystem) {
+  private final PIDController drivePID = new PIDController(0.5, 0, 0);  
+  /** Creates a new TurnToAngleRight. */
+  public TurnToAngleRight(double targetDegrees, DriveSubsystem driveSubsystem) {
     m_DriveSubsystem = driveSubsystem;
     targetDistanceInInches = (targetDegrees/360)*(DriveConstants.DistanceBetweenWheels*Math.PI);
     m_DriveSubsystem.resetEncoders();
     drivePID.setTolerance(1); //velocity tolerance is set to infinity because we didn't provide it a value
     addRequirements(driveSubsystem);
+
   }
 
   // Called when the command is initially scheduled.
@@ -31,8 +33,8 @@ public class TurnToAngleLeft extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = DriveConstants.AutonDriveMultiplier*drivePID.calculate(-m_DriveSubsystem.getRightEncoder().getPosition(), targetDistanceInInches);
-    m_DriveSubsystem.turnLeft(-speed);
+    double speed = DriveConstants.AutonDriveMultiplier*drivePID.calculate(m_DriveSubsystem.getLeftEncoder().getPosition(), targetDistanceInInches);
+    m_DriveSubsystem.turnRight(speed);
   }
 
   // Called once the command ends or is interrupted.
