@@ -70,6 +70,7 @@ public class AutoBalance extends CommandBase {
     switch(state){
       case 0:
         SmartDashboard.putNumber("Autobalance state", state);
+        SmartDashboard.putNumber("Tilt", getTilt());
 
         if(getTilt() > AutoBalanceConstants.onStationDegree){
           debounceCount++;
@@ -84,6 +85,8 @@ public class AutoBalance extends CommandBase {
       
       case 1:
         SmartDashboard.putNumber("Autobalance state", state);
+        SmartDashboard.putNumber("Tilt", getTilt());
+
         if(getTilt() < AutoBalanceConstants.balancedDegree){
           debounceCount++;
         }
@@ -96,6 +99,8 @@ public class AutoBalance extends CommandBase {
 
       case 2:
         SmartDashboard.putNumber("Autobalance state", state);
+        SmartDashboard.putNumber("Tilt", getTilt());
+
         if(Math.abs(getTilt()) <= AutoBalanceConstants.balancedDegree / 2){
           debounceCount++;
         }
@@ -112,6 +117,8 @@ public class AutoBalance extends CommandBase {
 
       case 3:
         SmartDashboard.putNumber("Autobalance state", state);
+        SmartDashboard.putNumber("Tilt", getTilt());
+
         return 0.0;
     }
     return 0.0;
