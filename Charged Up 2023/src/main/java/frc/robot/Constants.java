@@ -53,8 +53,8 @@ public final class Constants {
     public final static double DistanceBetweenWheels = 20; // inches
 
     //OPERATIONAL
-    public final static double SlowDriveSpeed = 0.1;
-    public final static double SlowTurnSpeed = 0.1;
+    public final static double SlowDriveSpeed = 0.05;
+    public final static double SlowTurnSpeed = 0.05;
     public final static double AutonDriveMultiplier = 0.05;
     public final static double kPDrive = 0.6;
     public final static double ClampingConstant = 0.7;

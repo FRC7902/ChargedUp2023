@@ -7,6 +7,7 @@ package frc.robot.commands.autonomousCommands.drive;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.AutoBalanceConstants;
 import frc.robot.Constants.DriveConstants;
@@ -67,8 +68,9 @@ public class AutoBalance extends CommandBase {
 
   public double AutoBalancingSpeed(){
     switch(state){
-
       case 0:
+        SmartDashboard.putNumber("Autobalance state", state);
+
         if(getTilt() > AutoBalanceConstants.onStationDegree){
           debounceCount++;
         }
@@ -81,6 +83,7 @@ public class AutoBalance extends CommandBase {
         return AutoBalanceConstants.speedFast;
       
       case 1:
+        SmartDashboard.putNumber("Autobalance state", state);
         if(getTilt() < AutoBalanceConstants.balancedDegree){
           debounceCount++;
         }
@@ -92,6 +95,7 @@ public class AutoBalance extends CommandBase {
         return AutoBalanceConstants.speedSlow;
 
       case 2:
+        SmartDashboard.putNumber("Autobalance state", state);
         if(Math.abs(getTilt()) <= AutoBalanceConstants.balancedDegree / 2){
           debounceCount++;
         }
@@ -106,9 +110,11 @@ public class AutoBalance extends CommandBase {
           return -1*AutoBalanceConstants.speedExtraSlow;
         }
 
-      default:
+      case 3:
+        SmartDashboard.putNumber("Autobalance state", state);
         return 0.0;
     }
+    return 0.0;
   }
 
 }

@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.IOConstants;
+import frc.robot.commands.autonomousCommands.AutoBalanceTesting;
 import frc.robot.commands.autonomousCommands.FinalAutonCubeOnHigh.Basic;
 import frc.robot.commands.autonomousCommands.drive.*;
 import frc.robot.commands.routineCommands.*;
@@ -48,6 +49,8 @@ public class RobotContainer {
   private final TurnToAngleLeft m_TurnToAngleLeft = new TurnToAngleLeft(30, m_driveSubsystem);
   private final TurnToAngleRight m_TurnToAngleRight = new TurnToAngleRight(30, m_driveSubsystem);
   private final AutoBalance m_AutoBalance = new AutoBalance(m_driveSubsystem);
+  private final AutoBalanceTesting m_AutoBalanceTesting = new AutoBalanceTesting(m_driveSubsystem, m_AutoBalance);
+
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -76,7 +79,7 @@ public class RobotContainer {
     m_chooser.addOption("Turn 30 degrees left", m_TurnToAngleLeft);
     m_chooser.addOption("Place Cube on High", m_PlaceCubeOnHigh);
     m_chooser.addOption("Drive to Distance", m_DriveToDistance);
-    m_chooser.addOption("AutoBalance Test", m_AutoBalance);
+    m_chooser.addOption("AutoBalance Test", m_AutoBalanceTesting);
     SmartDashboard.putData(m_chooser);
   }
 
@@ -151,12 +154,12 @@ public class RobotContainer {
 
 
     //SLOW DRIVE BINDINGS
-    new JoystickButton(m_driverStick, IOConstants.kY).whileTrue(new SlowDriveForward(m_driveSubsystem));
-    new JoystickButton(m_driverStick, IOConstants.kA).whileTrue(new SlowDriveBackward(m_driveSubsystem));
+    new JoystickButton(m_driverStick, IOConstants.kA).whileTrue(new SlowDriveForward(m_driveSubsystem));
+    new JoystickButton(m_driverStick, IOConstants.kY).whileTrue(new SlowDriveBackward(m_driveSubsystem));
 
     //SLOW TURN BINDINGS
-    new JoystickButton(m_driverStick, IOConstants.kRB).whileTrue(new SlowTurnRight(m_driveSubsystem));
-    new JoystickButton(m_driverStick, IOConstants.kLB).whileTrue(new SlowTurnLeft(m_driveSubsystem));
+    new JoystickButton(m_driverStick, IOConstants.kLB).whileTrue(new SlowTurnRight(m_driveSubsystem));
+    new JoystickButton(m_driverStick, IOConstants.kRB).whileTrue(new SlowTurnLeft(m_driveSubsystem));
 
     // ROUTINE BINDINGS
     // new JoystickButton(m_operatorStick, IOConstants.kMENU).onTrue(new

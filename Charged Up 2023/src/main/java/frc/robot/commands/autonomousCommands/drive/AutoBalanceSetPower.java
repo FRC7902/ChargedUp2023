@@ -4,8 +4,8 @@
 
 package frc.robot.commands.autonomousCommands.drive;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class AutoBalanceSetPower extends CommandBase {
@@ -22,14 +22,14 @@ public class AutoBalanceSetPower extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    double speed = m_AutoBalance.AutoBalancingSpeed();
+    m_driveSubsystem.driveRaw(speed);
+    SmartDashboard.putNumber("Autobal Speed", speed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = m_AutoBalance.AutoBalancingSpeed();
-    m_driveSubsystem.driveRaw(speed);
   }
 
   // Called once the command ends or is interrupted.
