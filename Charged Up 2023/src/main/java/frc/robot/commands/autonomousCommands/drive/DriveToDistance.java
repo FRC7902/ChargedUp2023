@@ -4,26 +4,19 @@
 
 package frc.robot.commands.autonomousCommands.drive;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class Balance extends CommandBase {
+public class DriveToDistance extends CommandBase {
 
   private final DriveSubsystem m_DriveSubsystem;
   private final double targetDistanceInInches;
   private final PIDController drivePID = new PIDController(0.5, 0, 0);
-  double PitchAngle;
-
-  PigeonIMU m_pigeon = new PigeonIMU(Constants.DriveConstants.PigeonCAN);
-
   /** Creates a new DriveToDistanceNew. */
-  public Balance(double targetDistanceInFeet, DriveSubsystem driveSubsystem) {
+  public DriveToDistance(double targetDistanceInFeet, DriveSubsystem driveSubsystem) {
     m_DriveSubsystem = driveSubsystem;
     targetDistanceInInches = targetDistanceInFeet*12;
     m_DriveSubsystem.resetEncoders();
@@ -40,14 +33,7 @@ public class Balance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    PitchAngle = m_pigeon.getPitch();
-
-    // MIGHT NEED THESE
-    // m_pigeon.getRoll();
-    // m_pigeon.getYaw();
-    
-    double speed = PitchAngle*DriveConstants.AutonBalancingMultiplier*drivePID.calculate(m_DriveSubsystem.getAvgEncoderDistance(), targetDistanceInInches);
+    double speed = DriveConstants.AutonDriveMultiplier*drivePID.calculate(m_DriveSubsystem.getAvgEncoderDistance(), targetDistanceInInches);
     SmartDashboard.putNumber("PID output",speed);
     m_DriveSubsystem.driveRaw(-speed);
 

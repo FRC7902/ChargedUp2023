@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.IOConstants;
-import frc.robot.commands.autonomousCommands.FinalAuton.PlaceCubeOnHigh;
+import frc.robot.commands.autonomousCommands.FinalAutonCubeOnHigh.Basic;
 import frc.robot.commands.autonomousCommands.drive.*;
 import frc.robot.commands.routineCommands.*;
 import frc.robot.commands.teleopCommands.armExtension.*;
@@ -43,10 +43,11 @@ public class RobotContainer {
   //private final CameraSubsystem cameraSubsystem = new CameraSubsystem();
 
   // Auton commands:
-  private final DriveToDistanceNew m_DriveToDistanceNew = new DriveToDistanceNew(10, m_driveSubsystem);
-  private final PlaceCubeOnHigh m_PlaceCubeOnHigh = new PlaceCubeOnHigh(m_ArmShoulder, m_ArmExtension, m_intake);
-  private final TurnToAngleLeft m_turnToAngleLeft = new TurnToAngleLeft(30, m_driveSubsystem);
-  private final TurnToAngleRight m_turnToAngleRight = new TurnToAngleRight(30, m_driveSubsystem);
+  private final DriveToDistance m_DriveToDistance = new DriveToDistance(10, m_driveSubsystem);
+  private final Basic m_PlaceCubeOnHigh = new Basic(m_ArmShoulder, m_ArmExtension, m_intake);
+  private final TurnToAngleLeft m_TurnToAngleLeft = new TurnToAngleLeft(30, m_driveSubsystem);
+  private final TurnToAngleRight m_TurnToAngleRight = new TurnToAngleRight(30, m_driveSubsystem);
+  private final AutoBalance m_AutoBalance = new AutoBalance(m_driveSubsystem);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -71,10 +72,11 @@ public class RobotContainer {
             m_driveSubsystem));
 
     // AUTON TESTING
-    m_chooser.setDefaultOption("Turn 30 degrees right", m_turnToAngleRight);
-    m_chooser.addOption("Turn 30 degrees left", m_turnToAngleLeft);
+    m_chooser.setDefaultOption("Turn 30 degrees right", m_TurnToAngleRight);
+    m_chooser.addOption("Turn 30 degrees left", m_TurnToAngleLeft);
     m_chooser.addOption("Place Cube on High", m_PlaceCubeOnHigh);
-    m_chooser.addOption("Drive to Distance", m_DriveToDistanceNew);
+    m_chooser.addOption("Drive to Distance", m_DriveToDistance);
+    m_chooser.addOption("AutoBalance Test", m_AutoBalance);
     SmartDashboard.putData(m_chooser);
   }
 

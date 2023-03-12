@@ -152,6 +152,19 @@ public final class Constants {
     public final static double ShootConeSpeed = 0.8;
   }
 
+
+
+  public static final class AutoBalanceConstants{
+    public final static double speedFast = -0.4;
+    public final static double speedSlow = -0.2;
+    public final static double speedExtraSlow = -0.1;
+    public final static double onStationDegree = 13.0;
+    public final static double balancedDegree = 6.0;
+    public final static double debounceTime = 0.2;
+
+
+  }
+
   public static final class IOConstants {
     public static final int kDriverStick = 0;
     public static final int kOperatorStick = 1;
