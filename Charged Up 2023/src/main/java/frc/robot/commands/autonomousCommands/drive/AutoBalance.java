@@ -6,6 +6,7 @@ package frc.robot.commands.autonomousCommands.drive;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
 
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.AutoBalanceConstants;
 import frc.robot.Constants.DriveConstants;
@@ -20,7 +21,7 @@ public class AutoBalance extends CommandBase {
   int state = 0;
   int debounceCount = 0;
 
-  PigeonIMU m_pigeon = new PigeonIMU(DriveConstants.PigeonCAN);
+  BuiltInAccelerometer m_RioAccel = new BuiltInAccelerometer();
 
   /** Creates a new DriveToDistanceNew. */
   public AutoBalance(DriveSubsystem driveSubsystem) {
@@ -38,18 +39,14 @@ public class AutoBalance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    PitchAngle = m_pigeon.getPitch();
-    RollAngle = m_pigeon.getRoll();
-
   }
 
   public double getPitch(){
-    return m_pigeon.getPitch();
-  }
+    return Math.atan2((-m_RioAccel.getX()),
+    Math.sqrt(m_RioAccel.getY() * m_RioAccel.getY() + m_RioAccel.getZ() * m_RioAccel.getZ())) * 57.3;  }
 
   public double getRoll(){
-    return m_pigeon.getPitch();
+    return Math.atan2(m_RioAccel.getY(), m_RioAccel.getZ()) * 57.3;
   }
 
   public double getTilt(){
