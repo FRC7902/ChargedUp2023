@@ -42,10 +42,12 @@ public class Balance extends CommandBase {
   public void execute() {
 
     PitchAngle = m_pigeon.getPitch();
-    m_pigeon.getRoll();
-    m_pigeon.getYaw();
+
+    // MIGHT NEED THESE
+    // m_pigeon.getRoll();
+    // m_pigeon.getYaw();
     
-    double speed = PitchAngle*DriveConstants.AutonDriveMultiplier*drivePID.calculate(m_DriveSubsystem.getAvgEncoderDistance(), targetDistanceInInches);
+    double speed = PitchAngle*DriveConstants.AutonBalancingMultiplier*drivePID.calculate(m_DriveSubsystem.getAvgEncoderDistance(), targetDistanceInInches);
     SmartDashboard.putNumber("PID output",speed);
     m_DriveSubsystem.driveRaw(-speed);
 

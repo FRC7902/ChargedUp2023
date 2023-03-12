@@ -17,116 +17,117 @@ import edu.wpi.first.math.util.Units;
  * It is advised to statically import this class (or one of its inner classes)
  * wherever the
  * constants are needed, to reduce verbosity.
+ * 
+ * 
+ * The constants are fit into 4 subcategories:
+ * 
+ * CAN ID's: self explanatory, includes motor controllers, encoders
+ * 
+ * CONFIG: anything to do with current limits, 
+ * 
+ * REAL WORLD CONSTANTS: measurements of the real world robot, ex: wheel diameter, angles, length
+ * 
+ * OPERATIONAL: preferably tested values for power, timeout length
+ * 
+ * SETPOINTS: setpoint values
  */
 public final class Constants {
-  public final static class DriveConstants {
 
+
+
+  public final static class DriveConstants {
+    //CAN ID's
     public final static int DrivetrainRightLeaderCAN = 13; 
     public final static int DrivetrainRightFollowerCAN = 14;
     public final static int DrivetrainLeftLeaderCAN = 15;
     public final static int DrivetrainLeftFollowerCAN = 16;
     public final static int PigeonCAN = 30;
 
+    //CONFIG
     public final static int SoftwareCurrentLimit = 50;
+
+    //REAL WORLD CONSTANTS
     public final static double OutputGearRatio = 1.0 / 10.71;
     public final static double WheelCircumferenceInInches = 6 * Math.PI;
     public final static double DistancePerWheelRotationFeet = WheelCircumferenceInInches * 12;
-
     public final static double DistanceBetweenWheels = 20; // inches
 
+    //OPERATIONAL
     public final static double SlowDriveSpeed = 0.1;
     public final static double AutonDriveMultiplier = 0.01;
-
-    // need deadband
+    public final static double AutonBalancingMultiplier = 0.0025;//arbitrary
   }
 
-  public final static class armShoulderRoutineConstants{
-    public final static double shoulderExtendToHighAngle = 100;//dummy
-    public final static double shoulderRetractToLowAngle = 0;//dummy
-  }
+
 
   public final static class ArmExtensionConstants {
     // CAN ID's
     public final static int ArmExtensionLeaderCAN = 11;
     public final static int ArmExtensionFollowerCAN = 7;
-    public final static int SoftwareCurrentLimit = 20;
-
-    public final static int kSensorUnitsPerRotation = 4096;
-
-    public final static double ArmExtensionFeedForward = 0.0;
-
-    public final static double ArmExtensionPower = 0.35;
-
-    public final static double extendedMaxSoftLimitInInches = 27;//final and tested
-    public final static double extendedMinSoftLimitInInches = 0.5;
-    public final static double extendedLevel1SoftLimitInInches = 0.41836*extendedMaxSoftLimitInInches;
-    public final static double extendedLevel2SoftLimitInInches = 0.66*extendedMaxSoftLimitInInches;
-    
-    public final static double kLevel0Percentage = 0.01;
-    public final static double kLevel1Percentage = 0.41836; //ground engagement
-    public final static double kLevel2Percentage = (11/extendedMaxSoftLimitInInches); //mid engagement
-    public final static double kLevel3Percentage = 1.0; //high shooting
-    public final static int EncoderCPR = 2048; 
     public static final int kEncoderA = 8;
     public static final int kEncoderB = 9;
-
-    public static final double kPD = 1.432;
-    public static final double kPC = kPD*Math.PI;
     public static final int ZeroPosLimitSwitchDIO = 7;
 
+    //CONFIG
+    public final static int SoftwareCurrentLimit = 20;
+
+    //REAL WORLD CONSTANTS
+    public final static int kSensorUnitsPerRotation = 4096;
+    public final static int EncoderCPR = 2048; 
+    public static final double kPD = 1.432;
+    public static final double kPC = kPD*Math.PI;
+    
+    //OPERATIONAL CONSTANTS
+    public final static double ArmExtensionFeedForward = 0.0;
     public static final double extensionHomingPower = 0.5;
-
     public static final double ExtensionBufferTimeInSeconds = 0.75;
+    
+    //SETPOINTS
+    public final static double extensionDistanceInInches = 27;
+    public final static double kLevel0Percentage = 0.5/27;
+    public final static double kLevel1Percentage = 0.41836; //ground engagement
+    //public final static double kLevel2Percentage = (11/extendedMaxSoftLimitInInches); //mid engagement
+    public final static double kLevel2Percentage = 0.66;
+    public final static double kLevel3Percentage = 1.0; //high shooting
 
+    public final static double extendedLevel0SoftLimitInInches = extensionDistanceInInches*kLevel0Percentage;
+    public final static double extendedLevel1SoftLimitInInches = kLevel1Percentage*extensionDistanceInInches;
+    public final static double extendedLevel2SoftLimitInInches = kLevel2Percentage*extensionDistanceInInches;
+    public final static double extendedLevel3SoftLimitInInches = extensionDistanceInInches*kLevel3Percentage;//final and tested
   }
 
-  public final static class ArmShoulderConstants {
 
+
+  public final static class ArmShoulderConstants {
     // CAN ID's
     public final static int ArmShoulderLeaderCAN = 4; // all dummies
     public final static int ArmShoulderFollowerCAN = 12;// 0
 
+    //OPERATIONAL
     public final static double ArmShoulderRotatePower = 0.5; // testing, not final
     public final static double ArmShoulderStop = 0.0; // testing, not final
     public final static double ArmShoulderFeedForwardMin = 0.26; //final and tested
     public final static double ArmShoulderFeedForwardMax = 0.5; //final and tested
     public final static double ArmShoulderFeedForwardDifference = ArmShoulderFeedForwardMax - ArmShoulderFeedForwardMin;
+    public static final double ShoulderBufferTimeInSeconds = 0.75;
+    
+    //REAL WORLD CONSTANTS
     public final static double angleAdjustmentDegrees = 71.57;
     public final static double angleAdjustmentRadians = Units.degreesToRadians(angleAdjustmentDegrees);
-
-    public static final double ShoulderBufferTimeInSeconds = 0.75;
-
-
     public final static double EncoderToOutputRatio = 0.5;
     public final static double restDegreesFromHorizontal = 75;
-
-
-    /** SRX Mag Encoder counts per revolution**/
     public final static int EncoderCPR = 4096;
-
-    /**
-     * Which PID slot to pull gains from. Starting 2018, you can choose from
-     * 0,1,2 or 3. Only the first two (0,1) are visible in web-based
-     * configuration.
-     */
+    public final static double ticksPerDegree = EncoderCPR/360;
+    
+    //OPERATIONAL
+    public static final double shoulderHomingPower = 0.5;
+    //PID CONTROL
     public static final int kSlotIdx = 0;
-
-    /**
-     * Talon SRX/ Victor SPX will supported multiple (cascaded) PID loops. For
-     * now we just want the primary one.
-     */
     public static final int kPIDLoopIdx = 0;
-
-    /**
-     * Set to zero to skip waiting for confirmation, set to nonzero to wait and
-     * report to DS if action fails.
-     */
     public static final int kTimeoutMs = 30;
-
-    /* Choose so that Talon does not report sensor out of phase */
     public static boolean kSensorPhase = true;
 
-    //All these values are measured off the pillar, not the vertical
+    //SETPOINTS - all values are off the pillar
     public final static double kLevel0Degrees = 2.0; //off
     public final static double kLevel1Degrees = 15; //ground
     public final static double kLevel2Degrees = 60.0; //Mid-height/grabbing from human player
@@ -136,29 +137,19 @@ public final class Constants {
     public final static double kLevel1EncoderTicks = (kLevel1Degrees/360) * EncoderCPR;
     public final static double kLevel2EncoderTicks = (kLevel2Degrees/360) * EncoderCPR;
     public final static double kLevel3EncoderTicks = (kLevel3Degrees/360) * EncoderCPR;
-    public final static double ticksPerDegree = EncoderCPR/360;
-
-    public static final double shoulderHomingPower = 0.5;
   }
 
-  // public static final CameraConstants {
-  //   public static final int resX = 80;
-  //   public static final int resY = 80;
 
-
-
-  // }
-  
-  
 
   public static final class IntakeConstants {
+    //CAN ID's
     public final static int IntakeCAN = 8; 
+
+    //OPERATIONAL
     public final static double SuckCubeSpeed = 0.8; 
     public final static double ShootCubeSpeed = -0.4;
     public final static double SuckConeSpeed = -0.8;
     public final static double ShootConeSpeed = 0.8;
-
-
   }
 
   public static final class IOConstants {
@@ -177,8 +168,6 @@ public final class Constants {
         kLA = 9,
         kRA = 10;
 
-        
-
     // Joystick Axis
     public static final int kLX = 0,
         kLY = 1,
@@ -188,7 +177,13 @@ public final class Constants {
         kRY = 5,
         kDX = 6,
         kDY = 7;
-
   }
+
+
+
+  // public static final CameraConstants {
+  //   public static final int resX = 80;
+  //   public static final int resY = 80;
+  // }
 
 }

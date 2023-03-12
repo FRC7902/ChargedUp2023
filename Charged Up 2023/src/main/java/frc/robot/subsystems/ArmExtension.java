@@ -102,7 +102,7 @@ public class ArmExtension extends SubsystemBase {
   }
 
   public double getPercentExtension() {
-    return extensionEncoder.getDistance() / ArmExtensionConstants.extendedMaxSoftLimitInInches;
+    return extensionEncoder.getDistance() / ArmExtensionConstants.extendedLevel3SoftLimitInInches;
   }
 
   public boolean atZeroPos(){

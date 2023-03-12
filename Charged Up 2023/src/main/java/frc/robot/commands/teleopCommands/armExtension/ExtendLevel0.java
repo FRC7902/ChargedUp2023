@@ -23,7 +23,7 @@ public class ExtendLevel0 extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_armExtension.setTargetPosition(ArmExtensionConstants.extendedMinSoftLimitInInches);
+    m_armExtension.setTargetPosition(ArmExtensionConstants.extendedLevel0SoftLimitInInches);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
