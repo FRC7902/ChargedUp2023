@@ -149,6 +149,15 @@ public class RobotContainer {
     new JoystickButton(m_operatorStick, IOConstants.kRB).whileTrue(new suckCube(m_intake));// kRB
     new JoystickButton(m_operatorStick, IOConstants.kRB).onFalse(new IntakeStop(m_intake));// kRB
 
+
+    //SLOW DRIVE BINDINGS
+    new JoystickButton(m_driverStick, IOConstants.kY).whileTrue(new SlowDriveForward(m_driveSubsystem));
+    new JoystickButton(m_driverStick, IOConstants.kA).whileTrue(new SlowDriveBackward(m_driveSubsystem));
+
+    //SLOW TURN BINDINGS
+    new JoystickButton(m_driverStick, IOConstants.kRB).whileTrue(new SlowTurnRight(m_driveSubsystem));
+    new JoystickButton(m_driverStick, IOConstants.kLB).whileTrue(new SlowTurnLeft(m_driveSubsystem));
+
     // ROUTINE BINDINGS
     // new JoystickButton(m_operatorStick, IOConstants.kMENU).onTrue(new
     // armExtendShoulderToHigh(m_ArmShoulder, null, m_ArmExtension))

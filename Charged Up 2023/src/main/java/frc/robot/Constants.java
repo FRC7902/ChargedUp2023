@@ -54,6 +54,7 @@ public final class Constants {
 
     //OPERATIONAL
     public final static double SlowDriveSpeed = 0.1;
+    public final static double SlowTurnSpeed = 0.1;
     public final static double AutonDriveMultiplier = 0.01;
     public final static double AutonBalancingMultiplier = 0.0025;//arbitrary
   }
