@@ -25,6 +25,7 @@ public final class Constants {
     public final static int DrivetrainRightFollowerCAN = 14;
     public final static int DrivetrainLeftLeaderCAN = 15;
     public final static int DrivetrainLeftFollowerCAN = 16;
+    public final static int PigeonCAN = 30;
 
     public final static int SoftwareCurrentLimit = 50;
     public final static double OutputGearRatio = 1.0 / 10.71;
