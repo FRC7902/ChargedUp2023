@@ -164,8 +164,8 @@ public class RobotContainer {
     new JoystickButton(m_driverStick, IOConstants.kRB).whileTrue(new SlowTurnLeft(m_driveSubsystem));
 
     //TURN 90 DEGREES BINDINGS
-    new JoystickButton(m_driverStick, IOConstants.kX).onTrue(new TurnToAngleRight(90, m_driveSubsystem));
-    new JoystickButton(m_driverStick, IOConstants.kB).onTrue(new TurnToAngleLeft(90, m_driveSubsystem));
+    new JoystickButton(m_driverStick, IOConstants.kX).onTrue(new TurnToAngleRight(80, m_driveSubsystem));
+    new JoystickButton(m_driverStick, IOConstants.kB).onTrue(new TurnToAngleLeft(80, m_driveSubsystem));
 
     // ROUTINE BINDINGS
     // new JoystickButton(m_operatorStick, IOConstants.kMENU).onTrue(new

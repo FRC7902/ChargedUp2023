@@ -26,6 +26,14 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.stopMotor();
   }
 
+  public void holdCube(){
+    setPower(IntakeConstants.HoldingCubeFeedForward);
+  }
+
+  public void holdCone(){
+    setPower(IntakeConstants.HoldingConeFeedForward);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

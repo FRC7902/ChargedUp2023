@@ -33,6 +33,7 @@ public class suckCone extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_intake.holdCone();
   }
 
   // Returns true when the command should end.
