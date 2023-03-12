@@ -14,7 +14,7 @@ public class DriveToDistance extends CommandBase {
 
   private final DriveSubsystem m_DriveSubsystem;
   private final double targetDistanceInInches;
-  private final PIDController drivePID = new PIDController(0.5, 0, 0);
+  private final PIDController drivePID = new PIDController(DriveConstants.kPDrive, 0, 0);
   /** Creates a new DriveToDistanceNew. */
   public DriveToDistance(double targetDistanceInFeet, DriveSubsystem driveSubsystem) {
     m_DriveSubsystem = driveSubsystem;
@@ -35,6 +35,7 @@ public class DriveToDistance extends CommandBase {
   public void execute() {
     double speed = DriveConstants.AutonDriveMultiplier*drivePID.calculate(m_DriveSubsystem.getAvgEncoderDistance(), targetDistanceInInches);
     SmartDashboard.putNumber("PID output",speed);
+    
     m_DriveSubsystem.driveRaw(-speed);
 
   }

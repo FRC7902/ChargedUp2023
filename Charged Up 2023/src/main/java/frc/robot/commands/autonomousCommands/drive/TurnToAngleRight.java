@@ -13,7 +13,7 @@ public class TurnToAngleRight extends CommandBase {
 
   private final DriveSubsystem m_DriveSubsystem;
   private final double targetDistanceInInches;
-  private final PIDController drivePID = new PIDController(0.5, 0, 0);  
+  private final PIDController drivePID = new PIDController(DriveConstants.kPDrive, 0, 0);  
   /** Creates a new TurnToAngleRight. */
   public TurnToAngleRight(double targetDegrees, DriveSubsystem driveSubsystem) {
     m_DriveSubsystem = driveSubsystem;
@@ -34,7 +34,7 @@ public class TurnToAngleRight extends CommandBase {
   @Override
   public void execute() {
     double speed = DriveConstants.AutonDriveMultiplier*drivePID.calculate(m_DriveSubsystem.getLeftEncoder().getPosition(), targetDistanceInInches);
-    m_DriveSubsystem.turnRight(speed);
+    m_DriveSubsystem.turnRight(-speed);
   }
 
   // Called once the command ends or is interrupted.

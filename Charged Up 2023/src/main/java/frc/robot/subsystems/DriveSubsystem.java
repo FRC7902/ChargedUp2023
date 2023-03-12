@@ -78,8 +78,8 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void turnRight(double amount){ 
-    right.set(amount);
-    left.set(-amount);
+    left.set(amount);
+    right.set(-amount);
   }
 
   public RelativeEncoder getLeftEncoder() {

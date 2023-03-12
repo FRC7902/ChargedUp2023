@@ -55,7 +55,9 @@ public final class Constants {
     //OPERATIONAL
     public final static double SlowDriveSpeed = 0.1;
     public final static double SlowTurnSpeed = 0.1;
-    public final static double AutonDriveMultiplier = 0.01;
+    public final static double AutonDriveMultiplier = 0.05;
+    public final static double kPDrive = 0.6;
+    public final static double ClampingConstant = 0.7;
     public final static double AutonBalancingMultiplier = 0.0025;//arbitrary
   }
 
@@ -132,7 +134,7 @@ public final class Constants {
     public final static double kLevel0Degrees = 2.0; //off
     public final static double kLevel1Degrees = 15; //ground
     public final static double kLevel2Degrees = 60.0; //Mid-height/grabbing from human player
-    public final static double kLevel3Degrees = 75.0; //high
+    public final static double kLevel3Degrees = 65.0; //high
 
     public final static double kLevel0EncoderTicks = (kLevel0Degrees/360) * EncoderCPR;
     public final static double kLevel1EncoderTicks = (kLevel1Degrees/360) * EncoderCPR;
