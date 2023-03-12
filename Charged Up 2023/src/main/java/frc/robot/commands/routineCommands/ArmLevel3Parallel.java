@@ -4,8 +4,7 @@
 
 package frc.robot.commands.routineCommands;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.teleopCommands.armExtension.ExtendLevel3;
 import frc.robot.commands.teleopCommands.armshoulder.RotateLevel3;
 import frc.robot.subsystems.ArmShoulder;
@@ -14,15 +13,15 @@ import frc.robot.subsystems.ArmExtension;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ArmLevel3 extends SequentialCommandGroup {
+public class ArmLevel3Parallel extends ParallelCommandGroup {
 
   private final ArmShoulder m_ArmShoulder;
   private final ArmExtension m_ArmExtension;
-  public ArmLevel3(ArmShoulder armShoulder, ArmExtension armExtend) {
+  public ArmLevel3Parallel(ArmShoulder armShoulder, ArmExtension armExtend) {
     m_ArmShoulder = armShoulder;
     m_ArmExtension = armExtend;
     addCommands(
-      new RotateLevel3(m_ArmShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds), 
+      new RotateLevel3(m_ArmShoulder), 
       new ExtendLevel3(m_ArmExtension)
     );
   }
