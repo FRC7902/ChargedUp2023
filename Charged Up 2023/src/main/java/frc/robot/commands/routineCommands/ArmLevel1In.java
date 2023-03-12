@@ -4,6 +4,7 @@
 
 package frc.robot.commands.routineCommands;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -16,32 +17,19 @@ import frc.robot.subsystems.ArmExtension;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ArmLevel1 extends SequentialCommandGroup {
+public class ArmLevel1In extends SequentialCommandGroup {
   /** Creates a new armExtendToLow. */
 
   private final ArmShoulder m_ArmShoulder;
   private final ArmExtension m_ArmExtension;
 
-  public ArmLevel1(ArmShoulder armShoulder, ArmExtension armExtend, double ArmPosition) {
-
+  public ArmLevel1In(ArmShoulder armShoulder, ArmExtension armExtend) {
     m_ArmShoulder = armShoulder;
     m_ArmExtension = armExtend;
-    Command[]commands = new Command[2];
-    System.out.println("Arm position: " + ArmPosition);
-    System.out.println("Target position: " + Constants.ArmShoulderConstants.kLevel1EncoderTicks);
-
-
-    
-    if(ArmPosition < Constants.ArmShoulderConstants.kLevel1EncoderTicks){
-      commands[0] = new RotateLevel1(m_ArmShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds);
-      commands [1] = new ExtendLevel1(m_ArmExtension);
-    }
-    
-    if(ArmPosition > Constants.ArmShoulderConstants.kLevel1EncoderTicks){
-      commands [0] = new ExtendLevel1(m_ArmExtension).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds); 
-      commands [1] = new RotateLevel1(m_ArmShoulder);
-    }
-    addCommands(commands);
-
+    addCommands(
+      new ExtendLevel1(m_ArmExtension).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds),
+      new RotateLevel1(m_ArmShoulder)
+    );
   }
+
 }

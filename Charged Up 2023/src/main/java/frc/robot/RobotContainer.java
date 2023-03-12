@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -17,7 +18,6 @@ import frc.robot.Constants.IOConstants;
 import frc.robot.commands.autonomousCommands.PlaceCubeOnHigh;
 import frc.robot.commands.autonomousCommands.drive.*;
 import frc.robot.commands.routineCommands.*;
-import frc.robot.commands.routineCommands.homing;
 import frc.robot.commands.teleopCommands.armExtension.*;
 import frc.robot.commands.teleopCommands.armshoulder.*;
 import frc.robot.commands.teleopCommands.drive.*;
@@ -113,7 +113,8 @@ public class RobotContainer {
 
     // COMPOUND ARM MOVEMENT BINDINGS
     new JoystickButton(m_operatorStick, IOConstants.kA).onTrue(new ArmLevel0(m_ArmShoulder, m_ArmExtension));
-    new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new ArmLevel1(m_ArmShoulder, m_ArmExtension, m_ArmShoulder.getPosition()));
+
+    new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new ConditionalCommand(new ArmLevel1In(m_ArmShoulder, m_ArmExtension), new ArmLevel1Out(m_ArmShoulder, m_ArmExtension), m_ArmShoulder::isArmAboveLevel1));
     new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new ArmLevel2(m_ArmShoulder, m_ArmExtension));
     new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new ArmLevel3(m_ArmShoulder, m_ArmExtension));
 

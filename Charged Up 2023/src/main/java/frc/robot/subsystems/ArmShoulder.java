@@ -13,7 +13,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.TalonSRXSimCollection;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.Constants.ArmShoulderConstants;
-
+import frc.robot.Constants;
 import frc.robot.FireBirdsUtils;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -147,6 +147,11 @@ public class ArmShoulder extends SubsystemBase {
     return armShoulderLeader.getSelectedSensorPosition();
   }
 
+  public boolean isArmAboveLevel1(){
+    return getPosition() > Constants.ArmShoulderConstants.kLevel1EncoderTicks;
+  }
+
+
   // METHOD - GET NEW POSITION
 
   /**
@@ -199,7 +204,8 @@ public class ArmShoulder extends SubsystemBase {
     SmartDashboard.putNumber("Adjusted feedforward", adjusted_feedForward);
     SmartDashboard.putNumber("Shoulder Current (A)", armShoulderLeader.getSupplyCurrent());
     SmartDashboard.putNumber("Shoulder Error", armShoulderLeader.getClosedLoopError(0));
-    SmartDashboard.putNumber("ShoulderStatus: ",  shoulderStatus);
+    SmartDashboard.putNumber("Shoulder Position: ",  getPosition());
+    SmartDashboard.putBoolean("Is arm above level 1", isArmAboveLevel1());
 
     if (RobotBase.isSimulation()) {
       armShoulderLeader.set(ControlMode.MotionMagic, targetPosition, DemandType.ArbitraryFeedForward,
