@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.IOConstants;
-import frc.robot.commands.autonomousCommands.PlaceCubeOnHigh;
+import frc.robot.commands.autonomousCommands.FinalAutonCubeOnHigh.Basic;
 import frc.robot.commands.autonomousCommands.drive.*;
 import frc.robot.commands.routineCommands.*;
 import frc.robot.commands.teleopCommands.armExtension.*;
@@ -43,10 +43,11 @@ public class RobotContainer {
   private final CameraSubsystem cameraSubsystem = new CameraSubsystem();
 
   // Auton commands:
-  private final DriveToDistanceNew m_DriveToDistanceNew = new DriveToDistanceNew(3, m_driveSubsystem);
-  private final PlaceCubeOnHigh m_PlaceCubeOnHigh = new PlaceCubeOnHigh(m_ArmShoulder, m_ArmExtension, m_intake);
-  private final TurnToAngleLeft m_turnToAngleLeft = new TurnToAngleLeft(180, m_driveSubsystem);
-  private final TurnToAngleRight m_turnToAngleRight = new TurnToAngleRight(90, m_driveSubsystem);
+  private final DriveToDistance m_DriveToDistance = new DriveToDistance(10, m_driveSubsystem);
+  private final Basic m_PlaceCubeOnHigh = new Basic(m_ArmShoulder, m_ArmExtension, m_intake);
+  private final TurnToAngleLeft m_TurnToAngleLeft = new TurnToAngleLeft(30, m_driveSubsystem);
+  private final TurnToAngleRight m_TurnToAngleRight = new TurnToAngleRight(30, m_driveSubsystem);
+  private final AutoBalance m_AutoBalance = new AutoBalance(m_driveSubsystem);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -71,10 +72,11 @@ public class RobotContainer {
             m_driveSubsystem));
 
     // AUTON TESTING
-    m_chooser.setDefaultOption("Turn 90 degrees right", m_turnToAngleRight);
-    m_chooser.addOption("Turn 180 degrees left", m_turnToAngleLeft);
+    m_chooser.setDefaultOption("Turn 30 degrees right", m_TurnToAngleRight);
+    m_chooser.addOption("Turn 30 degrees left", m_TurnToAngleLeft);
     m_chooser.addOption("Place Cube on High", m_PlaceCubeOnHigh);
-    m_chooser.addOption("Drive to Distance", m_DriveToDistanceNew);
+    m_chooser.addOption("Drive to Distance", m_DriveToDistance);
+    m_chooser.addOption("AutoBalance Test", m_AutoBalance);
     SmartDashboard.putData(m_chooser);
   }
 
@@ -116,9 +118,29 @@ public class RobotContainer {
     // COMPOUND ARM MOVEMENT BINDINGS
     new JoystickButton(m_operatorStick, IOConstants.kA).onTrue(new ArmLevel0(m_ArmShoulder, m_ArmExtension));
 
-    new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new ConditionalCommand(new ArmLevel1In(m_ArmShoulder, m_ArmExtension), new ArmLevel1Out(m_ArmShoulder, m_ArmExtension), m_ArmShoulder::isArmAboveLevel1));
-    new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new ArmLevel2(m_ArmShoulder, m_ArmExtension));
-    new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new ArmLevel3(m_ArmShoulder, m_ArmExtension));
+    new JoystickButton(m_operatorStick, IOConstants.kB).onTrue
+    (new ConditionalCommand(
+      new ArmLevel1In(m_ArmShoulder, m_ArmExtension), 
+      new ArmLevel1Out(m_ArmShoulder, m_ArmExtension), 
+      m_ArmShoulder::isArmAboveLevel1
+      )
+    );
+
+    new JoystickButton(m_operatorStick, IOConstants.kY).onTrue
+      (new ConditionalCommand(
+        new ArmLevel2Parallel(m_ArmShoulder, m_ArmExtension),
+        new ArmLevel2Sequential(m_ArmShoulder, m_ArmExtension),
+        m_ArmShoulder::isArmAboveLevel1
+      )
+    );
+
+    new JoystickButton(m_operatorStick, IOConstants.kX).onTrue
+      (new ConditionalCommand(
+        new ArmLevel3Parallel(m_ArmShoulder, m_ArmExtension),
+        new ArmLevel3Sequential(m_ArmShoulder, m_ArmExtension),
+        m_ArmShoulder::isArmAboveLevel1
+        )
+      );
 
     // INTAKE BINDINGS
 
@@ -126,6 +148,15 @@ public class RobotContainer {
     new JoystickButton(m_operatorStick, IOConstants.kLB).onFalse(new IntakeStop(m_intake)); // kLB
     new JoystickButton(m_operatorStick, IOConstants.kRB).whileTrue(new suckCube(m_intake));// kRB
     new JoystickButton(m_operatorStick, IOConstants.kRB).onFalse(new IntakeStop(m_intake));// kRB
+
+
+    //SLOW DRIVE BINDINGS
+    new JoystickButton(m_driverStick, IOConstants.kY).whileTrue(new SlowDriveForward(m_driveSubsystem));
+    new JoystickButton(m_driverStick, IOConstants.kA).whileTrue(new SlowDriveBackward(m_driveSubsystem));
+
+    //SLOW TURN BINDINGS
+    new JoystickButton(m_driverStick, IOConstants.kRB).whileTrue(new SlowTurnRight(m_driveSubsystem));
+    new JoystickButton(m_driverStick, IOConstants.kLB).whileTrue(new SlowTurnLeft(m_driveSubsystem));
 
     // ROUTINE BINDINGS
     // new JoystickButton(m_operatorStick, IOConstants.kMENU).onTrue(new

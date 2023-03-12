@@ -29,7 +29,7 @@ public class ExtendLevel3 extends CommandBase {
   @Override
   public void initialize() {
     // m_armExtension.stopMotor();
-    m_armExtension.setTargetPosition(ArmExtensionConstants.extendedMaxSoftLimitInInches);
+    m_armExtension.setTargetPosition(ArmExtensionConstants.extendedLevel3SoftLimitInInches);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
