@@ -4,6 +4,7 @@
 
 package frc.robot.commands.autonomousCommands.drive;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.DriveConstants;
@@ -12,7 +13,7 @@ import frc.robot.subsystems.DriveSubsystem;
 public class TurnToAngleLeft extends CommandBase {
   private final DriveSubsystem m_DriveSubsystem;
   private final double targetDistanceInInches;
-  private final PIDController drivePID = new PIDController(0.5, 0, 0);
+  private final PIDController drivePID = new PIDController(DriveConstants.kPDrive, 0, 0);
   
   public TurnToAngleLeft(double targetDegrees, DriveSubsystem driveSubsystem) {
     m_DriveSubsystem = driveSubsystem;
@@ -31,7 +32,7 @@ public class TurnToAngleLeft extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = DriveConstants.AutonDriveMultiplier*drivePID.calculate(-m_DriveSubsystem.getRightEncoder().getPosition(), targetDistanceInInches);
+    double speed = MathUtil.clamp(drivePID.calculate(-m_DriveSubsystem.getRightEncoder().getPosition(), targetDistanceInInches),-DriveConstants.ClampingConstant, DriveConstants.ClampingConstant);
     m_DriveSubsystem.turnLeft(-speed);
   }
 
