@@ -49,7 +49,7 @@ public class RobotContainer {
   private final Basic m_PlaceCubeOnHigh = new Basic(m_ArmShoulder, m_ArmExtension, m_intake);
   private final TurnToAngleLeft m_TurnToAngleLeft = new TurnToAngleLeft(30, m_driveSubsystem);
   private final TurnToAngleRight m_TurnToAngleRight = new TurnToAngleRight(30, m_driveSubsystem);
-  private final AutoBalance m_AutoBalance = new AutoBalance(m_driveSubsystem);
+  private final AutoBalanceBackwards m_AutoBalance = new AutoBalanceBackwards(m_driveSubsystem);
   private final AutoBalanceTesting m_AutoBalanceTesting = new AutoBalanceTesting(m_driveSubsystem, m_AutoBalance);
   private final RightStart m_RightStart = new RightStart(m_ArmShoulder, m_ArmExtension, m_intake, m_driveSubsystem);
 

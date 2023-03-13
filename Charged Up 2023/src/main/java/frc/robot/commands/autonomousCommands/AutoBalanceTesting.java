@@ -5,7 +5,7 @@
 package frc.robot.commands.autonomousCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.autonomousCommands.drive.AutoBalance;
+import frc.robot.commands.autonomousCommands.drive.AutoBalanceBackwards;
 import frc.robot.subsystems.DriveSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -13,12 +13,12 @@ import frc.robot.subsystems.DriveSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoBalanceTesting extends SequentialCommandGroup {
   /** Creates a new PlaceCubeOnHigh. */
-  public AutoBalanceTesting(DriveSubsystem driveSubsystem, AutoBalance autoBalance) {
+  public AutoBalanceTesting(DriveSubsystem driveSubsystem, AutoBalanceBackwards autoBalance) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     autoBalance.resetState();
     addCommands(
-        new AutoBalance(driveSubsystem)
+        new AutoBalanceBackwards(driveSubsystem)
     );
   }
 }

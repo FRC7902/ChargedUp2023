@@ -4,15 +4,13 @@
 
 package frc.robot.commands.autonomousCommands.drive;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
-
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.AutoBalanceConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class AutoBalance extends CommandBase {
+public class AutoBalanceBackwards extends CommandBase {
 
   private final DriveSubsystem m_DriveSubsystem;
   private int state = 0;
@@ -21,7 +19,7 @@ public class AutoBalance extends CommandBase {
   BuiltInAccelerometer m_RioAccel = new BuiltInAccelerometer();
 
   /** Creates a new DriveToDistanceNew. */
-  public AutoBalance(DriveSubsystem driveSubsystem) {
+  public AutoBalanceBackwards(DriveSubsystem driveSubsystem) {
     m_DriveSubsystem = driveSubsystem;
     m_DriveSubsystem.resetEncoders();
     addRequirements(driveSubsystem);
@@ -123,10 +121,10 @@ public class AutoBalance extends CommandBase {
           debounceCount = 0;
           return 0.0;
         }
-        if(getTilt() >= AutoBalanceConstants.balancedDegree){
+        if(getTilt() <= AutoBalanceConstants.balancedDegree){
           return AutoBalanceConstants.speedExtraSlow;
-        }else if (getTilt() <= -1*AutoBalanceConstants.balancedDegree){
-          return -1*AutoBalanceConstants.speedExtraSlow;
+        }else if (getTilt() >= -AutoBalanceConstants.balancedDegree){
+          return -AutoBalanceConstants.speedExtraSlow;
         }
 
       case 3:
@@ -134,7 +132,6 @@ public class AutoBalance extends CommandBase {
         SmartDashboard.putNumber("Tilt", getTilt());
         SmartDashboard.putNumber("Pitch", getPitch());
         SmartDashboard.putNumber("Roll", getRoll());
-
         return 0.0;
     }
     return 0.0;
