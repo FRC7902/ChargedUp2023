@@ -16,12 +16,13 @@ public class AutoBalanceForwards extends CommandBase {
   private int state = 0;
   private int debounceCount = 0;
 
-  BuiltInAccelerometer m_RioAccel = new BuiltInAccelerometer();
+  private final BuiltInAccelerometer m_RioAccel;
 
   /** Creates a new DriveToDistanceNew. */
   public AutoBalanceForwards(DriveSubsystem driveSubsystem) {
     m_DriveSubsystem = driveSubsystem;
     m_DriveSubsystem.resetEncoders();
+    m_RioAccel = m_DriveSubsystem.getRIOAccelerometer();
     addRequirements(driveSubsystem);
   }
 
@@ -35,7 +36,7 @@ public class AutoBalanceForwards extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = AutoBalancingSpeed();
+    double speed = getAutoBalancingSpeed();
     m_DriveSubsystem.driveRaw(speed);
     SmartDashboard.putNumber("Autobal Speed", speed);
   }
@@ -72,7 +73,7 @@ public class AutoBalanceForwards extends CommandBase {
     return (int) (time * 50);
   }
 
-  public double AutoBalancingSpeed(){
+  public double getAutoBalancingSpeed(){
     switch(state){
       case 0:
         SmartDashboard.putNumber("Autobalance state", state);

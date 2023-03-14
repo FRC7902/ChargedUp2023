@@ -11,6 +11,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -34,6 +36,9 @@ public class DriveSubsystem extends SubsystemBase {
   // Encoders
   private final RelativeEncoder m_leftEncoder = m_leftleader.getEncoder();
   private final RelativeEncoder m_rightEncoder = m_rightleader.getEncoder();
+
+  //RIO accelerometer
+  private final BuiltInAccelerometer m_RioAccel = new BuiltInAccelerometer();
 
   public DriveSubsystem() {
     left.setInverted(true);
@@ -102,6 +107,10 @@ public class DriveSubsystem extends SubsystemBase {
   public void stopMotors(){
     left.stopMotor();
     right.stopMotor();
+  }
+
+  public BuiltInAccelerometer getRIOAccelerometer(){
+    return m_RioAccel;
   }
 
 

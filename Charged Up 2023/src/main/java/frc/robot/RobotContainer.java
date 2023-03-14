@@ -47,8 +47,10 @@ public class RobotContainer {
   // Auton commands:
   private final DriveToDistance m_DriveToDistance = new DriveToDistance(10, m_driveSubsystem);
   private final Basic m_PlaceCubeOnHigh = new Basic(m_ArmShoulder, m_ArmExtension, m_intake);
-  private final TurnToAngleLeft m_TurnToAngleLeft = new TurnToAngleLeft(30, m_driveSubsystem);
-  private final TurnToAngleRight m_TurnToAngleRight = new TurnToAngleRight(30, m_driveSubsystem);
+  private final TurnToAngleLeft m_TurnToAngleLeft = new TurnToAngleLeft(Constants.DriveConstants.TurnDegreesL,
+      m_driveSubsystem);
+  private final TurnToAngleRight m_TurnToAngleRight = new TurnToAngleRight(Constants.DriveConstants.TurnDegreesR,
+      m_driveSubsystem);
   private final AutoBalanceBackwards m_AutoBalance = new AutoBalanceBackwards(m_driveSubsystem);
   private final AutoBalanceTesting m_AutoBalanceTesting = new AutoBalanceTesting(m_driveSubsystem, m_AutoBalance);
   private final RightStart m_RightStart = new RightStart(m_ArmShoulder, m_ArmExtension, m_intake, m_driveSubsystem);
@@ -75,10 +77,10 @@ public class RobotContainer {
                 m_driverStick.getRawAxis(Constants.IOConstants.kRX)),
             m_driveSubsystem));
 
-    // AUTON TESTING
+    // AUTON COMMANDS
     m_chooser.setDefaultOption("AutoBalance Test", m_AutoBalanceTesting);
-    m_chooser.addOption("Turn 30 degrees right", m_TurnToAngleRight);
-    m_chooser.addOption("Turn 30 degrees left", m_TurnToAngleLeft);
+    m_chooser.addOption("Turn " + Constants.DriveConstants.TurnDegreesR + " degrees right", m_TurnToAngleRight);
+    m_chooser.addOption("Turn " + Constants.DriveConstants.TurnDegreesL + " degrees left", m_TurnToAngleLeft);
     m_chooser.addOption("Place Cube on High", m_PlaceCubeOnHigh);
     m_chooser.addOption("Drive to Distance", m_DriveToDistance);
     m_chooser.addOption("Start Right", m_RightStart);
@@ -101,78 +103,54 @@ public class RobotContainer {
    */
   private void configureBindings() {
 
-    // //SHOULDER BINDINGS
-    // new JoystickButton(m_operatorStick, IOConstants.kA).onTrue(new RotateLevel0(m_ArmShoulder));
-    // new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new RotateLevel1(m_ArmShoulder));
-    // new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new RotateLevel2(m_ArmShoulder));
-    // new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new RotateLevel3(m_ArmShoulder));
-    new JoystickButton(m_operatorStick, IOConstants.kSTART).onTrue(new RotateLevel2(m_ArmShoulder));
-
-    //EXTENSION BINDINGS (bound to driver for testing purposes)
+    // EXTENSION BINDINGS (bound to driver for testing purposes)
     new POVButton(m_operatorStick, 0).onTrue(new ExtendLevel0(m_ArmExtension));
     new POVButton(m_operatorStick, 270).onTrue(new ExtendLevel1(m_ArmExtension));
     new POVButton(m_operatorStick, 180).onTrue(new ExtendLevel2(m_ArmExtension));
     new POVButton(m_operatorStick, 90).onTrue(new ExtendLevel3(m_ArmExtension));
 
+    // //SHOULDER BINDINGS
+    new JoystickButton(m_operatorStick, IOConstants.kSTART).onTrue(new RotateLevel2(m_ArmShoulder));
 
     // COMPOUND ARM MOVEMENT BINDINGS
     new JoystickButton(m_operatorStick, IOConstants.kA).onTrue(new ArmLevel0(m_ArmShoulder, m_ArmExtension));
 
-    new JoystickButton(m_operatorStick, IOConstants.kB).onTrue
-    (new ConditionalCommand(
-      new ArmLevel1In(m_ArmShoulder, m_ArmExtension), 
-      new ArmLevel1Out(m_ArmShoulder, m_ArmExtension), 
-      m_ArmShoulder::isArmAboveLevel1
-      )
-    );
+    new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new ConditionalCommand(
+        new ArmLevel1In(m_ArmShoulder, m_ArmExtension),
+        new ArmLevel1Out(m_ArmShoulder, m_ArmExtension),
+        m_ArmShoulder::isArmAboveLevel1));
 
-    new JoystickButton(m_operatorStick, IOConstants.kY).onTrue
-      (new ConditionalCommand(
+    new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new ConditionalCommand(
         new ArmLevel2Parallel(m_ArmShoulder, m_ArmExtension),
         new ArmLevel2Sequential(m_ArmShoulder, m_ArmExtension),
-        m_ArmShoulder::isArmAboveLevel1
-      )
-    );
+        m_ArmShoulder::isArmAboveLevel1));
 
-    new JoystickButton(m_operatorStick, IOConstants.kX).onTrue
-      (new ConditionalCommand(
+    new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new ConditionalCommand(
         new ArmLevel3Parallel(m_ArmShoulder, m_ArmExtension),
         new ArmLevel3Sequential(m_ArmShoulder, m_ArmExtension),
-        m_ArmShoulder::isArmAboveLevel1
-        )
-      );
+        m_ArmShoulder::isArmAboveLevel1));
 
     // INTAKE BINDINGS
 
-    new JoystickButton(m_operatorStick, IOConstants.kLB).whileTrue(new suckCone(m_intake));// kLB
-    //new JoystickButton(m_operatorStick, IOConstants.kLB).onFalse(new IntakeStop(m_intake)); // kLB
-    new JoystickButton(m_operatorStick, IOConstants.kRB).whileTrue(new suckCube(m_intake));// kRB
-    //new JoystickButton(m_operatorStick, IOConstants.kRB).onFalse(new IntakeStop(m_intake));// kRB
-
+    new JoystickButton(m_operatorStick, IOConstants.kLB).whileTrue(new suckCone(m_intake));
+    new JoystickButton(m_operatorStick, IOConstants.kRB).whileTrue(new suckCube(m_intake));
     new Trigger(() -> m_operatorStick.getRawAxis(IOConstants.kRT) > 0.5)
-      .whileTrue(new shootCube(m_intake));
+        .whileTrue(new shootCube(m_intake));
 
+    new Trigger(() -> m_operatorStick.getRawAxis(IOConstants.kLT) > 0.5)
+        .whileTrue(new shootCone(m_intake));
 
-
-      new Trigger(() -> m_operatorStick.getRawAxis(IOConstants.kLT) > 0.5)
-      .whileTrue(new shootCone(m_intake));
-
-    //SLOW DRIVE BINDINGS
+    // SLOW DRIVE BINDINGS
     new JoystickButton(m_driverStick, IOConstants.kA).whileTrue(new SlowDriveForward(m_driveSubsystem));
     new JoystickButton(m_driverStick, IOConstants.kY).whileTrue(new SlowDriveBackward(m_driveSubsystem));
 
-    //SLOW TURN BINDINGS
+    // SLOW TURN BINDINGS
     new JoystickButton(m_driverStick, IOConstants.kLB).whileTrue(new SlowTurnRight(m_driveSubsystem));
     new JoystickButton(m_driverStick, IOConstants.kRB).whileTrue(new SlowTurnLeft(m_driveSubsystem));
 
-    //TURN 90 DEGREES BINDINGS
+    // TURN 90 DEGREES BINDINGS
     new JoystickButton(m_driverStick, IOConstants.kX).onTrue(new TurnToAngleRight(80, m_driveSubsystem));
     new JoystickButton(m_driverStick, IOConstants.kB).onTrue(new TurnToAngleLeft(80, m_driveSubsystem));
-
-    // ROUTINE BINDINGS
-    // new JoystickButton(m_operatorStick, IOConstants.kMENU).onTrue(new
-    // armExtendShoulderToHigh(m_ArmShoulder, null, m_ArmExtension))
-
   }
 
   /**

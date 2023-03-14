@@ -59,6 +59,8 @@ public final class Constants {
     public final static double kPDrive = 0.6;
     public final static double ClampingConstant = 0.7;
     public final static double AutonBalancingMultiplier = 0.0025;//arbitrary
+    public final static double TurnDegreesR = 30;
+    public final static double TurnDegreesL = 30;
   }
 
 
@@ -149,7 +151,7 @@ public final class Constants {
     public final static int IntakeCAN = 8; 
 
     //OPERATIONAL
-    public final static double SuckCubeSpeed = 0.8; 
+    public final static double SuckCubeSpeed = 0.5; 
     public final static double ShootCubeSpeed = -0.3;
     public final static double SuckConeSpeed = -0.8;
     public final static double ShootConeSpeed = 0.3;
