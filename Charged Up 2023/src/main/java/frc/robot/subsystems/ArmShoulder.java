@@ -42,7 +42,6 @@ public class ArmShoulder extends SubsystemBase {
 
   /** Target angle **/
   private static double targetPosition;
-  private int shoulderStatus;
 
   /** Object of a simulated arm **/
   private final SingleJointedArmSim armSim = new SingleJointedArmSim(DCMotor.getCIM(2), 139.78, 6.05, 1, Units.degreesToRadians(-ArmShoulderConstants.restDegreesFromHorizontal),6,true);
