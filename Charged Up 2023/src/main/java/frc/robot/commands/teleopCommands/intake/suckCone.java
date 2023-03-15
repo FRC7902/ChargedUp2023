@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class suckCone extends CommandBase {
+public class SuckCone extends CommandBase {
   private IntakeSubsystem m_intake;
 
   /** Creates a new RotateOut. */
-  public suckCone(IntakeSubsystem intake) { 
+  public SuckCone(IntakeSubsystem intake) { 
     m_intake = intake;
   }
 
@@ -33,7 +33,7 @@ public class suckCone extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intake.holdCone();
+    m_intake.stopMotor();
 
   }
 

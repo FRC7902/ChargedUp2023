@@ -24,7 +24,7 @@ public class Basic extends SequentialCommandGroup {
     addCommands(
       new RotateLevel2(armShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds),
       new ExtendLevel3(armExtend).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds),
-      new shootCube(intake).withTimeout(0.2),
+      new ShootCube(intake).withTimeout(0.2),
       new IntakeStop(intake).withTimeout(0.1),
       new ExtendLevel0(armExtend).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds),
       new RotateLevel0(armShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds)

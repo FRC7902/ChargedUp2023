@@ -57,10 +57,10 @@ public final class Constants {
     public final static double SlowTurnSpeed = 0.05;
     public final static double AutonDriveMultiplier = 0.05;
     public final static double kPDrive = 0.6;
-    public final static double ClampingConstant = 0.7;
+    public final static double ClampingConstant = 0.6;
     public final static double AutonBalancingMultiplier = 0.0025;//arbitrary
-    public final static double TurnDegreesR = 30;
-    public final static double TurnDegreesL = 30;
+    public final static double TurnDegreesR = 90;
+    public final static double TurnDegreesL = 90;
   }
 
 
@@ -153,8 +153,8 @@ public final class Constants {
     //OPERATIONAL
     public final static double SuckCubeSpeed = 0.5; 
     public final static double ShootCubeSpeed = -0.3;
-    public final static double SuckConeSpeed = -0.8;
-    public final static double ShootConeSpeed = 0.3;
+    public final static double SuckConeSpeed = -0.7;
+    public final static double ShootConeSpeed = 0.45;
     public final static double HoldingCubeFeedForward = 0.05;
     public final static double HoldingConeFeedForward = -0.05;
 

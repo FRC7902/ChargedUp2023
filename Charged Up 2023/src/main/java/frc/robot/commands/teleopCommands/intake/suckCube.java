@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class suckCube extends CommandBase {
+public class SuckCube extends CommandBase {
   private IntakeSubsystem m_intake;
 
   /** Creates a new RotateOut. */
-  public suckCube(IntakeSubsystem intake) { 
+  public SuckCube(IntakeSubsystem intake) { 
     m_intake = intake;
   }
 
@@ -33,7 +33,7 @@ public class suckCube extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intake.holdCube();
+    m_intake.stopMotor();
   }
 
   // Returns true when the command should end.
