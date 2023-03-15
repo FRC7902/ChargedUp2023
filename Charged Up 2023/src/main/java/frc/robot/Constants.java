@@ -59,8 +59,8 @@ public final class Constants {
     public final static double kPDrive = 0.6;
     public final static double ClampingConstant = 0.6;
     public final static double AutonBalancingMultiplier = 0.0025;//arbitrary
-    public final static double TurnDegreesR = 90;
-    public final static double TurnDegreesL = 90;
+    public final static double TurnDegreesR = 180;
+    public final static double TurnDegreesL = 180;
   }
 
 

@@ -121,8 +121,8 @@ public class DriveSubsystem extends SubsystemBase {
 
     //SmartDashboard.putNumber("Left Encoder", m_leftEncoder.getPosition());
     //SmartDashboard.putNumber("Right Encoder", m_rightEncoder.getPosition());
-    SmartDashboard.putNumber("Left power", m_leftleader.get());
-    SmartDashboard.putNumber("Right power", m_rightleader.get());
+    SmartDashboard.putNumber("Left Encoder distance", m_leftEncoder.getPosition());
+    SmartDashboard.putNumber("Right Encoder distance", m_rightEncoder.getPosition());
 
     SmartDashboard.putNumber("Average encoder distance",getAvgEncoderDistance());
   }
