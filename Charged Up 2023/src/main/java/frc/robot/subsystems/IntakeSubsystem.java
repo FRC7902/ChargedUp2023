@@ -13,7 +13,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(IntakeConstants.IntakeCAN);
 
   public IntakeSubsystem() {
-    intakeMotor.setInverted(false);
+    intakeMotor.setInverted(true); //swapped a motor, change back to false if we change the motor again
     stopMotor();
   }
 
