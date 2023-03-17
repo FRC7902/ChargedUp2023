@@ -4,16 +4,17 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import frc.robot.Constants.IntakeConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
-  private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(IntakeConstants.IntakeCAN);
+  private final WPI_TalonSRX intakeMotor = new WPI_TalonSRX(IntakeConstants.IntakeCAN);
 
   public IntakeSubsystem() {
-    intakeMotor.setInverted(true); //swapped a motor, change back to false if we change the motor again
+    intakeMotor.setInverted(false); 
+    intakeMotor.configContinuousCurrentLimit(20);
     stopMotor();
   }
 
