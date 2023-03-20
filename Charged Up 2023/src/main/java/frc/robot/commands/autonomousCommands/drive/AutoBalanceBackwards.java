@@ -123,9 +123,9 @@ public class AutoBalanceBackwards extends CommandBase {
           return 0.0;
         }
         if(getTilt() <= AutoBalanceConstants.balancedDegree){
-          return AutoBalanceConstants.speedExtraSlow;
+          return AutoBalanceConstants.speedExtraSlow*0.75;
         }else if (getTilt() >= -AutoBalanceConstants.balancedDegree){
-          return -AutoBalanceConstants.speedExtraSlow;
+          return -AutoBalanceConstants.speedExtraSlow*1.5;
         }
 
       case 3:
@@ -133,6 +133,15 @@ public class AutoBalanceBackwards extends CommandBase {
         SmartDashboard.putNumber("Tilt", getTilt());
         SmartDashboard.putNumber("Pitch", getPitch());
         SmartDashboard.putNumber("Roll", getRoll());
+        if(-1*Math.abs(getTilt()) <= AutoBalanceConstants.balancedDegree / 2){
+          debounceCount++;
+        }
+        if(debounceCount > secondsToTicks(AutoBalanceConstants.debounceTime)){
+          state = 2;
+          debounceCount = 0;
+          return 0.0;
+        }
+
         return 0.0;
     }
     return 0.0;

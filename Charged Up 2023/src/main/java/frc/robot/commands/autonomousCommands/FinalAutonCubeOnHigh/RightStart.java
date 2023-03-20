@@ -7,6 +7,7 @@ package frc.robot.commands.autonomousCommands.FinalAutonCubeOnHigh;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.autonomousCommands.drive.DriveToDistance;
+import frc.robot.commands.autonomousCommands.drive.TurnToAngleRight;
 import frc.robot.commands.teleopCommands.armExtension.*;
 import frc.robot.commands.teleopCommands.armshoulder.*;
 import frc.robot.commands.teleopCommands.intake.*;
@@ -30,7 +31,8 @@ public class RightStart extends SequentialCommandGroup {
       new IntakeStop(intake).withTimeout(0.1),
       new ExtendLevel0(armExtend).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds),
       new RotateLevel0(armShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds),
-      new DriveToDistance(-10, driveSubsystem)
+      new DriveToDistance(-10, driveSubsystem),
+      new TurnToAngleRight(Constants.AutoConstants.HalfTurnDegrees, driveSubsystem)
     );
   }
 }

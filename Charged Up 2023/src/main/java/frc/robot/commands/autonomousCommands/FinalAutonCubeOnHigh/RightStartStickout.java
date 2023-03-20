@@ -6,7 +6,8 @@ package frc.robot.commands.autonomousCommands.FinalAutonCubeOnHigh;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
-import frc.robot.commands.autonomousCommands.drive.AutoBalanceBackwards;
+import frc.robot.commands.autonomousCommands.drive.DriveToDistance;
+import frc.robot.commands.autonomousCommands.drive.TurnToAngleRight;
 import frc.robot.commands.teleopCommands.armExtension.*;
 import frc.robot.commands.teleopCommands.armshoulder.*;
 import frc.robot.commands.teleopCommands.intake.*;
@@ -18,9 +19,9 @@ import frc.robot.subsystems.IntakeSubsystem;;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class MiddleStart extends SequentialCommandGroup {
+public class RightStartStickout extends SequentialCommandGroup {
   /** Creates a new PlaceCubeOnHigh. */
-  public MiddleStart(ArmShoulder armShoulder, ArmExtension armExtend, IntakeSubsystem intake, DriveSubsystem driveSubsystem) {
+  public RightStartStickout(ArmShoulder armShoulder, ArmExtension armExtend, IntakeSubsystem intake, DriveSubsystem driveSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -30,8 +31,10 @@ public class MiddleStart extends SequentialCommandGroup {
       new IntakeStop(intake).withTimeout(0.1),
       new ExtendLevel0(armExtend).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds),
       new RotateLevel0(armShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds),
-      new AutoBalanceBackwards(driveSubsystem)
-
+      new DriveToDistance(-10, driveSubsystem),
+      new TurnToAngleRight(Constants.AutoConstants.HalfTurnDegrees, driveSubsystem),
+      new RotateLevel1(armShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds),
+      new ExtendLevel1(armExtend)
     );
   }
 }

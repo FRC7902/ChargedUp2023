@@ -44,8 +44,8 @@ public class DriveSubsystem extends SubsystemBase {
     left.setInverted(true);
     m_leftleader.setSmartCurrentLimit(DriveConstants.SoftwareCurrentLimit);
     m_rightleader.setSmartCurrentLimit(DriveConstants.SoftwareCurrentLimit);
-    m_leftleader.setOpenLoopRampRate(1);
-    m_rightleader.setOpenLoopRampRate(1);
+    m_leftleader.setOpenLoopRampRate(DriveConstants.RampRate);
+    m_rightleader.setOpenLoopRampRate(DriveConstants.RampRate);
     resetEncoders();
 
     m_leftleader.setIdleMode(IdleMode.kBrake);
@@ -68,8 +68,11 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void driveArcade(double xForward, double zRotation) {
     // TODO move rotation multiplier into constants
-    drive.arcadeDrive(0.9*xForward, 0.45*zRotation, true);
+    drive.arcadeDrive(xForward, 0.55*zRotation, true);
+  }
 
+  public void halfSpeedDrive(double xForward, double zRotation){
+    drive.arcadeDrive(0.5*xForward, 0.55*zRotation,true);
   }
 
   public void driveRaw(double power) {

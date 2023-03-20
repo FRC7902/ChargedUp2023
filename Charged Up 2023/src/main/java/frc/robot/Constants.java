@@ -54,13 +54,14 @@ public final class Constants {
 
     //OPERATIONAL
     public final static double SlowDriveSpeed = 0.05;
-    public final static double SlowTurnSpeed = 0.05;
+    public final static double SlowTurnSpeed = 0.075;
     public final static double AutonDriveMultiplier = 0.05;
     public final static double kPDrive = 0.6;
     public final static double ClampingConstant = 0.6;
     public final static double AutonBalancingMultiplier = 0.0025;//arbitrary
     public final static double TurnDegreesR = 180;
     public final static double TurnDegreesL = 180;
+    public final static double RampRate = 0.7;
   }
 
 
@@ -89,8 +90,8 @@ public final class Constants {
     
     //SETPOINTS
     public final static double extensionDistanceInInches = 27;
-    public final static double kLevel0Percentage = 0.5/27;
-    public final static double kLevel1Percentage = 0.41836; //ground engagement
+    public final static double kLevel0Percentage = 0.25/27;
+    public final static double kLevel1Percentage = 0.44; //ground engagement
     //public final static double kLevel2Percentage = (11/extendedMaxSoftLimitInInches); //mid engagement
     public final static double kLevel2Percentage = 0.66;
     public final static double kLevel3Percentage = 1.0; //high shooting
@@ -151,9 +152,9 @@ public final class Constants {
     public final static int IntakeCAN = 8; 
 
     //OPERATIONAL
-    public final static double SuckCubeSpeed = 0.5; 
+    public final static double SuckCubeSpeed = 0.9; 
     public final static double ShootCubeSpeed = -0.3;
-    public final static double SuckConeSpeed = -0.55;
+    public final static double SuckConeSpeed = -0.8;
     public final static double ShootConeSpeed = 0.45;
     public final static double HoldingCubeFeedForward = 0.05;
     public final static double HoldingConeFeedForward = -0.05;
@@ -164,13 +165,18 @@ public final class Constants {
 
   public static final class AutoBalanceConstants{
 
-    //NEEDS TESTING ON OFFICIAL BALANCE
-    public final static double speedFast = 0.8;
-    public final static double speedSlow = 0.4;
-    public final static double speedExtraSlow = 0.2;
-    public final static double onStationDegree = -25.0;
-    public final static double balancedDegree = -8.0;
+    //NEEDS TESTING ON OFFICIAL BALANCE----------------------------------------------------------------
+    public final static double speedFast = 0.4;
+    public final static double speedSlow = 0.2;
+    public final static double speedExtraSlow = 0.1;
+    public final static double onStationDegree = -20.0;
+    public final static double balancedDegree = -6.0;
     public final static double debounceTime = 0.2;
+    //NEEDS TESTING ON OFFICIAL BALANCE----------------------------------------------------------------
+  }
+
+  public static final class AutoConstants{
+    public final static double HalfTurnDegrees = 110;
   }
 
   public static final class IOConstants {
@@ -184,7 +190,7 @@ public final class Constants {
         kY = 4,
         kLB = 5,
         kRB = 6,
-        kMENU = 7,
+        kBACK = 7,
         kSTART = 8,
         kLA = 9,
         kRA = 10;

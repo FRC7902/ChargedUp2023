@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import frc.robot.Constants.IntakeConstants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
@@ -14,8 +15,11 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public IntakeSubsystem() {
     intakeMotor.setInverted(false); 
-    intakeMotor.configContinuousCurrentLimit(20);
-    stopMotor();
+    intakeMotor.enableCurrentLimit(true);
+    intakeMotor.configContinuousCurrentLimit(
+      15);
+    intakeMotor.configPeakCurrentLimit(20);
+    intakeMotor.configPeakCurrentDuration(2);
   }
 
   public void setPower(double power) {
@@ -37,6 +41,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Intake Current Limit", intakeMotor.getSupplyCurrent());
     // This method will be called once per scheduler run
   }
 }

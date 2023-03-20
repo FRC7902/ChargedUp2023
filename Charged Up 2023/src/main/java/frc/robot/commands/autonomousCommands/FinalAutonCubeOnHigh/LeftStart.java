@@ -6,11 +6,15 @@ package frc.robot.commands.autonomousCommands.FinalAutonCubeOnHigh;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.commands.autonomousCommands.drive.DriveToDistance;
+import frc.robot.commands.autonomousCommands.drive.TurnToAngleLeft;
+import frc.robot.commands.autonomousCommands.drive.TurnToAngleRight;
 import frc.robot.commands.teleopCommands.armExtension.*;
 import frc.robot.commands.teleopCommands.armshoulder.*;
 import frc.robot.commands.teleopCommands.intake.*;
 import frc.robot.subsystems.ArmExtension;
 import frc.robot.subsystems.ArmShoulder;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -18,7 +22,7 @@ import frc.robot.subsystems.IntakeSubsystem;;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class LeftStart extends SequentialCommandGroup {
   /** Creates a new PlaceCubeOnHigh. */
-  public LeftStart(ArmShoulder armShoulder, ArmExtension armExtend, IntakeSubsystem intake) {
+  public LeftStart(ArmShoulder armShoulder, ArmExtension armExtend, IntakeSubsystem intake, DriveSubsystem driveSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -27,7 +31,9 @@ public class LeftStart extends SequentialCommandGroup {
       new ShootCube(intake).withTimeout(0.2),
       new IntakeStop(intake).withTimeout(0.1),
       new ExtendLevel0(armExtend).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds),
-      new RotateLevel0(armShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds)
+      new RotateLevel0(armShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds),
+      new DriveToDistance(-10, driveSubsystem),
+      new TurnToAngleLeft(Constants.AutoConstants.HalfTurnDegrees, driveSubsystem)
     );
   }
 }
