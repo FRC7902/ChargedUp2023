@@ -11,10 +11,17 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class ShootCube extends CommandBase {
 
   private final IntakeSubsystem m_intake;
+  private final double m_mulitplier;
 
-  /** Creates a new RotateOut. */
+  /** Creates a new ShootCube, the multiplayer should allow for flexible speeds */
+  public ShootCube(IntakeSubsystem intake, double multiplier) { 
+    m_intake = intake;
+    m_mulitplier = multiplier;
+  }
+
   public ShootCube(IntakeSubsystem intake) { 
     m_intake = intake;
+    m_mulitplier = 1;
   }
 
   // Called when the command is initially scheduled.
@@ -27,7 +34,7 @@ public class ShootCube extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.setPower(IntakeConstants.ShootCubeSpeed);
+    m_intake.setPower(IntakeConstants.ShootCubeSpeed*m_mulitplier);
   }
 
   // Called once the command ends or is interrupted.
