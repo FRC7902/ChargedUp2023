@@ -153,7 +153,7 @@ public final class Constants {
 
     //OPERATIONAL
     public final static double SuckCubeSpeed = 0.8; 
-    public final static double ShootCubeSpeed = -0.3;
+    public final static double ShootCubeSpeed = -0.7;
     public final static double SuckConeSpeed = -0.6;
     public final static double ShootConeSpeed = 0.4;
     public final static double HoldingCubeFeedForward = 0.05;

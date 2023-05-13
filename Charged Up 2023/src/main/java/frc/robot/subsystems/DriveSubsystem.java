@@ -72,7 +72,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void slowSpeedDriveArcade(double xForward, double zRotation){
-    drive.arcadeDrive(0.2*xForward, 0.2*zRotation,true);
+    drive.arcadeDrive(0.5*xForward, 0.3*zRotation,true);
   }
 
   public void driveRaw(double power) {
