@@ -16,12 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.IOConstants;
 import frc.robot.commands.autonomousCommands.AutoBalanceTesting;
-import frc.robot.commands.autonomousCommands.FinalAutonCubeOnHigh.Basic;
-import frc.robot.commands.autonomousCommands.FinalAutonCubeOnHigh.LeftStart;
-import frc.robot.commands.autonomousCommands.FinalAutonCubeOnHigh.LeftStartStickout;
-import frc.robot.commands.autonomousCommands.FinalAutonCubeOnHigh.MiddleStart;
-import frc.robot.commands.autonomousCommands.FinalAutonCubeOnHigh.RightStart;
-import frc.robot.commands.autonomousCommands.FinalAutonCubeOnHigh.RightStartStickout;
+import frc.robot.commands.autonomousCommands.FinalAutonCubeOnHigh.*;
 import frc.robot.commands.autonomousCommands.drive.*;
 import frc.robot.commands.routineCommands.*;
 import frc.robot.commands.teleopCommands.armExtension.*;
@@ -67,7 +62,7 @@ public class RobotContainer {
     // THE FIRST CONTOLLER PLUGGED IN CONTROLS THE DRIVETRAIN, THE SECOND CONTROLLER
     // PLUGGED IN CONTROLS THE ARM/INTAKE
     private final XboxController m_driverStick = new XboxController(IOConstants.kDriverStick);
-    private final XboxController m_operatorStick = new XboxController(IOConstants.kOperatorStick);
+    //private final XboxController m_operatorStick = new XboxController(IOConstants.kOperatorStick);
 
     // The container for the robot. Contains subsystems, OI devices, and commands.
     public RobotContainer() {
@@ -76,7 +71,7 @@ public class RobotContainer {
 
         m_driveSubsystem.setDefaultCommand(
                 new RunCommand(
-                        () -> m_driveSubsystem.driveArcade(m_driverStick.getRawAxis(Constants.IOConstants.kLY),
+                        () -> m_driveSubsystem.slowSpeedDriveArcade(m_driverStick.getRawAxis(Constants.IOConstants.kLY),
                                 m_driverStick.getRawAxis(Constants.IOConstants.kRX)),
                         m_driveSubsystem));
 
@@ -107,57 +102,57 @@ public class RobotContainer {
      */
     private void configureBindings() {
 
-        // EXTENSION BINDINGS (bound to driver for testing purposes)
-        new POVButton(m_operatorStick, 0).onTrue(new ExtendLevel0(m_ArmExtension));
-        new POVButton(m_operatorStick, 270).onTrue(new ExtendLevel1(m_ArmExtension));
-        new POVButton(m_operatorStick, 180).onTrue(new ExtendLevel2(m_ArmExtension));
-        new POVButton(m_operatorStick, 90).onTrue(new ExtendLevel3(m_ArmExtension));
+        // EXTENSION BINDINGS 
+        new POVButton(m_driverStick, 0).onTrue(new ExtendLevel0(m_ArmExtension));
+        new POVButton(m_driverStick, 270).onTrue(new ExtendLevel1(m_ArmExtension));
+        new POVButton(m_driverStick, 180).onTrue(new ExtendLevel2(m_ArmExtension));
+        new POVButton(m_driverStick, 90).onTrue(new ExtendLevel3(m_ArmExtension));
 
-        // //SHOULDER BINDINGS
-        new JoystickButton(m_operatorStick, IOConstants.kSTART).onTrue(new PickupCone(m_ArmShoulder, m_ArmExtension, m_intake));
-        new JoystickButton(m_operatorStick, IOConstants.kBACK).onTrue(new RotateLevel3(m_ArmShoulder));
+        // EXTRA BINDINGs
+        new JoystickButton(m_driverStick, IOConstants.kSTART).onTrue(new PickupCone(m_ArmShoulder, m_ArmExtension, m_intake));
+        new JoystickButton(m_driverStick, IOConstants.kBACK).onTrue(new RotateLevel3(m_ArmShoulder));
 
 
         // COMPOUND ARM MOVEMENT BINDINGS
-        new JoystickButton(m_operatorStick, IOConstants.kA).onTrue(new ArmLevel0(m_ArmShoulder, m_ArmExtension));
+        new JoystickButton(m_driverStick, IOConstants.kA).onTrue(new ArmLevel0(m_ArmShoulder, m_ArmExtension));
 
-        new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new ConditionalCommand(
+        new JoystickButton(m_driverStick, IOConstants.kB).onTrue(new ConditionalCommand(
                 new ArmLevel1In(m_ArmShoulder, m_ArmExtension),
                 new ArmLevel1Out(m_ArmShoulder, m_ArmExtension),
                 m_ArmShoulder::isArmAboveLevel1));
 
-        new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new ConditionalCommand(
+        new JoystickButton(m_driverStick, IOConstants.kY).onTrue(new ConditionalCommand(
                 new ArmLevel2Parallel(m_ArmShoulder, m_ArmExtension),
                 new ArmLevel2Sequential(m_ArmShoulder, m_ArmExtension),
                 m_ArmShoulder::isArmAboveLevel1));
 
-        new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new ConditionalCommand(
+        new JoystickButton(m_driverStick, IOConstants.kX).onTrue(new ConditionalCommand(
                 new ArmLevel3Parallel(m_ArmShoulder, m_ArmExtension),
                 new ArmLevel3Sequential(m_ArmShoulder, m_ArmExtension),
                 m_ArmShoulder::isArmAboveLevel1));
 
         // INTAKE BINDINGS
 
-        new JoystickButton(m_operatorStick, IOConstants.kLB).whileTrue(new SuckCone(m_intake));
-        new JoystickButton(m_operatorStick, IOConstants.kRB).whileTrue(new SuckCube(m_intake));
-        new Trigger(() -> m_operatorStick.getRawAxis(IOConstants.kRT) > 0.5)
+        new JoystickButton(m_driverStick, IOConstants.kLB).whileTrue(new SuckCone(m_intake));
+        new JoystickButton(m_driverStick, IOConstants.kRB).whileTrue(new SuckCube(m_intake));
+        new Trigger(() -> m_driverStick.getRawAxis(IOConstants.kRT) > 0.5)
                 .whileTrue(new ShootCube(m_intake));
 
-        new Trigger(() -> m_operatorStick.getRawAxis(IOConstants.kLT) > 0.5)
+        new Trigger(() -> m_driverStick.getRawAxis(IOConstants.kLT) > 0.5)
                 .whileTrue(new ShootCone(m_intake));
 
         // SLOW DRIVE BINDINGS
-        new JoystickButton(m_driverStick, IOConstants.kA).whileTrue(new SlowDriveForward(m_driveSubsystem));
-        new JoystickButton(m_driverStick, IOConstants.kY).whileTrue(new SlowDriveBackward(m_driveSubsystem));
+        // new JoystickButton(m_driverStick, IOConstants.kA).whileTrue(new SlowDriveForward(m_driveSubsystem));
+        // new JoystickButton(m_driverStick, IOConstants.kY).whileTrue(new SlowDriveBackward(m_driveSubsystem));
 
 
-        // SLOW TURN BINDINGS
-        new JoystickButton(m_driverStick, IOConstants.kLB).whileTrue(new SlowTurnRight(m_driveSubsystem));
-        new JoystickButton(m_driverStick, IOConstants.kRB).whileTrue(new SlowTurnLeft(m_driveSubsystem));
+        // // SLOW TURN BINDINGS
+        // new JoystickButton(m_driverStick, IOConstants.kLB).whileTrue(new SlowTurnRight(m_driveSubsystem));
+        // new JoystickButton(m_driverStick, IOConstants.kRB).whileTrue(new SlowTurnLeft(m_driveSubsystem));
 
-        // TURN 90 DEGREES BINDINGS
-        new JoystickButton(m_driverStick, IOConstants.kX).onTrue(new TurnToAngleRight(80, m_driveSubsystem));
-        new JoystickButton(m_driverStick, IOConstants.kB).onTrue(new TurnToAngleLeft(80, m_driveSubsystem));
+        // // TURN 90 DEGREES BINDINGS
+        // new JoystickButton(m_driverStick, IOConstants.kX).onTrue(new TurnToAngleRight(80, m_driveSubsystem));
+        // new JoystickButton(m_driverStick, IOConstants.kB).onTrue(new TurnToAngleLeft(80, m_driveSubsystem));
     }
 
     /**
