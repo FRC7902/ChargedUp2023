@@ -11,18 +11,10 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class ShootCone extends CommandBase {
 
   private final IntakeSubsystem m_intake;
-  private final double m_mulitplier;
 
-  /** Creates a new ShootCone, the multiplayer should allow for flexible speeds */
-  public ShootCone(IntakeSubsystem intake, double multiplier) { 
-    m_intake = intake;
-    m_mulitplier = multiplier;
-  }
-
-  //overloaded for auton
+  /** Creates a new RotateOut. */
   public ShootCone(IntakeSubsystem intake) { 
     m_intake = intake;
-    m_mulitplier = 1;
   }
 
   // Called when the command is initially scheduled.
@@ -35,7 +27,7 @@ public class ShootCone extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.setPower(IntakeConstants.ShootConeSpeed*m_mulitplier);
+    m_intake.setPower(IntakeConstants.ShootConeSpeed);
   }
 
   // Called once the command ends or is interrupted.
