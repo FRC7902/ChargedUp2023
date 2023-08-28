@@ -93,7 +93,7 @@ public final class Constants {
     public final static double kLevel0Percentage = 0.25/27;
     public final static double kLevel1Percentage = 0.44; //ground engagement
     //public final static double kLevel2Percentage = (11/extendedMaxSoftLimitInInches); //mid engagement
-    public final static double kLevel2Percentage = 0.66;
+    public final static double kLevel2Percentage = 0.1;
     public final static double kLevel3Percentage = 1.0; //high shooting
 
     public final static double extendedLevel0SoftLimitInInches = extensionDistanceInInches*kLevel0Percentage;
@@ -135,9 +135,9 @@ public final class Constants {
 
     //SETPOINTS - all values are off the pillar
     public final static double kLevel0Degrees = 2.0; //off
-    public final static double kLevel1Degrees = 15; //ground
-    public final static double kLevel2Degrees = 60.0; //Mid-height/grabbing from human player
-    public final static double kLevel3Degrees = 65.0; //high
+    public final static double kLevel1Degrees = 15.5; //ground
+    public final static double kLevel2Degrees = 45.0; //Mid-height/grabbing from human player
+    public final static double kLevel3Degrees = 55.0; //high
 
     public final static double kLevel0EncoderTicks = (kLevel0Degrees/360) * EncoderCPR;
     public final static double kLevel1EncoderTicks = (kLevel1Degrees/360) * EncoderCPR;
@@ -176,7 +176,7 @@ public final class Constants {
   }
 
   public static final class AutoConstants{
-    public final static double HalfTurnDegrees = 110;
+    public final static double HalfTurnDegrees = 60;
   }
 
   public static final class IOConstants {

@@ -22,7 +22,7 @@ public class Basic extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RotateLevel2(armShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds),
+      new RotateLevel3(armShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds),
       new ExtendLevel3(armExtend).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds),
       new ShootCube(intake).withTimeout(0.2),
       new IntakeStop(intake).withTimeout(0.1),

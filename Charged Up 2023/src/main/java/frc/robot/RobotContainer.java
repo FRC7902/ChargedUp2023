@@ -126,12 +126,12 @@ public class RobotContainer {
                 new ArmLevel1Out(m_ArmShoulder, m_ArmExtension),
                 m_ArmShoulder::isArmAboveLevel1));
 
-        new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new ConditionalCommand(
+        new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new ConditionalCommand(
                 new ArmLevel2Parallel(m_ArmShoulder, m_ArmExtension),
                 new ArmLevel2Sequential(m_ArmShoulder, m_ArmExtension),
                 m_ArmShoulder::isArmAboveLevel1));
 
-        new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new ConditionalCommand(
+        new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new ConditionalCommand(
                 new ArmLevel3Parallel(m_ArmShoulder, m_ArmExtension),
                 new ArmLevel3Sequential(m_ArmShoulder, m_ArmExtension),
                 m_ArmShoulder::isArmAboveLevel1));

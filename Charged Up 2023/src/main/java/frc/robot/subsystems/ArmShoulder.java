@@ -76,8 +76,8 @@ public class ArmShoulder extends SubsystemBase {
 
     armShoulderLeader.config_kP(0, 1.5);
 
-    armShoulderLeader.configMotionCruiseVelocity(1000);
-    armShoulderLeader.configMotionAcceleration(4000);
+    armShoulderLeader.configMotionCruiseVelocity(800);
+    armShoulderLeader.configMotionAcceleration(2000);
 
     // armShoulderLeader.config_kP(Constants.GainConstants.kSlot_Distanc,
     // Constants.GainConstants.kGains_Distanc.kP,

@@ -26,16 +26,16 @@ public class LeftStartStickout extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RotateLevel2(armShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds),
+      new RotateLevel3(armShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds),
       new ExtendLevel3(armExtend).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds),
       new ShootCube(intake).withTimeout(0.2),
       new IntakeStop(intake).withTimeout(0.1),
       new ExtendLevel0(armExtend).withTimeout(Constants.ArmExtensionConstants.ExtensionBufferTimeInSeconds),
       new RotateLevel0(armShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds),
-      new DriveToDistance(-10, driveSubsystem),
-      new TurnToAngleLeft(Constants.AutoConstants.HalfTurnDegrees, driveSubsystem),
-      new RotateLevel1(armShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds),
-      new ExtendLevel1(armExtend)
+      new DriveToDistance(-10, driveSubsystem)
+      //new TurnToAngleLeft(Constants.AutoConstants.HalfTurnDegrees, driveSubsystem),
+      //new RotateLevel1(armShoulder).withTimeout(Constants.ArmShoulderConstants.ShoulderBufferTimeInSeconds),
+      //new ExtendLevel1(armExtend)
     );
   }
 }

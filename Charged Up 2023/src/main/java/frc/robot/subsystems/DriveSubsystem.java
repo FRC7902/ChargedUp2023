@@ -12,6 +12,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -39,6 +40,9 @@ public class DriveSubsystem extends SubsystemBase {
 
   //RIO accelerometer
   private final BuiltInAccelerometer m_RioAccel = new BuiltInAccelerometer();
+  
+  // Drive acceleration limiter
+  SlewRateLimiter slewFilter = new SlewRateLimiter(4);
 
   public DriveSubsystem() {
     left.setInverted(true);
@@ -46,6 +50,8 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightleader.setSmartCurrentLimit(DriveConstants.SoftwareCurrentLimit);
     m_leftleader.setOpenLoopRampRate(DriveConstants.RampRate);
     m_rightleader.setOpenLoopRampRate(DriveConstants.RampRate);
+
+    
     resetEncoders();
 
     m_leftleader.setIdleMode(IdleMode.kBrake);
@@ -68,7 +74,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void driveArcade(double xForward, double zRotation) {
     // TODO move rotation multiplier into constants
-    drive.arcadeDrive(xForward, 0.55*zRotation, true);
+    drive.arcadeDrive(slewFilter.calculate(xForward), 0.45*zRotation, true);
   }
 
   public void halfSpeedDrive(double xForward, double zRotation){
