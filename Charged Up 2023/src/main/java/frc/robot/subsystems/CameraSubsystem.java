@@ -14,55 +14,80 @@ import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 // import frc.robot.Constants;
 
 public class CameraSubsystem extends SubsystemBase {
 
-  private UsbCamera camera;
   private Mat mat;
   private CvSource outputStream;
   private CvSink cvSink;
   private Thread visionThread;
 
+  private NetworkTableEntry cameraSelection;
+  private UsbCamera camera1;
+  private UsbCamera camera2;
+
+  public int cameraType = 1;
+
   /** Creates a new CameraSubsystem. */
   public CameraSubsystem() {
 
-  camera = CameraServer.startAutomaticCapture(0);
-  camera.setResolution(80, 80);
+    CameraServer.startAutomaticCapture(0);
+    CameraServer.startAutomaticCapture(1);
 
-  cvSink = CameraServer.getVideo();
+    cameraSelection = NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection");
 
-  outputStream = CameraServer.putVideo("Stream", 80, 80);
+    camera1.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    camera2.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
 
-  mat = new Mat();
+    camera1.setResolution(80, 80);
+    camera2.setResolution(80, 80);
 
-  visionThread = new Thread(
-    () -> {
-      while(!Thread.interrupted()) {
-        if(cvSink.grabFrame(mat) == 0) {
-          outputStream.notifyError(cvSink.getError());
+    cvSink = CameraServer.getVideo();
 
-          continue;
-        }
-        Imgproc.rectangle(mat, 
-        new Point(280, 80), 
-        new Point(360, 120), 
-        new Scalar (0,0,255));
+    outputStream = CameraServer.putVideo("Stream", 80, 80);
 
-        outputStream.putFrame(mat);
+    mat = new Mat();
 
-      }
-    }
-  );
+    visionThread = new Thread(
+        () -> {
+          while (!Thread.interrupted()) {
+            if (cvSink.grabFrame(mat) == 0) {
+              outputStream.notifyError(cvSink.getError());
 
-  visionThread.setDaemon(true);
-  visionThread.start();
+              continue;
+            }
+            Imgproc.rectangle(mat,
+                new Point(280, 80),
+                new Point(360, 120),
+                new Scalar(0, 0, 255));
+
+            outputStream.putFrame(mat);
+
+          }
+        });
+
+    visionThread.setDaemon(true);
+    visionThread.start();
 
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    
+
+    if (cameraType == 1) {
+      System.out.println("Setting camera 2");
+      cameraSelection.setString(camera2.getName());
+      cameraType = 2;
+    } else {
+      System.out.println("Setting camera 1");
+      cameraSelection.setString(camera1.getName());
+      cameraType = 1;
+    }
+
   }
 }

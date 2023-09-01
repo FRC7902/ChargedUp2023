@@ -26,6 +26,7 @@ import frc.robot.commands.autonomousCommands.drive.*;
 import frc.robot.commands.routineCommands.*;
 import frc.robot.commands.teleopCommands.armExtension.*;
 import frc.robot.commands.teleopCommands.armshoulder.*;
+import frc.robot.commands.teleopCommands.camera.SwitchCamera;
 import frc.robot.commands.teleopCommands.drive.*;
 import frc.robot.commands.teleopCommands.intake.*;
 //subsystem imports
@@ -46,127 +47,135 @@ public class RobotContainer {
         private static final ArmExtension m_ArmExtension = new ArmExtension();
         private static final ArmShoulder m_ArmShoulder = new ArmShoulder(m_ArmExtension);
         private static final IntakeSubsystem m_intake = new IntakeSubsystem();
-        private final CameraSubsystem cameraSubsystem = new CameraSubsystem();
+        private static final CameraSubsystem m_camera = new CameraSubsystem();
 
         // Auton commands:
         private final Basic m_PlaceCubeOnHigh = new Basic(m_ArmShoulder, m_ArmExtension, m_intake);
         private final AutoBalanceBackwards m_AutoBalanceBackwards = new AutoBalanceBackwards(m_driveSubsystem);
         private final AutoBalanceTesting m_AutoBalanceTesting = new AutoBalanceTesting(m_driveSubsystem,
-                m_AutoBalanceBackwards);
-        private final RightStartStickout m_RightStartStickout = new RightStartStickout(m_ArmShoulder, m_ArmExtension, m_intake, m_driveSubsystem);
-        private final LeftStartStickout m_LeftStartStickout = new LeftStartStickout(m_ArmShoulder, m_ArmExtension, m_intake, m_driveSubsystem);
+                        m_AutoBalanceBackwards);
+        private final RightStartStickout m_RightStartStickout = new RightStartStickout(m_ArmShoulder, m_ArmExtension,
+                        m_intake, m_driveSubsystem);
+        private final LeftStartStickout m_LeftStartStickout = new LeftStartStickout(m_ArmShoulder, m_ArmExtension,
+                        m_intake, m_driveSubsystem);
         private final MiddleStart m_MiddleStart = new MiddleStart(m_ArmShoulder, m_ArmExtension, m_intake,
-                m_driveSubsystem);
-        private final RightStart m_RightStart = new RightStart(m_ArmShoulder, m_ArmExtension, m_intake, m_driveSubsystem);
+                        m_driveSubsystem);
+        private final RightStart m_RightStart = new RightStart(m_ArmShoulder, m_ArmExtension, m_intake,
+                        m_driveSubsystem);
         private final LeftStart m_LeftStart = new LeftStart(m_ArmShoulder, m_ArmExtension, m_intake, m_driveSubsystem);
 
-    SendableChooser<Command> m_chooser = new SendableChooser<>();
+        SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-    // Replace with CommandPS4Controller or CommandJoystick if needed
+        // Replace with CommandPS4Controller or CommandJoystick if needed
 
-    // THE FIRST CONTOLLER PLUGGED IN CONTROLS THE DRIVETRAIN, THE SECOND CONTROLLER
-    // PLUGGED IN CONTROLS THE ARM/INTAKE
-    private final XboxController m_driverStick = new XboxController(IOConstants.kDriverStick);
-    private final XboxController m_operatorStick = new XboxController(IOConstants.kOperatorStick);
+        // THE FIRST CONTOLLER PLUGGED IN CONTROLS THE DRIVETRAIN, THE SECOND CONTROLLER
+        // PLUGGED IN CONTROLS THE ARM/INTAKE
+        private final XboxController m_driverStick = new XboxController(IOConstants.kDriverStick);
+        private final XboxController m_operatorStick = new XboxController(IOConstants.kOperatorStick);
 
-    // The container for the robot. Contains subsystems, OI devices, and commands.
-    public RobotContainer() {
-        // Configure the trigger bindings
-        configureBindings();
+        // The container for the robot. Contains subsystems, OI devices, and commands.
+        public RobotContainer() {
+                // Configure the trigger bindings
+                configureBindings();
 
-        m_driveSubsystem.setDefaultCommand(
-                new RunCommand(
-                        () -> m_driveSubsystem.driveArcade(m_driverStick.getRawAxis(Constants.IOConstants.kLY),
-                                m_driverStick.getRawAxis(Constants.IOConstants.kRX)),
-                        m_driveSubsystem));
+                m_driveSubsystem.setDefaultCommand(
+                                new RunCommand(
+                                                () -> m_driveSubsystem.driveArcade(
+                                                                m_driverStick.getRawAxis(Constants.IOConstants.kLY),
+                                                                m_driverStick.getRawAxis(Constants.IOConstants.kRX)),
+                                                m_driveSubsystem));
 
-        // AUTON COMMANDS
-        m_chooser.setDefaultOption("Left Stickout Start", m_LeftStartStickout);
-        m_chooser.addOption("Right Stickout Start", m_RightStartStickout);
-        m_chooser.addOption("Left Start", m_LeftStart);
-        m_chooser.addOption("Right Start", m_RightStart);
-        m_chooser.addOption("AutoBalance Test", m_AutoBalanceTesting);
-        m_chooser.addOption("Place Cube on High", m_PlaceCubeOnHigh);
-        m_chooser.addOption("Middle Start", m_MiddleStart);
-        SmartDashboard.putData(m_chooser);
-    }
+                // AUTON COMMANDS
+                m_chooser.setDefaultOption("Left Stickout Start", m_LeftStartStickout);
+                m_chooser.addOption("Right Stickout Start", m_RightStartStickout);
+                m_chooser.addOption("Left Start", m_LeftStart);
+                m_chooser.addOption("Right Start", m_RightStart);
+                m_chooser.addOption("AutoBalance Test", m_AutoBalanceTesting);
+                m_chooser.addOption("Place Cube on High", m_PlaceCubeOnHigh);
+                m_chooser.addOption("Middle Start", m_MiddleStart);
+                SmartDashboard.putData(m_chooser);
+        }
 
-    /**
-     * Use this method to define your trigger->command mappings. Triggers can be
-     * created via the
-     * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
-     * an arbitrary
-     * predicate, or via the named factories in {@link
-     * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
-     * {@link
-     * CommandXboxController
-     * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-     * PS4} controllers or
-     * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-     * joysticks}.
-     */
-    private void configureBindings() {
+        /**
+         * Use this method to define your trigger->command mappings. Triggers can be
+         * created via the
+         * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
+         * an arbitrary
+         * predicate, or via the named factories in {@link
+         * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
+         * {@link
+         * CommandXboxController
+         * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
+         * PS4} controllers or
+         * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+         * joysticks}.
+         */
+        private void configureBindings() {
 
-        // EXTENSION BINDINGS (bound to driver for testing purposes)
-        new POVButton(m_operatorStick, 0).onTrue(new ExtendLevel0(m_ArmExtension));
-        new POVButton(m_operatorStick, 270).onTrue(new ExtendLevel1(m_ArmExtension));
-        new POVButton(m_operatorStick, 180).onTrue(new ExtendLevel2(m_ArmExtension));
-        new POVButton(m_operatorStick, 90).onTrue(new ExtendLevel3(m_ArmExtension));
+                // EXTENSION BINDINGS (bound to driver for testing purposes)
+                new POVButton(m_operatorStick, 0).onTrue(new ExtendLevel0(m_ArmExtension));
+                new POVButton(m_operatorStick, 270).onTrue(new ExtendLevel1(m_ArmExtension));
+                new POVButton(m_operatorStick, 180).onTrue(new ExtendLevel2(m_ArmExtension));
+                new POVButton(m_operatorStick, 90).onTrue(new ExtendLevel3(m_ArmExtension));
 
-        // //SHOULDER BINDINGS
-        new JoystickButton(m_operatorStick, IOConstants.kSTART).onTrue(new PickupCone(m_ArmShoulder, m_ArmExtension, m_intake));
-        new JoystickButton(m_operatorStick, IOConstants.kBACK).onTrue(new RotateLevel3(m_ArmShoulder));
+                // //SHOULDER BINDINGS
+                new JoystickButton(m_operatorStick, IOConstants.kSTART)
+                                .onTrue(new PickupCone(m_ArmShoulder, m_ArmExtension, m_intake));
+                new JoystickButton(m_operatorStick, IOConstants.kBACK).onTrue(new RotateLevel3(m_ArmShoulder));
 
+                // COMPOUND ARM MOVEMENT BINDINGS
+                new JoystickButton(m_operatorStick, IOConstants.kA)
+                                .onTrue(new ArmLevel0(m_ArmShoulder, m_ArmExtension));
 
-        // COMPOUND ARM MOVEMENT BINDINGS
-        new JoystickButton(m_operatorStick, IOConstants.kA).onTrue(new ArmLevel0(m_ArmShoulder, m_ArmExtension));
+                new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new ConditionalCommand(
+                                new ArmLevel1In(m_ArmShoulder, m_ArmExtension),
+                                new ArmLevel1Out(m_ArmShoulder, m_ArmExtension),
+                                m_ArmShoulder::isArmAboveLevel1));
 
-        new JoystickButton(m_operatorStick, IOConstants.kB).onTrue(new ConditionalCommand(
-                new ArmLevel1In(m_ArmShoulder, m_ArmExtension),
-                new ArmLevel1Out(m_ArmShoulder, m_ArmExtension),
-                m_ArmShoulder::isArmAboveLevel1));
+                new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new ConditionalCommand(
+                                new ArmLevel2Parallel(m_ArmShoulder, m_ArmExtension),
+                                new ArmLevel2Sequential(m_ArmShoulder, m_ArmExtension),
+                                m_ArmShoulder::isArmAboveLevel1));
 
-        new JoystickButton(m_operatorStick, IOConstants.kX).onTrue(new ConditionalCommand(
-                new ArmLevel2Parallel(m_ArmShoulder, m_ArmExtension),
-                new ArmLevel2Sequential(m_ArmShoulder, m_ArmExtension),
-                m_ArmShoulder::isArmAboveLevel1));
+                new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new ConditionalCommand(
+                                new ArmLevel3Parallel(m_ArmShoulder, m_ArmExtension),
+                                new ArmLevel3Sequential(m_ArmShoulder, m_ArmExtension),
+                                m_ArmShoulder::isArmAboveLevel1));
 
-        new JoystickButton(m_operatorStick, IOConstants.kY).onTrue(new ConditionalCommand(
-                new ArmLevel3Parallel(m_ArmShoulder, m_ArmExtension),
-                new ArmLevel3Sequential(m_ArmShoulder, m_ArmExtension),
-                m_ArmShoulder::isArmAboveLevel1));
+                // INTAKE BINDINGS
 
-        // INTAKE BINDINGS
+                new JoystickButton(m_operatorStick, IOConstants.kLB).whileTrue(new SuckCone(m_intake));
+                new JoystickButton(m_operatorStick, IOConstants.kRB).whileTrue(new SuckCube(m_intake));
+                new Trigger(() -> m_operatorStick.getRawAxis(IOConstants.kRT) > 0.5)
+                                .whileTrue(new ShootCube(m_intake));
 
-        new JoystickButton(m_operatorStick, IOConstants.kLB).whileTrue(new SuckCone(m_intake));
-        new JoystickButton(m_operatorStick, IOConstants.kRB).whileTrue(new SuckCube(m_intake));
-        new Trigger(() -> m_operatorStick.getRawAxis(IOConstants.kRT) > 0.5)
-                .whileTrue(new ShootCube(m_intake));
+                new Trigger(() -> m_operatorStick.getRawAxis(IOConstants.kLT) > 0.5)
+                                .whileTrue(new ShootCone(m_intake));
 
-        new Trigger(() -> m_operatorStick.getRawAxis(IOConstants.kLT) > 0.5)
-                .whileTrue(new ShootCone(m_intake));
+                // SLOW DRIVE BINDINGS
+                new JoystickButton(m_driverStick, IOConstants.kA).whileTrue(new SlowDriveForward(m_driveSubsystem));
+                new JoystickButton(m_driverStick, IOConstants.kY).whileTrue(new SlowDriveBackward(m_driveSubsystem));
 
-        // SLOW DRIVE BINDINGS
-        new JoystickButton(m_driverStick, IOConstants.kA).whileTrue(new SlowDriveForward(m_driveSubsystem));
-        new JoystickButton(m_driverStick, IOConstants.kY).whileTrue(new SlowDriveBackward(m_driveSubsystem));
+                // SLOW TURN BINDINGS
+                new JoystickButton(m_driverStick, IOConstants.kLB).whileTrue(new SlowTurnRight(m_driveSubsystem));
+                new JoystickButton(m_driverStick, IOConstants.kRB).whileTrue(new SlowTurnLeft(m_driveSubsystem));
 
+                // TURN 90 DEGREES BINDINGS
+                new JoystickButton(m_driverStick, IOConstants.kX).onTrue(new TurnToAngleRight(80, m_driveSubsystem));
+                new JoystickButton(m_driverStick, IOConstants.kB).onTrue(new TurnToAngleLeft(80, m_driveSubsystem));
 
-        // SLOW TURN BINDINGS
-        new JoystickButton(m_driverStick, IOConstants.kLB).whileTrue(new SlowTurnRight(m_driveSubsystem));
-        new JoystickButton(m_driverStick, IOConstants.kRB).whileTrue(new SlowTurnLeft(m_driveSubsystem));
+                // SWITCH CAMERA
+                new JoystickButton(m_driverStick, IOConstants.kLA).onTrue(new SwitchCamera(m_camera));
 
-        // TURN 90 DEGREES BINDINGS
-        new JoystickButton(m_driverStick, IOConstants.kX).onTrue(new TurnToAngleRight(80, m_driveSubsystem));
-        new JoystickButton(m_driverStick, IOConstants.kB).onTrue(new TurnToAngleLeft(80, m_driveSubsystem));
-    }
+        }
 
-    /**
-     * Use this to pass the autonomous command to the main {@link Robot} class.
-     *
-     * @return the command to run in autonomous
-     */
-    public Command getAutonomousCommand() {
-        // An example command will be run in autonomous
-        return m_chooser.getSelected();
-    }
+        /**
+         * Use this to pass the autonomous command to the main {@link Robot} class.
+         *
+         * @return the command to run in autonomous
+         */
+        public Command getAutonomousCommand() {
+                // An example command will be run in autonomous
+                return m_chooser.getSelected();
+        }
 }
