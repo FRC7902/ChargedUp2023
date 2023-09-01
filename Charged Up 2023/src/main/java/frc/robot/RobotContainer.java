@@ -165,7 +165,7 @@ public class RobotContainer {
                 new JoystickButton(m_driverStick, IOConstants.kB).onTrue(new TurnToAngleLeft(80, m_driveSubsystem));
 
                 // SWITCH CAMERA
-                new JoystickButton(m_driverStick, IOConstants.kLA).onTrue(new SwitchCamera(m_camera));
+                new JoystickButton(m_driverStick, IOConstants.kDX).onTrue(new SwitchCamera(m_camera));
 
         }
 
