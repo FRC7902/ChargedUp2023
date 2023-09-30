@@ -11,9 +11,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
+
+  //DECLARE MOTOR
   private final WPI_TalonSRX intakeMotor = new WPI_TalonSRX(IntakeConstants.IntakeCAN);
 
   public IntakeSubsystem() {
+    //CONFIG
     intakeMotor.setInverted(false); 
     intakeMotor.enableCurrentLimit(true);
     intakeMotor.configContinuousCurrentLimit(
@@ -22,17 +25,17 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.configPeakCurrentDuration(2);
   }
 
+  //METHODS
   public void setPower(double power) {
     intakeMotor.set(power);
   }
-
 
   public void stopMotor() {
     intakeMotor.stopMotor();
   }
 
   public void holdCube(){
-    setPower(IntakeConstants.HoldingCubeFeedForward);
+    setPower(IntakeConstants.HoldingCubeFeedForward); //use of constants
   }
 
   public void holdCone(){

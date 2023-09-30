@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class ShootCone extends CommandBase {
+public class shootCone extends CommandBase {
 
   private final IntakeSubsystem m_intake;
 
   /** Creates a new RotateOut. */
-  public ShootCone(IntakeSubsystem intake) { 
+  public shootCone(IntakeSubsystem intake) { 
     m_intake = intake;
   }
 

@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.teleopCommands.armshoulder.RotateLevel2;
 import frc.robot.commands.teleopCommands.armshoulder.RotateLevel3;
-import frc.robot.commands.teleopCommands.intake.SuckCone;
+import frc.robot.commands.teleopCommands.intake.suckCone;
 import frc.robot.subsystems.ArmShoulder;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ArmExtension;
@@ -25,7 +25,7 @@ public class PickupCone extends ParallelCommandGroup {
     m_ArmShoulder = armShoulder;
     m_Intake = intake;
     addCommands(
-        new SuckCone(m_Intake),
+        new suckCone(m_Intake),
         new SequentialCommandGroup(
           new RotateLevel2(m_ArmShoulder).withTimeout(1),
           new RotateLevel3(m_ArmShoulder)

@@ -133,13 +133,13 @@ public class RobotContainer {
 
         // INTAKE BINDINGS
 
-        new JoystickButton(m_driverStick, IOConstants.kLB).whileTrue(new SuckCone(m_intake));
-        new JoystickButton(m_driverStick, IOConstants.kRB).whileTrue(new SuckCube(m_intake));
+        new JoystickButton(m_driverStick, IOConstants.kLB).whileTrue(new suckCone(m_intake));
+        new JoystickButton(m_driverStick, IOConstants.kRB).whileTrue(new suckCube(m_intake));
         new Trigger(() -> m_driverStick.getRawAxis(IOConstants.kRT) > 0.5)
-                .whileTrue(new ShootCube(m_intake));
+                .whileTrue(new shootCube(m_intake));
 
         new Trigger(() -> m_driverStick.getRawAxis(IOConstants.kLT) > 0.5)
-                .whileTrue(new ShootCone(m_intake));
+                .whileTrue(new shootCone(m_intake));
 
         // SLOW DRIVE BINDINGS
         // new JoystickButton(m_driverStick, IOConstants.kA).whileTrue(new SlowDriveForward(m_driveSubsystem));
